@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def indexfunc(request):
+    context = {
+        'hello': 'こんにちは'
+    }
+    return render(request, 'app/index.html', context)
