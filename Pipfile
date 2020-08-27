@@ -9,6 +9,9 @@ verify_ssl = true
 django = "*"
 django-environ = "*"
 python-dotenv = "*"
+libsass = "*"
+django-compressor = "*"
+django-sass-processor = "*"
 
 [requires]
 python_version = "3.8"
