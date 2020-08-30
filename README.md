@@ -13,3 +13,11 @@ DATABASE_USER=
 DATABASE_PASSWORD=  
 DATABASE_HOST=  
 DATABASE_PORT=  
+
+
+<!-- 
+単体テスト実行
+python manage.py test app.test
+
+
+ -->
