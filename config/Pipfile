@@ -12,6 +12,7 @@ python-dotenv = "*"
 libsass = "*"
 django-compressor = "*"
 django-sass-processor = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.8"
