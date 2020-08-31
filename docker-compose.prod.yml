@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: ./config
+      dockerfile: Dockerfile.prod
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./config/:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file: .env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:11.4
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file: .env.db
+
+volumes:
+  postgres_data:

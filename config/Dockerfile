@@ -13,4 +13,8 @@ COPY ./Pipfile /usr/src/app/Pipfile
 
 RUN pipenv install --skip-lock --system --dev
 
-COPY app /usr/src/app/
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+
+COPY . /usr/src/app/
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
