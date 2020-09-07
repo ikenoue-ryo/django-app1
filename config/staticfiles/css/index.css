@@ -1,0 +1,28 @@
+p {
+  color: red;
+}
+
+@media (max-width: 1024px) {
+  .box {
+    background-color: red;
+  }
+  .box p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 680px) {
+  .box {
+    background-color: blue;
+  }
+}
+
+@media (max-width: 480px) {
+  .box {
+    background-color: yellow;
+  }
+}
+
+.box p {
+  font-size: 12px;
+}

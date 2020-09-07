@@ -12,7 +12,7 @@ then
 fi
 
 python manage.py flush --no-input
-python manage.py migrate --noinput
-python manage.py collectstatic --no-input --clear
+python manage.py migrate --noinput --settings=config.settings.local
+python manage.py collectstatic --no-input --clear --settings=config.settings.local
 
 exec "$@"
