@@ -218,3 +218,32 @@ footer.page-footer button.btn-main {
 footer.page-footer button.btn-sub {
   background: #565656;
 }
+
+footer.page-footer .footer_area {
+  width: 900px;
+  margin: 50px auto 80px;
+}
+
+footer.page-footer .footer_area .footer_logo {
+  text-align: center;
+}
+
+footer.page-footer .footer_area .footer_logo img {
+  width: 100px;
+}
+
+footer.page-footer .footer_area .footer_logo p {
+  font-size: 57px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 0.01em;
+  font-family: Noto Sans JP;
+}
+
+footer.page-footer .footer_area .footer_logo ul {
+  margin-bottom: 70px !important;
+}
+
+footer .footer-copyright {
+  border-top: solid 2px rgba(255, 255, 255, 0.2);
+}
