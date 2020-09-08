@@ -1,0 +1,26 @@
+.create_page {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.create_page h2 {
+  font-size: 45px;
+  font-weight: 600;
+  text-align: center;
+  margin: 30px;
+}
+
+.image_icon img {
+  width: 115px;
+}
+
+section.profile_card button {
+  background-color: #329eff;
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 10px;
+}
+
+section.profile_card input, section.profile_card textarea {
+  background-color: #eee;
+}

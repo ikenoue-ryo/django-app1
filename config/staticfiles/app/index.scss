@@ -241,4 +241,31 @@ footer.page-footer{
       background: #565656;
     }
   }
+
+  .footer_area{
+    width: 900px;
+    margin: 50px auto 80px;
+
+    .footer_logo{
+      text-align: center;
+
+      img {
+        width: 100px;
+      }
+      p{
+        font-size: 57px;
+        font-weight: bold;
+        color: #fff;
+        letter-spacing: 0.01em;
+        font-family: Noto Sans JP;
+      }
+      ul{
+        margin-bottom: 70px!important;
+      }
+    }
+  }
+}
+
+footer .footer-copyright{
+  border-top: solid 2px rgba(255,255,255,0.2);
 }

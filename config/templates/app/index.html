@@ -1,14 +1,8 @@
 {% extends 'app/base.html' %}
 {% load static %}
+{% load sass_tags %}
 
 {% block content %}
-
-  <header class="header">
-    <div class="header-inner clearfix">
-      <div class="logo_area">CarBuy</div>
-      <div class="profile_page"><a href="profile_link">はじめる</a></div>
-    </div>
-  </header>
 
   <div calss="vertical_height">
     <div class="image_slider">
@@ -343,7 +337,7 @@
     </div>
 
     <div class="post-car">
-      <a href="" class="btn btn--circle user-post"><i class="fas fa-camera"></i></a>
+      <a href="{% url 'app:post' %}" class="btn btn--circle user-post"><i class="fas fa-camera"></i></a>
     </div>
   </div>
 
@@ -601,7 +595,7 @@
     <!-- Call to action -->
     <ul class="list-unstyled list-inline text-center py-2">
       <li class="list-inline-item">
-        <button type="button" class="btn btn-main">はじめる</button>
+        <a href="{% url 'app:create_profile' %}"><button type="button" class="btn btn-main">はじめる</button></a>
       </li>
       <li class="list-inline-item">
         <button type="button" class="btn btn-sub">コンセプト</button>

@@ -1,0 +1,140 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block customcss %}
+  <link rel="stylesheet" href="{% sass_src 'css/post.css' %}">
+{% endblock customcss %}
+
+{% block content %}
+
+<div class="profile_back">
+  <div class="create_page">
+    <h2>Let's Ride</h2>
+    <div class="profile_card">
+      <div class="profile_contents">
+        <div class="post_container">
+
+          <!-- SNSアイコン -->
+          <div class="sns_back clearfix">
+            <div style="font-size: 2rem;" class="sns_icons">
+              <div><i class="fab fa-facebook-f fa-fw blue-text"></i></div>
+              <div><i class="fab fa-twitter fa-fw blue-text"></i></div>
+              <div><i class="fab fa-instagram fa-fw pink-text"></i></div>
+              <div><i class="fab fa-linkedin fa-fw blue-text"></i></div>
+              <div><i class="fab fa-pinterest fa-fw red-text"></i></div>
+            </div>
+          </div>
+          <!-- SNSアイコン -->
+
+          <div class="row main_image_area">
+            <div class="col-md-12">
+              <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
+                <!-- slides -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active"> <img src="https://lh3.googleusercontent.com/0xQcTAAC94zzSXKCzTbjkBgRAPqqlrgI-MzPLdEFTW7WNKKrTI-fHvi0NO1zJFhkglXiBspwxiGhVH-fubF8yqWVdcBJ9VaOVtoqBiukF1VB_OgtjJX-6lgyeJtAwDBzuZu8cd78or9DaB5eWrKD1xnnnIYazgWqkqWU-L6WttmVUmMb-p3HVK4FTpxLO65LNknX7-_-zMt242m42dx5L9WJfsGkSrxzio_XuK843yKiAz2ysFQWINdW1Bcl1jVhAynrAspPhEJY4HHDUSggJdWzDuuu4pbE7Fl4fOu94gUPWEFge1PNQQJCh4DH2XctrLc6QKpf1OKTde7H9Hb1mY5Cgei-6cp6_8izo9hamCJebJqU_S3jgJkdkE0N5_QdvnOJmsNv5CNsIspdbOOovKszUGhdpOlR1AYYi32JTBjzg1dfu1RcbDjnPMRSwXe-uFd53l1Y3L1GikAIRbak59qrwenRh-1oofI70G5_qJODGVytrZ3BsCUjPbxdK6d4ubJbnkWl476rkcYJ5whYTjzx1fQMavAgRAgglonfUHjOthH357Nf9jKfw55qnVY-PA3FKAsWOiHp4nmt1TpmBsPDIkpn9A3RHzBZq9KfdbPP1tX2s5Rx3lXiSQE45opoMxcohmQGmp_q7KTYm1jBic_0G2DdMu5wlyUd_zfAjIbL3u9fczkzZ-FxlMV_=w1260-h945-no?authuser=0"> </div>
+                    <div class="carousel-item"> <img src="https://lh3.googleusercontent.com/xLzRMOvA_6FCuycLx4rNDhyP28si1ts5KLGRikqhbvk4DyrkU3FHIN2sff7TDNkYFDnSZoQQkrag-URFsaC88I1M_95dcUdKI37p0Spo8tK83jmslF008kAu8r2BeIl3RTa2Lm6SitNsFuTtD39r2K6_YhS8Rfee_mICCeXP41N_qWRXi0bTZxbnhgYrOMTXXCTXQXSUu0Pf9GIx6lESpwIUg68jzC_UheXZXDbSc5L8doGBaB50GZrzIl1w9V59zFT5FQV0FdtRl1E-7F3fK2hyUp_fFaY1u-5Ca02PRMf_pb97lV4Gq6RnsL4bNfzQXY--f1VfTRhuWdX3mKVqraEEY7zfZW_2uYRF69P_DgYizaSIzcJ4mn4OdFL7Dy55ekRNVLa11MBSZVyl11VY-8zE3Ktu-2pBy6AQD53tyCbzrvFR6HzE0TMv9ZZeiaBkGhybR28TE7sRxO95KqDED98HhzZGlgTIlyQJikY7-3ymhCF6F-lN4lQ1D0hiWAkJkcrMwmasUOPnPduls_beiCHr0TnxEgBdFrsZYBDa_lXmCkk5vDC--Wr4rmtCavzLOCPJPQninHRRtIsiHdNTyse7R9zc7nhEKbLUzAUBkLgOHmh30UM-czd6PWa_7key1uk02YtRbZiTyJPge-norOA4fvd386Xo3df0qP7zHgKv1Wp9B3jTC596PTSt=w1880-h1410-no?authuser=0"> </div>
+                    <div class="carousel-item"> <img src="https://lh3.googleusercontent.com/xLzRMOvA_6FCuycLx4rNDhyP28si1ts5KLGRikqhbvk4DyrkU3FHIN2sff7TDNkYFDnSZoQQkrag-URFsaC88I1M_95dcUdKI37p0Spo8tK83jmslF008kAu8r2BeIl3RTa2Lm6SitNsFuTtD39r2K6_YhS8Rfee_mICCeXP41N_qWRXi0bTZxbnhgYrOMTXXCTXQXSUu0Pf9GIx6lESpwIUg68jzC_UheXZXDbSc5L8doGBaB50GZrzIl1w9V59zFT5FQV0FdtRl1E-7F3fK2hyUp_fFaY1u-5Ca02PRMf_pb97lV4Gq6RnsL4bNfzQXY--f1VfTRhuWdX3mKVqraEEY7zfZW_2uYRF69P_DgYizaSIzcJ4mn4OdFL7Dy55ekRNVLa11MBSZVyl11VY-8zE3Ktu-2pBy6AQD53tyCbzrvFR6HzE0TMv9ZZeiaBkGhybR28TE7sRxO95KqDED98HhzZGlgTIlyQJikY7-3ymhCF6F-lN4lQ1D0hiWAkJkcrMwmasUOPnPduls_beiCHr0TnxEgBdFrsZYBDa_lXmCkk5vDC--Wr4rmtCavzLOCPJPQninHRRtIsiHdNTyse7R9zc7nhEKbLUzAUBkLgOHmh30UM-czd6PWa_7key1uk02YtRbZiTyJPge-norOA4fvd386Xo3df0qP7zHgKv1Wp9B3jTC596PTSt=w303-h228-no?authuser=0"> </div>
+                    <div class="carousel-item"> <img src="https://lh3.googleusercontent.com/41U4CmGDPP_QKw1WszLGjvVn9LQ5P1zcMyvr2RomOf_XeuW45wJ70v3zwShYR4BuN-Id32TJa_IOfmjm3jzd3ml4ryZdOFMcQRiGDo8bPIExiEBvzj7Vg8GaG6bWu8UeY67UCQOSz7dOxEO9mRvrE7CxV2EiSWHQCFAiEdYLJ8kJFDa4RtWJlj-a05BUffc_OtKFz0vmLb7Qp7DUiTVkDv6sDfalyCUfWGmAgVznROP5m14gsanCN6s-sU3VOzxgYkR2hhg-ph3nHuyKYdk0GC-BRMydHqdWQ_niKZGd-8DeJtEtJ00H7CGjX1EHv-t3M0wqEuFfDaCwb11bBxbxYr36r426uF-04WvnjI7i1WavoLHOcdTAsjw9kb6LLisY9yypIFZdC4AQN79IrqKcziiuxI3-C__c0rpnv5bO-X-wi-0xtfxvyzbXPc5Ue4OcQX-V4W53ohfKv_q8da8G-Lsz35vepjg-3irkod7D0OIl4q5oSCVXslWqhBcQCu5abk4mHNtLGIy3NcP24XSwb6dyK2bfniBxF0fkcIX5qSRbYPbI4FJNMQl6wp6TYWa_sCNHPTpJVL1mTm5k_adTc2qSP2g4d7m-cpqEGB-axzdaGRlCHrwniEVkj7L8l9WEdN1eSLKtg-aVxkkvDb0i_obvfGGOJ3AFYX73fgLDTKwpc4KsrBQLvvmreCQo=w1880-h1410-no?authuser=0"> </div>
+                </div> <!-- Left right --> <a class="carousel-control-prev" href="#custCarousel" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a> <a class="carousel-control-next" href="#custCarousel" data-slide="next"> <span class="carousel-control-next-icon"></span> </a> <!-- Thumbnails -->
+                <ol class="carousel-indicators list-inline">
+                    <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#custCarousel"> <img src="https://lh3.googleusercontent.com/0xQcTAAC94zzSXKCzTbjkBgRAPqqlrgI-MzPLdEFTW7WNKKrTI-fHvi0NO1zJFhkglXiBspwxiGhVH-fubF8yqWVdcBJ9VaOVtoqBiukF1VB_OgtjJX-6lgyeJtAwDBzuZu8cd78or9DaB5eWrKD1xnnnIYazgWqkqWU-L6WttmVUmMb-p3HVK4FTpxLO65LNknX7-_-zMt242m42dx5L9WJfsGkSrxzio_XuK843yKiAz2ysFQWINdW1Bcl1jVhAynrAspPhEJY4HHDUSggJdWzDuuu4pbE7Fl4fOu94gUPWEFge1PNQQJCh4DH2XctrLc6QKpf1OKTde7H9Hb1mY5Cgei-6cp6_8izo9hamCJebJqU_S3jgJkdkE0N5_QdvnOJmsNv5CNsIspdbOOovKszUGhdpOlR1AYYi32JTBjzg1dfu1RcbDjnPMRSwXe-uFd53l1Y3L1GikAIRbak59qrwenRh-1oofI70G5_qJODGVytrZ3BsCUjPbxdK6d4ubJbnkWl476rkcYJ5whYTjzx1fQMavAgRAgglonfUHjOthH357Nf9jKfw55qnVY-PA3FKAsWOiHp4nmt1TpmBsPDIkpn9A3RHzBZq9KfdbPP1tX2s5Rx3lXiSQE45opoMxcohmQGmp_q7KTYm1jBic_0G2DdMu5wlyUd_zfAjIbL3u9fczkzZ-FxlMV_=w1260-h945-no?authuser=0" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel"> <img src="https://lh3.googleusercontent.com/NJ4zMPm8zh9thbK4jcWyUxza3RObWi96Za-kwkaknkXbcYDaycBGeMIeQ6TJOo7UJBE5_s7rPbO22GQEF8VLzG-BJmKp9UNeVau0ABfSUh5LR37Qm8FnSgdADD0KnysEtE-7hHnY-SkQwL5GJ09lG0b_S3YcxFHPJTK6ITdHxAeInWtIBJZ6UZHpSVRJNafDwflcQw46_PIIwF4vybEo2UhydCx-N3fKdMybaxEGpXqkChvWW6bShkqv1Z0jdNhypmdtDlTWz5EBtM5Dt2Gs5Ccnq5QTrdmzDsqEwZKD_bWxkco865qW4RgoG3NhgJe1FqNcxq5YwNAUrSOqA0DRsBoW_rjQH890Mf2wwJPC2AAFCU3bDuRD6iSgyoDhwboek-DNSvXYwphITGDaxzAG-8zAmjEerNgx36TScCbC6grK5dYJz0V8ABUM6SaSDynd7NYWZceWi-XUURHN3qBsCPYKGwIZJ_FypOUvC1A6NYAWGZcgx7Cb-CMjx3_Tm0sdpEbMDV27sGopgYZuQHOjx5-58wGnxAJqfcy0nYb_5-DNN23T_kIwo8p8E6IkoC0IIkpMqm3yzpVDZGoB66t6mUGSPgF6JFwvj0AsD_Nql14mH-E007qSD9o8aINFIN3X0rZA-QZfZ1YkhEbF2NguaGmenTSNHv4eOmM0c2Qn8yiM00UBx98C05WNVpNh=w1880-h1410-no?authuser=0" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel"> <img src="https://lh3.googleusercontent.com/xLzRMOvA_6FCuycLx4rNDhyP28si1ts5KLGRikqhbvk4DyrkU3FHIN2sff7TDNkYFDnSZoQQkrag-URFsaC88I1M_95dcUdKI37p0Spo8tK83jmslF008kAu8r2BeIl3RTa2Lm6SitNsFuTtD39r2K6_YhS8Rfee_mICCeXP41N_qWRXi0bTZxbnhgYrOMTXXCTXQXSUu0Pf9GIx6lESpwIUg68jzC_UheXZXDbSc5L8doGBaB50GZrzIl1w9V59zFT5FQV0FdtRl1E-7F3fK2hyUp_fFaY1u-5Ca02PRMf_pb97lV4Gq6RnsL4bNfzQXY--f1VfTRhuWdX3mKVqraEEY7zfZW_2uYRF69P_DgYizaSIzcJ4mn4OdFL7Dy55ekRNVLa11MBSZVyl11VY-8zE3Ktu-2pBy6AQD53tyCbzrvFR6HzE0TMv9ZZeiaBkGhybR28TE7sRxO95KqDED98HhzZGlgTIlyQJikY7-3ymhCF6F-lN4lQ1D0hiWAkJkcrMwmasUOPnPduls_beiCHr0TnxEgBdFrsZYBDa_lXmCkk5vDC--Wr4rmtCavzLOCPJPQninHRRtIsiHdNTyse7R9zc7nhEKbLUzAUBkLgOHmh30UM-czd6PWa_7key1uk02YtRbZiTyJPge-norOA4fvd386Xo3df0qP7zHgKv1Wp9B3jTC596PTSt=w303-h228-no?authuser=0" class="img-fluid"> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel"> <img src="https://lh3.googleusercontent.com/41U4CmGDPP_QKw1WszLGjvVn9LQ5P1zcMyvr2RomOf_XeuW45wJ70v3zwShYR4BuN-Id32TJa_IOfmjm3jzd3ml4ryZdOFMcQRiGDo8bPIExiEBvzj7Vg8GaG6bWu8UeY67UCQOSz7dOxEO9mRvrE7CxV2EiSWHQCFAiEdYLJ8kJFDa4RtWJlj-a05BUffc_OtKFz0vmLb7Qp7DUiTVkDv6sDfalyCUfWGmAgVznROP5m14gsanCN6s-sU3VOzxgYkR2hhg-ph3nHuyKYdk0GC-BRMydHqdWQ_niKZGd-8DeJtEtJ00H7CGjX1EHv-t3M0wqEuFfDaCwb11bBxbxYr36r426uF-04WvnjI7i1WavoLHOcdTAsjw9kb6LLisY9yypIFZdC4AQN79IrqKcziiuxI3-C__c0rpnv5bO-X-wi-0xtfxvyzbXPc5Ue4OcQX-V4W53ohfKv_q8da8G-Lsz35vepjg-3irkod7D0OIl4q5oSCVXslWqhBcQCu5abk4mHNtLGIy3NcP24XSwb6dyK2bfniBxF0fkcIX5qSRbYPbI4FJNMQl6wp6TYWa_sCNHPTpJVL1mTm5k_adTc2qSP2g4d7m-cpqEGB-axzdaGRlCHrwniEVkj7L8l9WEdN1eSLKtg-aVxkkvDb0i_obvfGGOJ3AFYX73fgLDTKwpc4KsrBQLvvmreCQo=w1880-h1410-no?authuser=0" class="img-fluid"> </a> </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="car_pr">
+              <h2>フィット基本情報！</h2>
+              <ul>
+                <li>満タン時の走行距離：20km</li>
+                <li>駆動方式：2WD</li>
+                <li>色：ホワイト</li>
+                <li>エンジン：ガゾリン</li>
+                <li>店員数：5名</li>
+              </ul>
+          </div>
+
+          <div class="car_pr">
+              <h2>お気に入りのポイント！</h2>
+              <img src="https://lh3.googleusercontent.com/NJ4zMPm8zh9thbK4jcWyUxza3RObWi96Za-kwkaknkXbcYDaycBGeMIeQ6TJOo7UJBE5_s7rPbO22GQEF8VLzG-BJmKp9UNeVau0ABfSUh5LR37Qm8FnSgdADD0KnysEtE-7hHnY-SkQwL5GJ09lG0b_S3YcxFHPJTK6ITdHxAeInWtIBJZ6UZHpSVRJNafDwflcQw46_PIIwF4vybEo2UhydCx-N3fKdMybaxEGpXqkChvWW6bShkqv1Z0jdNhypmdtDlTWz5EBtM5Dt2Gs5Ccnq5QTrdmzDsqEwZKD_bWxkco865qW4RgoG3NhgJe1FqNcxq5YwNAUrSOqA0DRsBoW_rjQH890Mf2wwJPC2AAFCU3bDuRD6iSgyoDhwboek-DNSvXYwphITGDaxzAG-8zAmjEerNgx36TScCbC6grK5dYJz0V8ABUM6SaSDynd7NYWZceWi-XUURHN3qBsCPYKGwIZJ_FypOUvC1A6NYAWGZcgx7Cb-CMjx3_Tm0sdpEbMDV27sGopgYZuQHOjx5-58wGnxAJqfcy0nYb_5-DNN23T_kIwo8p8E6IkoC0IIkpMqm3yzpVDZGoB66t6mUGSPgF6JFwvj0AsD_Nql14mH-E007qSD9o8aINFIN3X0rZA-QZfZ1YkhEbF2NguaGmenTSNHv4eOmM0c2Qn8yiM00UBx98C05WNVpNh=w1880-h1410-no?authuser=0">
+              <ul>
+                <li>24h貸し出しOK</li>
+                <li>アメニティ・設備が豊富</li>
+                <li>クルーズコントロールでエコ運転</li>
+                <li>走行中が静かで快適</li>
+                <li>通勤や旅行に最適</li>
+              </ul>
+          </div>
+
+          <div class="car_pr">
+              <h2>快適な運転席です！</h2>
+              <img src="https://lh3.googleusercontent.com/0xQcTAAC94zzSXKCzTbjkBgRAPqqlrgI-MzPLdEFTW7WNKKrTI-fHvi0NO1zJFhkglXiBspwxiGhVH-fubF8yqWVdcBJ9VaOVtoqBiukF1VB_OgtjJX-6lgyeJtAwDBzuZu8cd78or9DaB5eWrKD1xnnnIYazgWqkqWU-L6WttmVUmMb-p3HVK4FTpxLO65LNknX7-_-zMt242m42dx5L9WJfsGkSrxzio_XuK843yKiAz2ysFQWINdW1Bcl1jVhAynrAspPhEJY4HHDUSggJdWzDuuu4pbE7Fl4fOu94gUPWEFge1PNQQJCh4DH2XctrLc6QKpf1OKTde7H9Hb1mY5Cgei-6cp6_8izo9hamCJebJqU_S3jgJkdkE0N5_QdvnOJmsNv5CNsIspdbOOovKszUGhdpOlR1AYYi32JTBjzg1dfu1RcbDjnPMRSwXe-uFd53l1Y3L1GikAIRbak59qrwenRh-1oofI70G5_qJODGVytrZ3BsCUjPbxdK6d4ubJbnkWl476rkcYJ5whYTjzx1fQMavAgRAgglonfUHjOthH357Nf9jKfw55qnVY-PA3FKAsWOiHp4nmt1TpmBsPDIkpn9A3RHzBZq9KfdbPP1tX2s5Rx3lXiSQE45opoMxcohmQGmp_q7KTYm1jBic_0G2DdMu5wlyUd_zfAjIbL3u9fczkzZ-FxlMV_=w1260-h945-no?authuser=0">
+              <p>まだ買ったばかりなので、かなり綺麗な方だと思います。運転席は結構広いのでひざを伸ばしても座ることができますよ。</p>
+          </div>
+          <div class="car_pr">
+              <h2>座り心地も快適なシートです</h2>
+              <img src="https://lh3.googleusercontent.com/41U4CmGDPP_QKw1WszLGjvVn9LQ5P1zcMyvr2RomOf_XeuW45wJ70v3zwShYR4BuN-Id32TJa_IOfmjm3jzd3ml4ryZdOFMcQRiGDo8bPIExiEBvzj7Vg8GaG6bWu8UeY67UCQOSz7dOxEO9mRvrE7CxV2EiSWHQCFAiEdYLJ8kJFDa4RtWJlj-a05BUffc_OtKFz0vmLb7Qp7DUiTVkDv6sDfalyCUfWGmAgVznROP5m14gsanCN6s-sU3VOzxgYkR2hhg-ph3nHuyKYdk0GC-BRMydHqdWQ_niKZGd-8DeJtEtJ00H7CGjX1EHv-t3M0wqEuFfDaCwb11bBxbxYr36r426uF-04WvnjI7i1WavoLHOcdTAsjw9kb6LLisY9yypIFZdC4AQN79IrqKcziiuxI3-C__c0rpnv5bO-X-wi-0xtfxvyzbXPc5Ue4OcQX-V4W53ohfKv_q8da8G-Lsz35vepjg-3irkod7D0OIl4q5oSCVXslWqhBcQCu5abk4mHNtLGIy3NcP24XSwb6dyK2bfniBxF0fkcIX5qSRbYPbI4FJNMQl6wp6TYWa_sCNHPTpJVL1mTm5k_adTc2qSP2g4d7m-cpqEGB-axzdaGRlCHrwniEVkj7L8l9WEdN1eSLKtg-aVxkkvDb0i_obvfGGOJ3AFYX73fgLDTKwpc4KsrBQLvvmreCQo=w1880-h1410-no?authuser=0https://lh3.googleusercontent.com/41U4CmGDPP_QKw1WszLGjvVn9LQ5P1zcMyvr2RomOf_XeuW45wJ70v3zwShYR4BuN-Id32TJa_IOfmjm3jzd3ml4ryZdOFMcQRiGDo8bPIExiEBvzj7Vg8GaG6bWu8UeY67UCQOSz7dOxEO9mRvrE7CxV2EiSWHQCFAiEdYLJ8kJFDa4RtWJlj-a05BUffc_OtKFz0vmLb7Qp7DUiTVkDv6sDfalyCUfWGmAgVznROP5m14gsanCN6s-sU3VOzxgYkR2hhg-ph3nHuyKYdk0GC-BRMydHqdWQ_niKZGd-8DeJtEtJ00H7CGjX1EHv-t3M0wqEuFfDaCwb11bBxbxYr36r426uF-04WvnjI7i1WavoLHOcdTAsjw9kb6LLisY9yypIFZdC4AQN79IrqKcziiuxI3-C__c0rpnv5bO-X-wi-0xtfxvyzbXPc5Ue4OcQX-V4W53ohfKv_q8da8G-Lsz35vepjg-3irkod7D0OIl4q5oSCVXslWqhBcQCu5abk4mHNtLGIy3NcP24XSwb6dyK2bfniBxF0fkcIX5qSRbYPbI4FJNMQl6wp6TYWa_sCNHPTpJVL1mTm5k_adTc2qSP2g4d7m-cpqEGB-axzdaGRlCHrwniEVkj7L8l9WEdN1eSLKtg-aVxkkvDb0i_obvfGGOJ3AFYX73fgLDTKwpc4KsrBQLvvmreCQo=w1880-h1410-no?authuser=0">
+              <p>普段は主人が使っているので助手席に座っていますが、長距離でドライブにいくときなどもあまり疲れないです。</p>
+          </div>
+          <div class="car_pr">
+              <h2>荷物もかなり入ります！</h2>
+              <img src="https://lh3.googleusercontent.com/clAYO8vGgEoIvwknaCSdLzJSwtJa9o2Y1yt-y8-jsxs8_oCctA_eBNGfRxiDmT1qwYMCLzKgaHm9WmNL97gS2jNn-qavYGLZgsGbaNV8CdFiI6T3TGBGVF7l6fmfVem9fYZNmCnoNLOUrbJxpt-hboeSxUjP82DJHBV7qBKeM29XyXOnugnFF3R-AA6G_2VRf4eRLjkLPxOeGnn2rpdxcgV1e3q3QDX1y17TRHOwzGYb9tmHjWOzVbz5AjzUSGpOJo2WvRQ4U_mIi7nwg7rOXPr7M53tuGmzR-jeUg9fMQXe_eyATnEMQTkxHxIvtHgcrLqB2kM-BqILZsALlQrDDBjGLS8mjNYZ4B1c6jc6UbAhiXAfeiG-yVdNedeA7afOIxK58LzGyQMJbLGt8NZl3nGkzcnG-dOIvz7xa-4ycxBQUuoHB5hcmI3ppAG--_Z0QXkWeRWyyUSY9UFNua_ORGMPElvjjRgbrIpU7G6Z4uJc3ls5SM5_iP9O5yHxzON41gacBlIBU65UN3nFkmqW6lbwQMXFcjnrOrIrHqNvnNm2vFuWprFXjXZm0RKhBRRC0pvFR7n81AQFpgM7MrGiJODddJaEqW4vaBpLy3PStsrthqdB1oPt6f6xqrqZSJOaa4qVDx2-2z-DZa2psVXzKFKopcwxm7hwFGkk2gZwb_XOHABOkZVHg9KH534H=w1880-h1410-no?authuser=0">
+              <p>こんな感じで結構広いのでゴルフバックなら3つほど入るような感じです。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="share_price">
+  <!-- Card -->
+  <div class="card">
+    <!-- Card image -->
+    <!-- Card content -->
+    <div class="card-body">
+      <!-- Title -->
+      <div class="price">8,700<span class="yen"> 円/(月額)</span></div>
+      <!-- Text -->
+      <p class="card-text">24h以内に指定の場所に返却してください。</p>
+      <!-- Button -->
+      <a href="#" class="btn btn-main">予約する</a>
+    </div>
+  </div>
+  <!-- Card -->
+</div>
+
+
+<!-- Footer -->
+<footer class="page-footer font-small unique-color-dark pt-4">
+  <!-- Footer Elements -->
+  <div class="footer_area">
+    <div class="footer_logo">
+      <img src="{% static 'app/car-logo.png' %}">
+      <p>Car Select</p>
+    </div>
+    <!-- Call to action -->
+    <ul class="list-unstyled list-inline text-center py-2">
+      <li class="list-inline-item">
+        <a href="{% url 'app:create_profile' %}"><button type="button" class="btn btn-main">はじめる</button></a>
+      </li>
+      <li class="list-inline-item">
+        <button type="button" class="btn btn-sub">コンセプト</button>
+      </li>
+    </ul>
+    <!-- Call to action -->
+  </div>
+  <!-- Footer Elements -->
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/"> Ryo's Portfolio</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+{% endblock %}

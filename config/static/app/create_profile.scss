@@ -1,0 +1,50 @@
+$pc: 1024px; // PC
+$tab: 680px; // タブレット
+$sp: 480px;  // スマホ
+
+@mixin pc {
+  @media (max-width: ($pc)) {
+    @content;
+  }
+}
+@mixin tab {
+  @media (max-width: ($tab)) {
+    @content;
+  }
+}
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
+}
+
+.create_page{
+  width: 900px;
+  margin: 0 auto;
+
+  h2{
+    font-size: 45px;
+    font-weight: 600;
+    text-align: center;
+    margin: 30px;
+  }
+}
+
+.image_icon{
+  img{
+    width: 115px;
+  }
+}
+
+section.profile_card {
+  button {
+    background-color: #329eff;
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 10px;
+  }
+
+  input, textarea{
+    background-color: #eee;
+  }
+}

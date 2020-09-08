@@ -21,9 +21,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+    {% block customcss %}
+    {% endblock customcss %}
+
     <title>{% block title %}Webアプリ{% endblock %}</title>
+
   </head>
   <body>
+    <header class="header">
+      <div class="header-inner clearfix">
+        <div class="logo_area"><a href="/">CarShare</a></div>
+        <div class="profile_page"><a href="{% url 'app:create_profile' %}">はじめる</a></div>
+      </div>
+    </header>
+
     {% block content %}
 
     {% endblock %}
