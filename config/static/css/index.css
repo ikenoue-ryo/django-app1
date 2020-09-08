@@ -1,28 +1,249 @@
 p {
-  color: red;
+  color: blue;
 }
 
-@media (max-width: 1024px) {
-  .box {
-    background-color: red;
-  }
-  .box p {
-    font-size: 15px;
-  }
+body {
+  height: 600px;
+  background: #eee;
+  font-family: Rubik, "Noto Sans JP", sans-serif;
+  background-color: #eee !important;
 }
 
-@media (max-width: 680px) {
-  .box {
-    background-color: blue;
-  }
+header {
+  background-color: #fff;
 }
 
-@media (max-width: 480px) {
-  .box {
-    background-color: yellow;
-  }
+header .header-inner {
+  width: 900px;
+  padding: 20px;
+  margin: 0 auto;
 }
 
-.box p {
-  font-size: 12px;
+header .header-inner .logo_area, header .header-inner .profile_page {
+  display: inline-block;
+  float: left;
+}
+
+header .header-inner .logo_area {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+header .header-inner .profile_page {
+  float: right;
+}
+
+header .header-inner .profile_page a {
+  display: block;
+  padding: 5px 12px;
+  background-color: #329eff;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.carousel-item img {
+  width: 860px;
+  margin: 50px auto;
+  border-radius: 15px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.carousel-control-next, .carousel-control-prev {
+  width: 52% !important;
+}
+
+.car-line-up {
+  width: 500px;
+  margin: 30px auto !important;
+}
+
+.car-line-up ul {
+  width: 500px;
+  text-align: center;
+}
+
+.car-line-up ul li {
+  width: 33.333%;
+}
+
+.car-line-up a {
+  color: #abb4bd;
+}
+
+.car-line-up .md-pills .nav-link.active {
+  color: #333;
+  border-bottom: 2px solid #333;
+  background-color: unset !important;
+}
+
+.post-car {
+  position: relative;
+  top: 0;
+  right: 0;
+}
+
+.post-car a.btn--circle {
+  border-radius: 50%;
+  line-height: 100px;
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  -webkit-box-shadow: 0 5px 0 #26a69a;
+  box-shadow: 0 5px 0 #26a69a;
+  background: #30cfc0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.post-car a.btn--circle:hover {
+  -webkit-transform: translate(0, 3px);
+  transform: translate(0, 3px);
+  -webkit-box-shadow: 0 2px 0 #26a69a;
+  box-shadow: 0 2px 0 #26a69a;
+}
+
+.post-car a.user-post {
+  position: fixed;
+  bottom: 20px;
+  right: 110px;
+  z-index: 10;
+}
+
+.post-car .fa, .post-car .fas {
+  font-size: 2.5rem;
+  position: relative;
+  top: 9px;
+}
+
+.car-post .car-article {
+  width: 900px;
+}
+
+.card-size img {
+  width: 270px;
+  height: 180px;
+  object-fit: cover;
+  padding: 15px;
+}
+
+.card-size.card-change-size {
+  width: 160px;
+  height: 150px;
+}
+
+.card-size.card-change-size img {
+  width: 160px;
+}
+
+.car_recommend_article {
+  background: #bbdefb;
+  padding: 60px;
+}
+
+.car_recommend_article .recommend_back_size {
+  width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.car_recommend_article .recommend_back_size h2 {
+  margin-left: 10px;
+}
+
+.car_recommend_article .recommend_back_size hr {
+  text-align: left;
+  display: block;
+  margin-left: 10px;
+}
+
+.car_recommend_article ul.horizontal-list {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-left: calc(50% - 451px);
+  margin: 0;
+}
+
+.car_recommend_article li.item {
+  display: inline-block;
+  margin: 14px;
+}
+
+.car_recommend_article a.card {
+  margin: 0 !important;
+}
+
+.car_recommend_article .tab-pane {
+  width: 900px;
+  margin: 20px auto;
+}
+
+.car_recommend_article .back_size {
+  width: 900px;
+  margin: 30px auto 0;
+}
+
+.car_recommend_article .back_size .more_button {
+  margin: 0 20px;
+}
+
+.car_recommend_article .back_size .more_button button {
+  background: #333;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 1rem;
+}
+
+.change_back_color {
+  background: #eee;
+}
+
+vertical_height2 {
+  width: 100%;
+  margin: 20px auto;
+  padding: 60px 0;
+}
+
+footer.page-footer button {
+  border-radius: 8px;
+  width: 147px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+footer.page-footer button.btn-main {
+  background: #329eff;
+}
+
+footer.page-footer button.btn-sub {
+  background: #565656;
+}
+
+footer.page-footer .footer_area {
+  width: 900px;
+  margin: 50px auto 80px;
+}
+
+footer.page-footer .footer_area .footer_logo {
+  text-align: center;
+}
+
+footer.page-footer .footer_area .footer_logo img {
+  width: 100px;
+}
+
+footer.page-footer .footer_area .footer_logo p {
+  font-size: 57px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 0.01em;
+  font-family: Noto Sans JP;
+}
+
+footer.page-footer .footer_area .footer_logo ul {
+  margin-bottom: 70px !important;
+}
+
+footer .footer-copyright {
+  border-top: solid 2px rgba(255, 255, 255, 0.2);
 }
