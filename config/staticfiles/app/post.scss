@@ -132,8 +132,6 @@ $sp: 480px;  // スマホ
 
 
 .profile_contents{
-  margin-bottom: 100px;
-
   h2, p{
     font-family: Rubik, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", BlinkMacSystemFont, YuGothic, "Yu Gothic", sans-serif;
     line-height: 2.0;
@@ -167,36 +165,5 @@ $sp: 480px;  // スマホ
     position: relative;
     left: -80px;
     top: 45px;
-  }
-}
-
-.profile{
-  border: solid 2px #dce4ec;
-  padding: 40px;
-  border-radius: 10px;
-  background: #fff;
-  margin-bottom: 100px;
-
-  .icon{
-    width: 80px;
-    display: inline-block;
-    float: left;
-    height: 130px;
-
-    img{
-      width: 70px;
-      border-radius: 50%;
-      border: 1px solid grey;
-    }
-  }
-  .pr_profile{
-    p{
-      color: #000;
-
-      &.prof_name{
-        font-size: 1.2rem;
-        font-weight: 600;
-      }
-    }
   }
 }

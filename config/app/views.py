@@ -22,3 +22,24 @@ def post(request):
         'hello': 'こんにちは'
     }
     return render(request, 'app/post.html', context)
+
+
+def new(request):
+    context = {
+        'hello': 'こんにちは'
+    }
+    return render(request, 'app/new.html', context)
+
+
+def listfunc(request):
+    context = {
+        'hello': 'こんにちは'
+    }
+    return render(request, 'app/car_list.html', context)
+
+
+def detailfunc(request, pk):
+    context = {
+        'hello': 'こんにちは'
+    }
+    return render(request, 'app/car_detail.html', context)

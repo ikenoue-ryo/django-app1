@@ -1,0 +1,93 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block customcss %}
+  <link rel="stylesheet" href="{% sass_src 'css/new.css' %}">
+{% endblock customcss %}
+
+{% block content %}
+
+<div class="profile_back">
+  <div class="create_page">
+    <h2>Let's Start</h2>
+    <div class="profile_card">
+      <div class="profile_contents">
+        <div class="container my-5">
+          <style>
+            .border-top {
+              border-top: 5px solid #33b5e5 !important;
+              border-top-left-radius: .25rem!important;
+              border-top-right-radius: .25rem!important;
+            }
+          </style>
+          <!--Section: Content-->
+          <section class="text-center dark-grey-text mb-5 profile_card">
+            <div class="card">
+              <div class="card-body rounded-top border-top p-5">
+                <!-- ファイル -->
+                <img id="img1"><br><br>
+                <label for="file_photo" id="file_label">
+                  Main Photo
+                  <input type="file" id="file_photo" style="display:none;">
+                </label>
+                <!-- ファイル -->
+                </div>
+                <form class="mb-4 mx-md-5" action="">
+                  <div class="row">
+                    <div class="col-md-12 mb-4">
+                      <!-- Subject -->
+                      <input type="text" id="subject" class="form-control" placeholder="フィットの基本情報">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group mb-4">
+                        <textarea class="form-control rounded" id="message" rows="5"
+                                  placeholder="満タン時の走行距離：20km&#13;駆動方式：2WD&#13;色：ホワイト&#13;エンジン：ガソリン&#13;定員数：5名"></textarea>
+                      </div>
+                      <div class="text-center">
+                        <button type="submit" class="btn">投稿する</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+          <!--Section: Content-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+$(function(){
+  $('#file_photo').change(function(e){
+    //ファイルオブジェクトを取得する
+    var file = e.target.files[0];
+    var reader = new FileReader();
+
+    //画像でない場合は処理終了
+    if(file.type.indexOf("image") < 0){
+      alert("画像ファイルを指定してください。");
+      return false;
+    }
+
+    //アップロードした画像を設定する
+    reader.onload = (function(file){
+      return function(e){
+        $("#img1").attr("src", e.target.result);
+        $("#img1").attr("title", file.name);
+        $("#file_label").remove();
+      };
+    })(file);
+    reader.readAsDataURL(file);
+  });
+});
+
+</script>
+{% endblock %}

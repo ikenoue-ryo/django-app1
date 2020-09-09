@@ -1,0 +1,143 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block customcss %}
+  <link rel="stylesheet" href="{% sass_src 'css/car_list.css' %}">
+{% endblock customcss %}
+
+{% block content %}
+<div class="profile_back">
+  <div class="create_page">
+    <h2>Car Select</h2>
+    <div class="card_contents">
+
+      <div class="card_border_top"></div>
+      <div class="card_body clearfix">
+        <a class="card hoverable mb-4" href="{% url 'app:post' %}">
+          <div class="card-size">
+            <img class="card-img-top" src="https://toyota.jp/pages/contents/corolla/002_p_001/4.0/image/car-viewer/48_13_5/48_13_5_030_c.jpg" alt="Card image cap">
+          </div>
+        </a>
+        <div class="card_detail">
+          <div class="card_info">
+            <h3>福岡市中央区博多区</h3>
+            <ul>
+              <li>24h貸し出し可能</li>
+              <li>クルーズコントロール、カーナビ、TOYOTAセーフティ機能付</li>
+              <li>TOYOTAセーフティ機能付</li>
+              <li>定員5人OK</li>
+            </ul>
+            <ul class="tag clearfix">
+              <li>1ヶ月間貸し出しOK</li>
+              <li>駐車場無料使用OK</li>
+            </ul>
+            <div class="price">8,700<span class="yen"> 円/(月額)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card_border_top"></div>
+      <div class="card_body clearfix">
+        <a class="card hoverable mb-4" href="{% url 'app:post' %}">
+          <div class="card-size">
+            <img class="card-img-top" src="https://toyota.jp/pages/contents/corolla/002_p_001/4.0/image/car-viewer/48_10_7/48_10_7_030_c.jpg" alt="Card image cap">
+          </div>
+        </a>
+        <div class="card_detail">
+          <div class="card_info">
+            <h3>福岡市中央区博多区</h3>
+            <ul>
+              <li>24h貸し出し可能</li>
+              <li>クルーズコントロール、カーナビ、TOYOTAセーフティ機能付</li>
+              <li>TOYOTAセーフティ機能付</li>
+              <li>定員5人OK</li>
+            </ul>
+            <ul class="tag clearfix">
+              <li>駐車場無料使用OK</li>
+            </ul>
+            <div class="price">8,700<span class="yen"> 円/(月額)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card_border_top"></div>
+      <div class="card_body clearfix">
+        <a class="card hoverable mb-4" data-toggle="modal" data-target="#basicExampleModal">
+          <div class="card-size">
+            <img class="card-img-top" src="https://toyota.jp/pages/contents/corolla/002_p_001/4.0/image/car-viewer/48_1_6/48_1_6_030_c.jpg" alt="Card image cap">
+          </div>
+        </a>
+        <div class="card_detail">
+          <div class="card_info">
+            <h3>福岡市中央区博多区</h3>
+            <ul>
+              <li>クルーズコントロール、カーナビ、TOYOTAセーフティ機能付</li>
+              <li>TOYOTAセーフティ機能付</li>
+              <li>定員5人OK</li>
+            </ul>
+            <ul class="tag clearfix">
+              <li>1ヶ月間貸し出しOK</li>
+            </ul>
+            <div class="price">10,500<span class="yen"> 円/(月額)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card_border_top"></div>
+      <div class="card_body clearfix">
+        <a class="card hoverable mb-4" data-toggle="modal" data-target="#basicExampleModal">
+          <div class="card-size">
+            <img class="card-img-top" src="https://toyota.jp/pages/contents/corolla/002_p_001/4.0/image/top_conductor_design.jpg" alt="Card image cap">
+          </div>
+        </a>
+        <div class="card_detail">
+          <div class="card_info">
+            <h3>福岡市中央区博多区</h3>
+            <ul>
+              <li>24h貸し出し可能</li>
+              <li>定員5人OK</li>
+            </ul>
+            <ul class="tag clearfix">
+              <li>1ヶ月間貸し出しOK</li>
+              <li>駐車場無料使用OK</li>
+            </ul>
+            <div class="price">5,000<span class="yen"> 円/(月額)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card_border_top"></div>
+      <div class="card_body clearfix">
+        <a class="card hoverable mb-4" data-toggle="modal" data-target="#basicExampleModal">
+          <div class="card-size">
+            <img class="card-img-top" src="https://toyota.jp/pages/contents/corolla/002_p_001/4.0/image/top_conductor_perf.jpg" alt="Card image cap">
+          </div>
+        </a>
+        <div class="card_detail">
+          <div class="card_info">
+            <h3>福岡市中央区博多区</h3>
+            <ul>
+              <li>24h貸し出し可能</li>
+              <li>TOYOTAセーフティ機能付</li>
+              <li>定員5人OK</li>
+            </ul>
+            <ul class="tag clearfix">
+              <li>1ヶ月間貸し出しOK</li>
+            </ul>
+            <div class="price">8,700<span class="yen"> 円/(月額)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card_border_top"></div>
+
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}
