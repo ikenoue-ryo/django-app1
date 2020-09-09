@@ -208,6 +208,16 @@ vertical_height2 {
   padding: 60px 0;
 }
 
+img.card-img-top {
+  width: 270px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-body h5 {
+  color: #000;
+}
+
 footer.page-footer button {
   border-radius: 8px;
   width: 147px;

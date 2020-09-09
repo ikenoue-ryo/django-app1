@@ -29,6 +29,10 @@ header .header-inner .logo_area {
   font-weight: 600;
 }
 
+header .header-inner .logo_area a {
+  color: #000;
+}
+
 header .header-inner .profile_page {
   float: right;
 }
