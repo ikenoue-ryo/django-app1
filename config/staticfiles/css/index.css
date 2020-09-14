@@ -208,6 +208,44 @@ vertical_height2 {
   padding: 60px 0;
 }
 
+img.card-img-top {
+  width: 270px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-body h5 {
+  color: #000;
+}
+
+figure.col-md-3 {
+  max-width: 33%;
+}
+
+figure.col-md-3 img {
+  height: auto;
+  border-radius: 5px;
+  width: 270px;
+  height: 150px;
+  margin: 0;
+}
+
+.controls-top {
+  position: relative;
+  top: 290px;
+  z-index: 10;
+}
+
+.controls-top a .btn_left {
+  position: relative;
+  left: -90px;
+}
+
+.controls-top a.btn_right {
+  position: relative;
+  left: 900px;
+}
+
 footer.page-footer button {
   border-radius: 8px;
   width: 147px;

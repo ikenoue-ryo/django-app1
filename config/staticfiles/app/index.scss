@@ -231,44 +231,86 @@ header {
     padding: 60px 0;
   }
 
-footer.page-footer{
-  button{
-    border-radius: 8px;
-    width: 147px;
-    font-size: 1rem;
-    padding: 10px;
+img.card-img-top {
+  width: 270px;
+  height: 180px;
+  object-fit: cover;
+}
 
-    &.btn-main{
-      background: #329eff;
-    }
-    &.btn-sub{
-      background: #565656;
-    }
+.card-body{
+  h5{
+    color: #000;
   }
+}
 
-  .footer_area{
-    width: 900px;
-    margin: 50px auto 80px;
+figure.col-md-3{
+  max-width: 33%;
 
-    .footer_logo{
-      text-align: center;
+  img{
+    height: auto;
+    border-radius: 5px;
+    width: 270px;
+    height: 150px;
+    margin: 0;
+  }
+}
 
-      img {
-        width: 100px;
-      }
-      p{
-        font-size: 57px;
-        font-weight: bold;
-        color: #fff;
-        letter-spacing: 0.01em;
-        font-family: Noto Sans JP;
-      }
-      ul{
-        margin-bottom: 70px!important;
-      }
+.controls-top {
+  position: relative;
+  top: 290px;
+  z-index: 10;
+
+  a {
+    .btn_left {
+      position: relative;
+      left: -90px;
+    }
+
+    &.btn_right {
+      position: relative;
+      left: 900px;
     }
   }
 }
+
+  footer.page-footer{
+    button{
+      border-radius: 8px;
+      width: 147px;
+      font-size: 1rem;
+      padding: 10px;
+
+      &.btn-main{
+        background: #329eff;
+      }
+      &.btn-sub{
+        background: #565656;
+      }
+    }
+
+    .footer_area{
+      width: 900px;
+      margin: 50px auto 80px;
+
+      .footer_logo{
+        text-align: center;
+
+        img {
+          width: 100px;
+        }
+        p{
+          font-size: 57px;
+          font-weight: bold;
+          color: #fff;
+          letter-spacing: 0.01em;
+          font-family: Noto Sans JP;
+        }
+        ul{
+          margin-bottom: 70px!important;
+        }
+      }
+    }
+  }
 
 footer .footer-copyright{
   border-top: solid 2px rgba(255,255,255,0.2);

@@ -15,6 +15,7 @@ django-sass-processor = "*"
 psycopg2 = "*"
 gunicorn= "==19.9.0"
 django-sass = "*"
+django-allauth = "*"
 
 [requires]
 python_version = "3.8"

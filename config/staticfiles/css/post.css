@@ -105,6 +105,10 @@
   color: #fff;
 }
 
+.profile_contents {
+  margin-bottom: 100px;
+}
+
 .profile_contents h2, .profile_contents p {
   font-family: Rubik, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", BlinkMacSystemFont, YuGothic, "Yu Gothic", sans-serif;
   line-height: 2.0;
@@ -137,4 +141,34 @@
   position: relative;
   left: -80px;
   top: 45px;
+}
+
+.profile {
+  border: solid 2px #dce4ec;
+  padding: 40px;
+  border-radius: 10px;
+  background: #fff;
+  margin-bottom: 100px;
+}
+
+.profile .icon {
+  width: 80px;
+  display: inline-block;
+  float: left;
+  height: 130px;
+}
+
+.profile .icon img {
+  width: 70px;
+  border-radius: 50%;
+  border: 1px solid grey;
+}
+
+.profile .pr_profile p {
+  color: #000;
+}
+
+.profile .pr_profile p.prof_name {
+  font-size: 1.2rem;
+  font-weight: 600;
 }
