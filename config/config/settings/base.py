@@ -25,10 +25,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'users.apps.UsersConfig',
     'app.apps.AppConfig',
 
     'sass_processor',
     'django_sass',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -46,7 +52,10 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'templates'],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +130,36 @@ SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.(sass|scss)$'
 SASS_PRECISION = 8
 SASS_OUTPUT_STYLE = 'compressed'
 SASS_TEMPLATE_EXTS = ['.html', '.haml']
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    # 一般ユーザー用(メールアドレス認証)
+    'allauth.account.auth_backends.AuthenticationBackend',
+    # 管理サイト用(ユーザー名認証)
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# メールアドレス認証に変更する設定
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# Userモデルにusernameはない設定
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ユーザー名を要求しない
+ACCOUNT_USERNAME_REQUIRED = False
+
+# サインアップにメールアドレス確認を設定
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = True
+
+# ログイン後の設定
+LOGIN_REDIRECT_URL = 'app:index'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
+
+# ログアウトリンクの一発ログアウト設定
+ACCOUNT_LOGOUT_ON_GET = True
+
+# ユーザーモデル
+AUTH_USER_MODEL = 'users.User'
+
+#開発環境でsmtpサーバに送信しない場合は以下の設定でconsole出力する
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

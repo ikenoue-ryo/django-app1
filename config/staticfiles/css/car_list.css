@@ -1,0 +1,89 @@
+.create_page {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.create_page h2 {
+  font-size: 45px;
+  font-weight: 600;
+  text-align: center;
+  margin: 30px;
+}
+
+img.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  padding: 0;
+}
+
+.card_contents {
+  width: 900px;
+}
+
+.card_contents .card_border_top {
+  border: 1px solid #dbdbdb;
+  width: 900px;
+}
+
+.card_contents .card_body {
+  margin-top: 20px;
+}
+
+.card_contents .card_body a {
+  width: 40%;
+  display: inline-block;
+  float: left;
+}
+
+.card_contents .card_body .card_detail {
+  width: 60%;
+  display: inline-block;
+  float: left;
+  padding: 10px 30px;
+}
+
+.card_contents .card_body .card_detail .card_info h3 {
+  font-size: 1rem;
+}
+
+.card_contents .card_body .card_detail .card_info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card_contents .card_body .card_detail .card_info ul li {
+  color: #717171;
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+
+.card_contents .card_body .card_detail .card_info ul.tag {
+  margin: 0;
+  padding: 0;
+}
+
+.card_contents .card_body .card_detail .card_info ul.tag li {
+  display: inline-block;
+  float: left;
+  border: 1px solid #9e9e9e;
+  font-size: 0.8rem;
+  margin: 0 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  background: #e31c5f;
+  color: #fff;
+}
+
+.card_contents .card_body .card_detail .card_info .price {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 10px 0;
+  text-align: right;
+}
+
+.card_contents .card_body .card_detail .card_info .price span.yen {
+  font-size: 0.9rem;
+}
