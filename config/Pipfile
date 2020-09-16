@@ -16,6 +16,8 @@ psycopg2 = "*"
 gunicorn= "==19.9.0"
 django-sass = "*"
 django-allauth = "*"
+django-ses = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"

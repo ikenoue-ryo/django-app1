@@ -1,4 +1,13 @@
 import os
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
+load_dotenv(verbose=True)
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+
+    'django_ses',
 ]
 
 MIDDLEWARE = [
@@ -161,5 +172,22 @@ ACCOUNT_LOGOUT_ON_GET = True
 # ユーザーモデル
 AUTH_USER_MODEL = 'users.User'
 
+
+#######################
+# サインアップメール認証 #
+#######################
+
+
 #開発環境でsmtpサーバに送信しない場合は以下の設定でconsole出力する
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# AWS settings
+AWS_SES_ACCESS_KEY_ID = os.environ.get('DJANGO_AWS_ACCESS_KEY_ID')
+AWS_SES_SECRET_ACCESS_KEY = os.environ.get('DJANGO_AWS_SECRET_ACCESS_KEY')
+print('1', AWS_SES_ACCESS_KEY_ID)
+print('2', AWS_SES_SECRET_ACCESS_KEY)
+
+# Email settings
+EMAIL_BACKEND = 'django_ses.SESBackend'
+DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'ryo <ryo.ikenoue@gmail.com>'
+
