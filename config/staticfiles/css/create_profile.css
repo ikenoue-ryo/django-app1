@@ -1,3 +1,13 @@
+.border-top {
+  border-top: 5px solid #33b5e5 !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+}
+
+.image_margin {
+  margin-bottom: 25px;
+}
+
 .create_page {
   width: 900px;
   margin: 0 auto;
@@ -27,4 +37,10 @@ section.profile_card input, section.profile_card textarea {
 
 .login_button p {
   margin: 20px;
+}
+
+.reset_password p {
+  text-align: left;
+  margin: 25px 10px 25px 50px;
+  color: #000;
 }

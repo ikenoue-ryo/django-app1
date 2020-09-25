@@ -1,19 +1,19 @@
-## インストール  
-pipenv install django gunicorn psycopg2 psycopg2-binary Pillow  
-pip install python-dotenv libsass django-compressor django-sass-processor
-
 ## ファイル作成  
 touch .env  
 
-SECRET_KEY=ここにSECRET_KEY  
+<ファイル内記述例>  
+DEBUG=0
+SECRET_KEY=hoge
+DATABASE_ENGINE=django.db.backends.postgresql
+DATABASE_DB=django_db
+DATABASE_USER=test
+DATABASE_PASSWORD=test
+DATABASE_HOST=postgres
+DATABASE_PORT=5432
+DATABASE=postgres
 
-DATABASE_ENGINE=  
-DATABASE_DB=  
-DATABASE_USER=  
-DATABASE_PASSWORD=  
-DATABASE_HOST=  
-DATABASE_PORT=  
-
+## 実行
+docker-compose up -d --build
 
 <!-- 
 単体テスト実行
