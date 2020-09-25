@@ -179,15 +179,15 @@ AUTH_USER_MODEL = 'users.User'
 
 
 #開発環境でsmtpサーバに送信しない場合は以下の設定でconsole出力する
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# AWS settings
-AWS_SES_ACCESS_KEY_ID = os.environ.get('DJANGO_AWS_ACCESS_KEY_ID')
-AWS_SES_SECRET_ACCESS_KEY = os.environ.get('DJANGO_AWS_SECRET_ACCESS_KEY')
-print('1', AWS_SES_ACCESS_KEY_ID)
-print('2', AWS_SES_SECRET_ACCESS_KEY)
+# # AWS settings
+# AWS_SES_ACCESS_KEY_ID = os.environ.get('DJANGO_AWS_ACCESS_KEY_ID')
+# AWS_SES_SECRET_ACCESS_KEY = os.environ.get('DJANGO_AWS_SECRET_ACCESS_KEY')
+# print('1', AWS_SES_ACCESS_KEY_ID)
+# print('2', AWS_SES_SECRET_ACCESS_KEY)
 
-# Email settings
-EMAIL_BACKEND = 'django_ses.SESBackend'
-DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'ryo <ryo.ikenoue@gmail.com>'
+# # Email settings
+# EMAIL_BACKEND = 'django_ses.SESBackend'
+# DEFAULT_FROM_EMAIL = SERVER_EMAIL = ''
 
