@@ -28,6 +28,15 @@ const authModule = {
   },
   actions: {
     /**
+     * サインアップ
+     */
+    signup(context, payload) {
+      return api.post('/auth/users/', {
+          'email': payload.email,
+          'password': payload.password
+        })
+    },
+    /**
      * ログイン
      */
     login(context, payload) {

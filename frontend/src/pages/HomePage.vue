@@ -1,38 +1,40 @@
 <template>
-  <div id="home-page">
-    <GlobalHeader/>
-    <GlobalMessage/>
+  <v-app>
+    <div id="home-page">
+      <GlobalHeader/>
+      <GlobalMessage/>
 
-    <!-- メインエリア -->
-    <main class="container">
-      <p class="h5 mb-4">ホーム</p>
-      <b-form @submit.prevent="submitSave">
-        <div class="row form-group">
-          <label class="col-sm-3 col-form-label">タイトル</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" v-model="form.post.title">
+      <!-- メインエリア -->
+      <main class="container">
+        <p class="h5 mb-4">ホーム</p>
+        <b-form @submit.prevent="submitSave">
+          <div class="row form-group">
+            <label class="col-sm-3 col-form-label">タイトル</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" v-model="form.post.title">
+            </div>
           </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-3 col-form-label">本文</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" v-model="form.post.text">
+          <div class="row form-group">
+            <label class="col-sm-3 col-form-label">本文</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" v-model="form.post.text">
+            </div>
           </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-3 col-form-label">価格</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" v-model="form.post.price">
+          <div class="row form-group">
+            <label class="col-sm-3 col-form-label">価格</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" v-model="form.post.price">
+            </div>
           </div>
-        </div>
-        <div class="row text-center mt-5">
-          <div class="col-sm-12">
-            <b-button type="submit" variant="primary">{{ isCreated ? '更新' : '登録' }}</b-button>
+          <div class="row text-center mt-5">
+            <div class="col-sm-12">
+              <b-button type="submit" variant="primary">{{ isCreated ? '更新' : '登録' }}</b-button>
+            </div>
           </div>
-        </div>
-      </b-form>
-    </main>
-  </div>
+        </b-form>
+      </main>
+    </div>
+  </v-app>
 </template>
 
 <script>
@@ -84,3 +86,19 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+#app{
+    font-family: Rubik, "Noto Sans JP", sans-serif; 
+    // Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    background-color: #eee;
+}
+
+.container {
+  max-width: 900px;
+}
+
+.fullheight {
+    height: 100%;
+}
+</style>

@@ -2,7 +2,7 @@
   <div class="back_body">
     <GlobalHeader />
 
-    <h2>Let's Login</h2>
+    <h2>Let's SignUp</h2>
     <v-card
       class="card_style"
       max-width="800"
@@ -25,6 +25,19 @@
                   ></v-text-field>
                 </v-col>
 
+                <!-- <v-col
+                  cols="12"
+                  md="12"
+                >
+                  <v-text-field
+                    v-model="form.profname"
+                    :rules="form.nameRules"
+                    :counter="10"
+                    label="ユーザーネーム"
+                    required
+                  ></v-text-field>
+                </v-col> -->
+
                 <v-col
                   cols="12"
                   md="12"
@@ -37,9 +50,22 @@
                   ></v-text-field>
                 </v-col>
 
+                <!-- <v-col
+                  cols="12"
+                  md="12"
+                >
+                  <v-text-field
+                    v-model="form.password2"
+                    :rules="form.nameRules"
+                    :counter="10"
+                    label="パスワード(確認用)"
+                    required
+                  ></v-text-field>
+                </v-col> -->
+
               </v-row>
               <div class="back-color">
-                  <v-btn href="submit" class="start">ログイン</v-btn>
+                  <v-btn href="submit" class="start">この内容ではじめる</v-btn>
               </div>
             </v-container>
           </v-flex>
@@ -56,7 +82,7 @@
 <script>
 import GlobalHeader from '../components/GlobalHeader'
 
-export default{
+export default {
   components: {
     GlobalHeader,
   },
@@ -80,18 +106,18 @@ export default{
     }
   },
   methods: {
-      // ログインボタン押下
-      submitLogin: function () {
-        // ログイン
-        this.$store.dispatch('auth/login', {
+      // サインアップボタン押下
+      submitSignup: function () {
+        // サインアップ
+        this.$store.dispatch('auth/signup', {
           email: this.form.email,
           password: this.form.password
         })
           .then(() => {
-            console.log('Login succeeded.')
-            this.$store.dispatch('message/setInfoMessage', { message: 'ログインしました。' })
+            console.log('Signup succeeded.')
+            this.$store.dispatch('message/setInfoMessage', { message: 'サインアップしました。' })
             // クエリ文字列に「next」がなければ、ホーム画面へ
-            const next = this.$route.query.next || '/'
+            const next = this.$route.query.next || '/login'
             this.$router.replace(next)
           })
       }
