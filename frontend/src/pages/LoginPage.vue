@@ -7,7 +7,7 @@
       class="card_style"
       max-width="800"
     >
-      <v-form v-model="form.valid" @submit.prevent="submitSignup">
+      <v-form v-model="form.valid" @submit.prevent="submitLogin">
         <v-layout wrap>
           <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png" width="115"></v-flex>
           <v-flex xs12 sm6 md9>
@@ -18,6 +18,7 @@
                   md="12"
                 >
                   <v-text-field
+                    type="email"
                     v-model="form.email"
                     :rules="form.emailRules"
                     label="メールアドレス"
@@ -39,7 +40,7 @@
 
               </v-row>
               <div class="back-color">
-                  <v-btn href="submit" class="start">ログイン</v-btn>
+                  <v-btn type="submit" class="start">ログイン</v-btn>
               </div>
             </v-container>
           </v-flex>
@@ -54,9 +55,9 @@
 
 
 <script>
-import GlobalHeader from '../components/GlobalHeader'
+import GlobalHeader from '@/components/GlobalHeader.vue'
 
-export default{
+export default {
   components: {
     GlobalHeader,
   },
@@ -120,7 +121,7 @@ export default{
     border-top: 5px solid #33b5e5;
 
     .back-color{
-      a.start{
+      button.start{
         background-color: #329eff!important;
         font-size: 0.9rem;
         color: #fff;
@@ -128,6 +129,7 @@ export default{
         margin-top: 20px;
         padding: 20px;
         text-decoration: none;
+        outline: none;
       }
     }
   }

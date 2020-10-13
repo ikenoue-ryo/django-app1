@@ -65,7 +65,7 @@
 
               </v-row>
               <div class="back-color">
-                  <v-btn href="submit" class="start">この内容ではじめる</v-btn>
+                  <v-btn type="submit" class="start">この内容ではじめる</v-btn>
               </div>
             </v-container>
           </v-flex>
@@ -131,6 +131,7 @@ export default {
   background-color: #eee;
   overflow: hidden;
   min-height: 100vh;
+  
 
   h2{
     text-align: center;
@@ -146,7 +147,7 @@ export default {
     border-top: 5px solid #33b5e5;
 
     .back-color{
-      a.start{
+      button.start{
         background-color: #329eff!important;
         font-size: 0.9rem;
         color: #fff;
@@ -154,6 +155,7 @@ export default {
         margin-top: 20px;
         padding: 20px;
         text-decoration: none;
+        outline: none;
       }
     }
   }
