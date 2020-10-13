@@ -5,6 +5,7 @@ import LoginPage from "@/pages/LoginPage";
 import SignUpPage from "@/pages/SignUpPage";
 import PostPage from "@/pages/PostPage";
 import PostList from "@/pages/PostList";
+import PostDetail from "@/pages/PostDetail";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -18,6 +19,7 @@ const router = new VueRouter({
     { path: "/signup", component: SignUpPage },
     { path: "/post", component: PostPage, meta: { requiresAuth: true } },
     { path: "/:en_name", component: PostList },
+    { path: "/post/:id", component: PostDetail },
     { path: "*", redirect: "/" },
   ],
 });
