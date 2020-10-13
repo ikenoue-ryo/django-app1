@@ -46,6 +46,9 @@
               </v-card>
 
             </div>
+            <div class="icon">
+              <img src="https://d20r2glx6euv0l.cloudfront.net/avatar/6ebeed36dc.jpeg">
+            </div>
           <v-btn v-if="isLoggedIn" href="signup" class="start">投稿する</v-btn>
           <v-btn v-else href="signup" class="start">はじめる</v-btn>
           </v-row>
@@ -135,6 +138,18 @@ export default {
       font-weight: bold;
       margin-top: 8px;
     }
+  }
+
+  .icon {
+    display: inline-block;
+    float: right;
+    margin: 10px;
+  }
+
+  .icon img {
+    width: 35px;
+    border-radius: 50%;
+    border: 1px solid grey;
   }
 }
 

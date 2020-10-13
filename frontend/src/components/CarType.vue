@@ -15,7 +15,7 @@
         v-for="n in 3"
         :key="n"
       >
-        <v-container fluid pa-0 class="mt-5">
+        <v-container fluid pa-0 pt-5>
           <v-row>
             <v-col cols="12" md="4" class="pa-2" v-for="car_type in car_types" :key="car_type.id">
               <v-hover

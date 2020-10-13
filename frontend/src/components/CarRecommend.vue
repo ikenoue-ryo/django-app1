@@ -232,6 +232,7 @@ p {
 
 .car_recommend_article a.card {
   margin: 0 !important;
+  text-decoration: none;
 }
 
 .car_recommend_article .tab-pane {
