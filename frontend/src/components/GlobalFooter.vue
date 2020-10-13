@@ -67,6 +67,7 @@ footer{
       color: #fff;
       font-weight: bold;
       text-decoration: none;
+      outline: none;
     }
   }
   .back-color-concept{
@@ -81,6 +82,7 @@ footer{
       color: grey;
       font-weight: bold;
       text-decoration: none;
+      outline: none;
     }
   }
 
