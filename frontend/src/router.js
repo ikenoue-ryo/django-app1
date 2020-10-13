@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomePage from "@/pages/HomePage";
 import LoginPage from "@/pages/LoginPage";
 import SignUpPage from "@/pages/SignUpPage";
+import PostPage from "@/pages/PostPage";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -14,6 +15,7 @@ const router = new VueRouter({
     { path: "/", component: HomePage, meta: { requiresAuth: true } },
     { path: "/login", component: LoginPage },
     { path: "/signup", component: SignUpPage },
+    { path: "/post", component: PostPage, meta: { requiresAuth: true } },
     { path: "*", redirect: "/" },
   ],
 });
