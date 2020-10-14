@@ -67,6 +67,9 @@
               <div class="back-color">
                   <v-btn type="submit" class="start">この内容ではじめる</v-btn>
               </div>
+              <div class="login_page">
+                <a href="login"><p>アカウントをお持ちですか？</p></a>
+              </div>
             </v-container>
           </v-flex>
 
@@ -157,6 +160,23 @@ export default {
         text-decoration: none;
         outline: none;
       }
+    }
+  }
+}
+
+.login_page{
+  p{
+    color: #329eff;
+    margin: 20px 0;
+    font-weight: 500;
+  }
+
+  a{
+    text-decoration: none;
+
+    :hover{
+      opacity: 0.8;
+      transition: 0.5s;
     }
   }
 }

@@ -59,6 +59,7 @@ const authModule = {
       localStorage.removeItem('access')
       // storeのユーザー情報をクリア
       context.commit('clear')
+      console.log('ログアウトしました')
     },
     /**
      * ユーザー情報更新

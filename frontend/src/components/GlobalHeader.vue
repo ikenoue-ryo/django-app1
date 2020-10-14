@@ -47,7 +47,81 @@
 
             </div>
             <div class="icon">
-              <img src="https://d20r2glx6euv0l.cloudfront.net/avatar/6ebeed36dc.jpeg">
+              <div class="text-center">
+                <v-menu
+                  width="100px!important"
+                  v-model="menu"
+                  :close-on-content-click="false"
+                  :nudge-width="200"
+                  left
+                  offset-y
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <img src="https://d20r2glx6euv0l.cloudfront.net/avatar/6ebeed36dc.jpeg">
+                    </v-btn>
+                  </template>
+
+                  <v-card>
+                    <v-list>
+                      <v-list-item>
+                        <v-list-item-avatar>
+                          <img
+                            src="https://d20r2glx6euv0l.cloudfront.net/avatar/6ebeed36dc.jpeg"
+                            alt="Username"
+                          >
+                        </v-list-item-avatar>
+
+                        <v-list-item-content>
+                          <v-list-item-title>Spider man</v-list-item-title>
+                        </v-list-item-content>
+
+                        <v-list-item-action>
+                          <v-btn
+                            :class="fav ? 'red--text' : ''"
+                            icon
+                            @click="fav = !fav"
+                          >
+                            <v-icon>mdi-heart</v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                      </v-list-item>
+                    </v-list>
+
+                    <v-divider class="ma-0"></v-divider>
+
+                    <v-list>
+                      <v-list-item 
+                        href="/"
+                        @click="logout"
+                      >
+                      <v-list-item-action>
+                        <div class="sns_icons">
+                          <v-fa :icon="['far', 'user']" class="search_icon" />
+                        </div>
+                        </v-list-item-action>
+                        <v-list-item-title>プロフィール設定</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item 
+                        href="/"
+                        @click="logout"
+                      >
+                      <v-list-item-action>
+                        <div class="sns_icons">
+                          <v-fa :icon="['fas', 'sign-out-alt']" class="search_icon" />
+                        </div>
+                        </v-list-item-action>
+                        <v-list-item-title>ログアウト</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-card>
+                </v-menu>
+              </div>
+            
             </div>
           <v-btn v-if="isLoggedIn" href="post" class="start">投稿する</v-btn>
           <v-btn v-else href="signup" class="start">はじめる</v-btn>
@@ -67,7 +141,11 @@ export default {
   data(){
     return{
       keyword: '',
-      show: false
+      show: false,
+      fav: true,
+      menu: false,
+      message: false,
+      hints: true,
     }
   },
   computed: {
@@ -106,6 +184,9 @@ export default {
     outblur(){
       this.keyword = ''
       // this.show = false
+    },
+    logout(){
+      this.$store.dispatch('auth/logout')
     }
   }
 }
@@ -151,6 +232,10 @@ export default {
     border-radius: 50%;
     border: 1px solid grey;
   }
+
+  .v-btn{
+    outline: none;
+  }
 }
 
 .back-color{
@@ -195,23 +280,27 @@ export default {
   .v-list{
     width: 226px;
   }
+}
 
+.sns_icons {
+  font-size: 1.5rem;
+  width: 50px;
+  display: inline-block;
+  float: left;
+  margin-left: 10px;
+
+  .logout_icon{
+    color: grey;
+  }
+  .user_icon{
+    color: grey;
+  }
+}
+
+.v-list{
+  a{
+    text-decoration: none;
+  }
 }
 
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
