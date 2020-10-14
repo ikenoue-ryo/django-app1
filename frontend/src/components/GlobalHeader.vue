@@ -49,7 +49,7 @@
             <div class="icon">
               <img src="https://d20r2glx6euv0l.cloudfront.net/avatar/6ebeed36dc.jpeg">
             </div>
-          <v-btn v-if="isLoggedIn" href="signup" class="start">投稿する</v-btn>
+          <v-btn v-if="isLoggedIn" href="post" class="start">投稿する</v-btn>
           <v-btn v-else href="signup" class="start">はじめる</v-btn>
           </v-row>
         </div>
