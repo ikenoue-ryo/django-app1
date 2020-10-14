@@ -98,8 +98,9 @@
                       <v-list-item 
                         href="/"
                         @click="logout"
+                        class=""
                       >
-                      <v-list-item-action>
+                      <v-list-item-action class="mr-2">
                         <div class="sns_icons">
                           <v-fa :icon="['far', 'user']" class="search_icon" />
                         </div>
@@ -110,7 +111,7 @@
                         href="/"
                         @click="logout"
                       >
-                      <v-list-item-action>
+                      <v-list-item-action class="mr-2">
                         <div class="sns_icons">
                           <v-fa :icon="['fas', 'sign-out-alt']" class="search_icon" />
                         </div>
