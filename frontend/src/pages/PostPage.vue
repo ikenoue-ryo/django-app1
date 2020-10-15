@@ -12,10 +12,16 @@
       <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
       <button type="submit">送信</button>
     </form>
-
-    <a href="profile">ここ</a>
-
+    <br><br><br>
+    【出力結果】
+    <ul>
+    <li v-for="result in results" :key="result">
+      {{ result.id }}
+      <img :src="result.text">
+    </li>
+    </ul>
     </v-card>
+
     <PrFooter/>
   </div>
 </template>
@@ -29,7 +35,7 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 import { quillEditor } from 'vue-quill-editor'
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   components: {
@@ -39,6 +45,7 @@ export default {
   },
   data(){
     return{
+      results: [],
       form: {
         posts: {
           title: '',
@@ -47,10 +54,10 @@ export default {
       }
     }
   },
-  // mounted(){
-  //   axios.get('http://127.0.0.1:8000/api/v1/posts/')
-  //   .then(response => {this.results = response.data})
-  // },
+  mounted(){
+    axios.get('http://127.0.0.1:8000/api/v1/posts/')
+    .then(response => {this.results = response.data})
+  },
   methods: {
     submitSave: function(){
       api({

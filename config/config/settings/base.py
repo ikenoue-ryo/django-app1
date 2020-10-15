@@ -196,6 +196,9 @@ ACCOUNT_LOGOUT_ON_GET = True
 # ユーザーモデル
 AUTH_USER_MODEL = 'users.User'
 
+# メディア設定
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 #######################
 # サインアップメール認証 #
