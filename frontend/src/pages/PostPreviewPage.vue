@@ -1,28 +1,39 @@
 <template>
-  <div id="app" class="back_body">
-    <GlobalHeader />
+  <v-app>
+    <div id="app" class="back_body">
+      <GlobalHeader />
 
-    <h2>Let's Post</h2>
-    <v-card
-      class="card_style"
-      max-width="800"
-    >
+      <h2>Post Preview</h2>
+      {{ results }}
+      <v-card
+        class="card_style"
+        max-width="800"
+      >
+      <div>
+        <div v-for="result in results" :key="result">
+          <div v-html="result.text" class="post_text"></div>
+        </div>
+      </div>
+      </v-card>
 
-    <form @submit.prevent="submitPost" class="form_class">
-      <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
-      <button type="submit">送信</button>
-    </form>
-    <br><br><br>
-    【出力結果】
-    <ul>
-    <li v-for="result in results" :key="result">
-      <p v-html="result.text"></p>
-    </li>
-    </ul>
-    </v-card>
+      <!-- <v-layout wrap class="profile" v-for="(user, index) in post.user_info" :key="index">
+        <v-flex xs12 sm6 md2>
+          <div class="icon">
+            <img :src="user.icon">
+          </div>
+        </v-flex>
+        <v-flex xs12 sm6 md10>
+          <div class="pr_profile">
+            <p class="prof_name">{{ user.name }}</p>
+            <p>{{ user.pr }}</p>
+          </div>
+        </v-flex>
+      </v-layout> -->
 
-    <PrFooter/>
-  </div>
+      <PrFooter/>
+    </div>
+
+  </v-app>
 </template>
 
 <script>
@@ -33,21 +44,18 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
-import { quillEditor } from 'vue-quill-editor'
 import axios from 'axios'
 
 export default {
   components: {
     GlobalHeader,
     PrFooter,
-    quillEditor
   },
   data(){
     return{
       results: [],
       form: {
         posts: {
-          author: '',
           title: '',
           text: '',
         }
@@ -65,17 +73,15 @@ export default {
         url: '/posts/',
         data: {
           'id': this.form.posts.id,
-          'author': 1,
           'title': this.form.posts.title,
           'text': this.form.posts.text,
         }
       })
         .then(response => {
           this.form.posts = response.data
-          console.log('これ', this.form.posts)
           console.log('Post succeeded.')
           this.$store.dispatch('message/setInfoMessage', { message: '投稿しました。' })
-          const next = this.$route.query.next || 'post_preview'
+          const next = this.$route.query.next || '/'
           this.$router.replace(next)
         })
     }
@@ -86,40 +92,46 @@ export default {
 
 <style>
 /* エディタ専用のCSS(SCSSが効かない) */
-.ql-editor p{
-  font-size: 20px;
-}
-
-.ql-editor ::placeholder{
-  color: orange;
-}
-
-.ql-container{
-  border: none!important;
-}
-
-.ql-snow .ql-editor h2 {
-  font-size: 1.6rem;
-}
-
-.ql-editor ol, .ql-editor ul {
-  padding-left: 0;
-  font-size: 1.4rem;
-}
+p{
+    font-size: 1.2rem;
+    font-family: Rubik, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", BlinkMacSystemFont, YuGothic, "Yu Gothic", sans-serif;
+  }
 
 img{
-  margin: 20px 0;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+ul{
+  font-size: 1.2rem;
 }
 
+li{
+  font-size: 1.2rem;
+  font-family: Rubik, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", BlinkMacSystemFont, YuGothic, "Yu Gothic", sans-serif;
+  line-height: 1.5;
+}
+
+h1{
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+h2{
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h3{
+  font-size: 1.3rem;
+  font-weight: 600;
+}
 </style>
 
 
 
 <style lang="scss" scoped>
-p{
-  font-size: 1.2rem;
-  font-family: Rubik, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", BlinkMacSystemFont, YuGothic, "Yu Gothic", sans-serif;
-}
+
 
 .back_body{
   background-color: #eee;
@@ -149,16 +161,6 @@ p{
         margin-top: 20px;
         padding: 20px;
       }
-    }
-  }
-
-  .image_area{
-    margin-bottom: 20px;
-
-    img{
-      width: 700px;
-      height: 400px;
-      object-fit: contain;
     }
   }
 }
