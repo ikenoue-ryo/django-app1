@@ -77,7 +77,7 @@
                         </v-list-item-avatar>
 
                         <v-list-item-content>
-                          <v-list-item-title>Spider man</v-list-item-title>
+                          <v-list-item-title>{{ username }}</v-list-item-title>
                         </v-list-item-content>
 
                         <v-list-item-action>
@@ -95,18 +95,17 @@
                     <v-divider class="ma-0"></v-divider>
 
                     <v-list>
-                      <v-list-item 
-                        href="/"
-                        @click="logout"
-                        class=""
-                      >
-                      <v-list-item-action class="mr-2">
-                        <div class="sns_icons">
-                          <v-fa :icon="['far', 'user']" class="search_icon" />
-                        </div>
-                        </v-list-item-action>
-                        <v-list-item-title>プロフィール設定</v-list-item-title>
-                      </v-list-item>
+                      <router-link :to="`/profile/${username}`">
+                        <v-list-item v-ripple>
+                        <v-list-item-action class="mr-2">
+                          <div class="sns_icons">
+                            <v-fa :icon="['far', 'user']" class="search_icon" />
+                          </div>
+                          </v-list-item-action>
+                          <v-list-item-title>プロフィール設定</v-list-item-title>
+                        </v-list-item>
+                      </router-link>
+
                       <v-list-item 
                         href="/"
                         @click="logout"

@@ -1,12 +1,16 @@
-const posts = [{
+const posts = [
+  {
     id: 1,
-    user_info: [{
+    user_info: [
+      {
       name: 'よしぴー',
       pr: '車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！ご質問あれば連絡くださいね。',
       icon: 'https://img.icons8.com/color/452/batman.png'
-    }],
+      }
+    ],
     address: '福岡県福岡市博多区博多駅前',
-    main_images: [{
+    main_images: [
+      {
         photo: 'https://response.jp/imgs/thumb_h2/1368463.jpg',
       },
       {
@@ -19,7 +23,8 @@ const posts = [{
         photo: 'https://toyota.jp/pages/contents/prius/004_p_007/4.0/image/top_conductor_perf.jpg',
       }
     ],
-    car_info: [{
+    car_info: [
+      {
         infomation: '満タン時の走行距離：20km',
       },
       {
@@ -35,7 +40,8 @@ const posts = [{
         infomation: '定員数：5名',
       },
     ],
-    car_recommend1: [{
+    car_recommend1: [
+      {
         point: '24h貸し出しOK',
       },
       {
@@ -48,12 +54,15 @@ const posts = [{
         point: '定員数：5名',
       },
     ],
-    car_recommend2: [{
+    car_recommend2: [
+      {
       point: 'まだ買ったばかりなので、かなり綺麗な方だと思います。運転席は結構広いのでひざを伸ばしても座ることができますよ。後部座席も乗ってみると意外と広いと思います！'
     }],
-    car_recommend3: [{
+    car_recommend3: [
+      {
       point: '後ろの席も結構広いのでゴルフバックなら3つほど入るような感じです。'
-    }],
+      }
+    ],
     pr1: '24h貸し出し可能',
     pr2: 'クルーズコントロール、カーナビ、TOYOTAセーフティ機能付',
     pr3: 'TOYOTAセーフティ機能付',
@@ -67,13 +76,16 @@ const posts = [{
   },
   {
     id: 2,
-    user_info: [{
+    user_info: [
+      {
       name: 'よしぴー',
       pr: '車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！ご質問あれば連絡くださいね。',
       icon: 'https://img.icons8.com/color/452/batman.png'
-    }],
+      }
+    ],
     address: '福岡県福岡市博多区博多駅前',
-    main_images: [{
+    main_images: [
+      {
         photo: 'https://response.jp/imgs/thumb_h2/1368463.jpg',
       },
       {
@@ -86,7 +98,8 @@ const posts = [{
         photo: 'https://toyota.jp/pages/contents/prius/004_p_007/4.0/image/top_conductor_perf.jpg',
       }
     ],
-    car_info: [{
+    car_info: [
+      {
         infomation: '満タン時の走行距離：20km',
       },
       {
@@ -102,7 +115,8 @@ const posts = [{
         infomation: '定員数：5名',
       },
     ],
-    car_recommend1: [{
+    car_recommend1: [
+      {
         point: '24h貸し出しOK',
       },
       {
@@ -115,12 +129,16 @@ const posts = [{
         point: '定員数：5名',
       },
     ],
-    car_recommend2: [{
+    car_recommend2: [
+      {
       point: 'まだ買ったばかりなので、かなり綺麗な方だと思います。運転席は結構広いのでひざを伸ばしても座ることができますよ。後部座席も乗ってみると意外と広いと思います！'
-    }],
-    car_recommend3: [{
+      }
+    ],
+    car_recommend3: [
+      {
       point: '後ろの席も結構広いのでゴルフバックなら3つほど入るような感じです。'
-    }],
+    }
+    ],
     pr1: '24h貸し出し可能',
     pr2: 'クルーズコントロール、カーナビ、TOYOTAセーフティ機能付',
     pr3: 'TOYOTAセーフティ機能付',
@@ -134,13 +152,16 @@ const posts = [{
   },
   {
     id: 3,
-    user_info: [{
+    user_info: [
+      {
       name: 'よしぴー',
       pr: '車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！ご質問あれば連絡くださいね。',
       icon: 'https://img.icons8.com/color/452/batman.png'
-    }],
+      }
+    ],
     address: '福岡県福岡市博多区博多駅前',
-    main_images: [{
+    main_images: [
+      {
         photo: 'https://response.jp/imgs/thumb_h2/1368463.jpg',
       },
       {
@@ -153,7 +174,8 @@ const posts = [{
         photo: 'https://toyota.jp/pages/contents/prius/004_p_007/4.0/image/top_conductor_perf.jpg',
       }
     ],
-    car_info: [{
+    car_info: [
+      {
         infomation: '満タン時の走行距離：20km',
       },
       {
@@ -169,7 +191,8 @@ const posts = [{
         infomation: '定員数：5名',
       },
     ],
-    car_recommend1: [{
+    car_recommend1: [
+      {
         point: '24h貸し出しOK',
       },
       {
@@ -182,12 +205,16 @@ const posts = [{
         point: '定員数：5名',
       },
     ],
-    car_recommend2: [{
+    car_recommend2: [
+      {
       point: 'まだ買ったばかりなので、かなり綺麗な方だと思います。運転席は結構広いのでひざを伸ばしても座ることができますよ。後部座席も乗ってみると意外と広いと思います！'
-    }],
-    car_recommend3: [{
+      }
+    ],
+    car_recommend3: [
+      {
       point: '後ろの席も結構広いのでゴルフバックなら3つほど入るような感じです。'
-    }],
+      }
+    ],
     pr1: '24h貸し出し可能',
     pr2: 'クルーズコントロール、カーナビ、TOYOTAセーフティ機能付',
     pr3: 'TOYOTAセーフティ機能付',
@@ -201,13 +228,16 @@ const posts = [{
   },
   {
     id: 4,
-    user_info: [{
+    user_info: [
+      {
       name: 'よしぴー',
       pr: '車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！ご質問あれば連絡くださいね。',
       icon: 'https://img.icons8.com/color/452/batman.png'
-    }],
+      }
+    ],
     address: '福岡県福岡市博多区博多駅前',
-    main_images: [{
+    main_images: [
+      {
         photo: 'https://response.jp/imgs/thumb_h2/1368463.jpg',
       },
       {
@@ -220,7 +250,8 @@ const posts = [{
         photo: 'https://toyota.jp/pages/contents/prius/004_p_007/4.0/image/top_conductor_perf.jpg',
       }
     ],
-    car_info: [{
+    car_info: [
+      {
         infomation: '満タン時の走行距離：20km',
       },
       {
@@ -236,7 +267,8 @@ const posts = [{
         infomation: '定員数：5名',
       },
     ],
-    car_recommend1: [{
+    car_recommend1: [
+      {
         point: '24h貸し出しOK',
       },
       {
@@ -249,12 +281,16 @@ const posts = [{
         point: '定員数：5名',
       },
     ],
-    car_recommend2: [{
+    car_recommend2: [
+      {
       point: 'まだ買ったばかりなので、かなり綺麗な方だと思います。運転席は結構広いのでひざを伸ばしても座ることができますよ。後部座席も乗ってみると意外と広いと思います！'
-    }],
-    car_recommend3: [{
+      }
+    ],
+    car_recommend3: [
+      {
       point: '後ろの席も結構広いのでゴルフバックなら3つほど入るような感じです。'
-    }],
+      }
+    ],
     pr1: '24h貸し出し可能',
     pr2: 'クルーズコントロール、カーナビ、TOYOTAセーフティ機能付',
     pr3: 'TOYOTAセーフティ機能付',
@@ -268,13 +304,16 @@ const posts = [{
   },
   {
     id: 5,
-    user_info: [{
+    user_info: [
+      {
       name: 'よしぴー',
       pr: '車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！ご質問あれば連絡くださいね。',
       icon: 'https://img.icons8.com/color/452/batman.png'
-    }],
+      }
+    ],
     address: '福岡県福岡市博多区博多駅前',
-    main_images: [{
+    main_images: [
+      {
         photo: 'https://response.jp/imgs/thumb_h2/1368463.jpg',
       },
       {
@@ -287,7 +326,8 @@ const posts = [{
         photo: 'https://toyota.jp/pages/contents/prius/004_p_007/4.0/image/top_conductor_perf.jpg',
       }
     ],
-    car_info: [{
+    car_info: [
+      {
         infomation: '満タン時の走行距離：20km',
       },
       {
@@ -303,7 +343,8 @@ const posts = [{
         infomation: '定員数：5名',
       },
     ],
-    car_recommend1: [{
+    car_recommend1: [
+      {
         point: '24h貸し出しOK',
       },
       {
@@ -316,12 +357,16 @@ const posts = [{
         point: '定員数：5名',
       },
     ],
-    car_recommend2: [{
+    car_recommend2: [
+      {
       point: 'まだ買ったばかりなので、かなり綺麗な方だと思います。運転席は結構広いのでひざを伸ばしても座ることができますよ。後部座席も乗ってみると意外と広いと思います！'
-    }],
-    car_recommend3: [{
+      }
+    ],
+    car_recommend3: [
+      {
       point: '後ろの席も結構広いのでゴルフバックなら3つほど入るような感じです。'
-    }],
+      }
+    ],
     pr1: '24h貸し出し可能',
     pr2: 'クルーズコントロール、カーナビ、TOYOTAセーフティ機能付',
     pr3: 'TOYOTAセーフティ機能付',
@@ -335,13 +380,16 @@ const posts = [{
   },
   {
     id: 6,
-    user_info: [{
+    user_info: [
+      {
       name: 'よしぴー',
       pr: '車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！ご質問あれば連絡くださいね。',
       icon: 'https://img.icons8.com/color/452/batman.png'
-    }],
+      }
+    ],
     address: '福岡県福岡市博多区博多駅前',
-    main_images: [{
+    main_images: [
+      {
         photo: 'https://response.jp/imgs/thumb_h2/1368463.jpg',
       },
       {
@@ -354,7 +402,8 @@ const posts = [{
         photo: 'https://toyota.jp/pages/contents/prius/004_p_007/4.0/image/top_conductor_perf.jpg',
       }
     ],
-    car_info: [{
+    car_info: [
+      {
         infomation: '満タン時の走行距離：20km',
       },
       {
@@ -370,7 +419,8 @@ const posts = [{
         infomation: '定員数：5名',
       },
     ],
-    car_recommend1: [{
+    car_recommend1: [
+      {
         point: '24h貸し出しOK',
       },
       {
@@ -383,12 +433,16 @@ const posts = [{
         point: '定員数：5名',
       },
     ],
-    car_recommend2: [{
+    car_recommend2: [
+      {
       point: 'まだ買ったばかりなので、かなり綺麗な方だと思います。運転席は結構広いのでひざを伸ばしても座ることができますよ。後部座席も乗ってみると意外と広いと思います！'
-    }],
-    car_recommend3: [{
+      }
+    ],
+    car_recommend3: [
+      {
       point: '後ろの席も結構広いのでゴルフバックなら3つほど入るような感じです。'
-    }],
+      }
+    ],
     pr1: '24h貸し出し可能',
     pr2: 'クルーズコントロール、カーナビ、TOYOTAセーフティ機能付',
     pr3: 'TOYOTAセーフティ機能付',
@@ -402,13 +456,16 @@ const posts = [{
   },
   {
     id: 7,
-    user_info: [{
+    user_info: [
+      {
       name: 'よしぴー',
       pr: '車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！ご質問あれば連絡くださいね。',
       icon: 'https://img.icons8.com/color/452/batman.png'
-    }],
+      }
+    ],
     address: '福岡県福岡市博多区博多駅前',
-    main_images: [{
+    main_images: [
+      {
         photo: 'https://response.jp/imgs/thumb_h2/1368463.jpg',
       },
       {
@@ -421,7 +478,8 @@ const posts = [{
         photo: 'https://toyota.jp/pages/contents/prius/004_p_007/4.0/image/top_conductor_perf.jpg',
       }
     ],
-    car_info: [{
+    car_info: [
+      {
         infomation: '満タン時の走行距離：20km',
       },
       {
@@ -437,7 +495,8 @@ const posts = [{
         infomation: '定員数：5名',
       },
     ],
-    car_recommend1: [{
+    car_recommend1: [
+      {
         point: '24h貸し出しOK',
       },
       {
@@ -450,12 +509,16 @@ const posts = [{
         point: '定員数：5名',
       },
     ],
-    car_recommend2: [{
+    car_recommend2: [
+      {
       point: 'まだ買ったばかりなので、かなり綺麗な方だと思います。運転席は結構広いのでひざを伸ばしても座ることができますよ。後部座席も乗ってみると意外と広いと思います！'
-    }],
-    car_recommend3: [{
+      }
+    ],
+    car_recommend3: [
+      {
       point: '後ろの席も結構広いのでゴルフバックなら3つほど入るような感じです。'
-    }],
+      }
+    ],
     pr1: '24h貸し出し可能',
     pr2: 'クルーズコントロール、カーナビ、TOYOTAセーフティ機能付',
     pr3: 'TOYOTAセーフティ機能付',

@@ -21,7 +21,7 @@ const router = new VueRouter({
     { path: "/post", component: PostPage, meta: { requiresAuth: true } },
     { path: "/:en_name", component: PostList },
     { path: "/post/:id", component: PostDetail },
-    { path: "/profile", component: ProfilePage },
+    { path: "/profile/:username", component: ProfilePage },
     { path: "*", redirect: "/" },
   ],
 });

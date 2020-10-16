@@ -33,6 +33,7 @@ const authModule = {
     signup(context, payload) {
       return api.post('/auth/users/', {
           'email': payload.email,
+          'username': payload.username,
           'password': payload.password
         })
     },

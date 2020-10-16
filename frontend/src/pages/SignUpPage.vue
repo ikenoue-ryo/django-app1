@@ -25,18 +25,17 @@
                   ></v-text-field>
                 </v-col>
 
-                <!-- <v-col
+                <v-col
                   cols="12"
                   md="12"
                 >
                   <v-text-field
-                    v-model="form.profname"
-                    :rules="form.nameRules"
-                    :counter="10"
+                    type="text"
+                    v-model="form.username"
                     label="ユーザーネーム"
                     required
                   ></v-text-field>
-                </v-col> -->
+                </v-col>
 
                 <v-col
                   cols="12"
@@ -93,9 +92,8 @@ export default {
     return {
       form: {
         valid: false,
-        // profname: '',
+        username: '',
         password: '',
-        // password2: '',
         nameRules: [
           v => !!v || 'Name is required',
           v => v.length <= 10 || 'Name must be less than 10 characters',
@@ -114,6 +112,7 @@ export default {
         // サインアップ
         this.$store.dispatch('auth/signup', {
           email: this.form.email,
+          username: this.form.username,
           password: this.form.password
         })
           .then(() => {
