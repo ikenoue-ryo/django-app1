@@ -1,46 +1,33 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from django.utils.translation import ugettext_lazy as _
-from .models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.translation import gettext as _
+from users import models
 
-class MyUserChangeForm(UserChangeForm):
-    """User 情報を変更するフォーム"""
 
-    class Meta:
-        model = User
-        fields = '__all__'
-
-class MyUserCreationForm(UserCreationForm):
-    """User を作成するフォーム"""
-
-    class Meta:
-        model = User
-        fields = ('email', 'profname')
-
-class MyUserAdmin(UserAdmin):
-    """カスタムユーザーモデルの Admin"""
-
+class UserAdmin(BaseUserAdmin):
+    ordering = ['id']
+    list_display = ['email','username']
     fieldsets = (
-    (None, {'fields': ('email', 'profname', 'password')}),
-    (_('Permissions'), {'fields': ('is_active', 'is_staff',
-                        'is_superuser',
-                        'groups',
-                        'user_permissions')}),
-    (_('Important dates'), {'fields': ('last_login',
-                        'date_joined')}),
+        (None, {'fields': ('email', 'password')}),
+        (_('Personal Info'), {'fields': ('username',)}),
+        (
+            _('Permissions'),
+            {
+                'fields': (
+                    'is_active',
+                    'is_staff',
+                    'is_superuser',
+                )
+            }
+        ),
+        (_('Important dates'), {'fields': ('last_login',)}),
     )
     add_fieldsets = (
         (None, {
-        'classes': ('wide',),
-        'fields': ('email', 'profname', 'password1', 'password2'),
+            'classes': ('wide',),
+            'fields': ('email','username', 'password1','password2')
         }),
     )
-    form = MyUserChangeForm
-    add_form = MyUserCreationForm
-    list_display = ('email', 'is_staff')
-    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
-    search_fields = ('email',)
-    ordering = ('email',)
 
-admin.site.register(User, MyUserAdmin)
+admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Profile)
