@@ -4,10 +4,14 @@
     <GlobalHeader />
 
     <h2>Profile</h2>
+
     <v-card
       class="card_style"
       max-width="800"
     >
+    <ul v-for="profile in profiles" :key="profile">
+      <li>{{profile}}</li>
+    </ul>
       <v-form v-model="form.valid" @submit.prevent="submitLogin">
         <v-layout wrap>
           <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png" width="115" class="sticky"></v-flex>
@@ -26,9 +30,7 @@
                   md="12"
                 >
                   <h2>自己紹介</h2>
-                  <p>車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！
-                     ご質問あれば連絡くださいね。
-                  </p>
+                  <p></p>
                 </v-col>
 
                 <div class="border_line"></div>
@@ -136,7 +138,7 @@
                       md="10"
                       class="pa-0 review"
                     >
-                    <h3>スーパーマン</h3>
+                    <h3>スーパーマン</h3>{{ id }}
                     <p>とても清潔な車でした！乗り心地も良くて購入しようか迷うぐらいです。ありがとうございました！</p>
                     </v-col>
                   </v-row>
@@ -162,7 +164,8 @@
 <script>
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import PrFooter from '@/components/PrFooter.vue'
-import GoogleMapsApiLoader from 'google-maps-api-loader';
+import GoogleMapsApiLoader from 'google-maps-api-loader'
+import axios from 'axios'
 
 export default {
   name: 'Map',
@@ -182,9 +185,7 @@ export default {
       },
       form: {
         valid: false,
-        // profname: '',
         password: '',
-        // password2: '',
         nameRules: [
           v => !!v || 'Name is required',
           v => v.length <= 10 || 'Name must be less than 10 characters',
@@ -199,6 +200,14 @@ export default {
       menu: false,
       message: false,
       hints: true,
+      // profile
+      results: [],
+      post_form: {
+        posts: {
+          title: '',
+          text: '',
+        }
+      }
     }
   },
   async mounted(){
@@ -206,6 +215,9 @@ export default {
           apiKey: ''
         });
         this.initializeMap();
+        //profile
+        axios.get('http://localhost:8000/api/v1/profile/')
+        .then(response => { this.results = response.data })
       },
   methods: {
       initializeMap(){
@@ -229,9 +241,21 @@ export default {
   },
   computed: {
     username(){
+      //ryo
       return this.$route.params.username
+    },
+    auth_id(){
+      // 1
+      console.log('ログインユーザーID', this.$store.getters['auth/id'])
+      // ryo
+      console.log('ユーザーネーム', this.$store.getters['auth/username'])
+      return this.$store.getters['auth/id']
+    },
+    profiles(){
+      const profiles = this.results.find(results => results.username === this.auth_id);
+      return profiles
     }
-  }
+  },
 }
 </script>
 
@@ -261,6 +285,10 @@ export default {
     margin: 30px auto;
     padding: 50px;
     border-top: 5px solid #33b5e5;
+
+    img {
+      width: 150px;
+    }
 
     h1{
       font-size: 2.0rem;

@@ -5,6 +5,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('posts', views.PostViewSet)
+router.register('profile', views.ProfileViewSet)
 
 app_name = 'apiv1'
 urlpatterns = [

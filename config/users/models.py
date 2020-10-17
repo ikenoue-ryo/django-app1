@@ -2,10 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.conf import settings
+from app.models import Post
 
-def upload_path(instance, filename):
-    ext = filename.split('.')[-1]
-    return '/'.join(['image', str(instance.userpro.id)+str(instance.nickname)+str(".")+str(ext)])
 
 class UserManager(BaseUserManager):
 
@@ -41,6 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
+    #iconを必須に設定
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
@@ -48,16 +47,21 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    nickname = models.CharField(max_length=20)
+    # nickname = models.CharField(max_length=20, null=True, blank=True)
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    introduction = models.TextField(null=True, blank=True)
+    address = models.CharField(max_length=50, null=True, blank=True)
+    post = models.ForeignKey(Post, verbose_name='投稿', null=True, blank=True, on_delete=models.CASCADE)
     userpro = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name='userpro',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True, blank=True
     )
     created_on = models.DateTimeField(auto_now_add=True)
     friends = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='friends',
     )
-    img = models.ImageField(blank=True, null=True, upload_to=upload_path)
+    icon = models.ImageField(upload_to="image/", null=True, blank=True)
 
     def __str__(self):
-        return self.nickname
+        return self.username

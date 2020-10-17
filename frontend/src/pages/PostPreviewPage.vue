@@ -4,31 +4,44 @@
       <GlobalHeader />
 
       <h2>Post Preview</h2>
-      {{ results }}
+
+      <div class="sns_photo">
+        <!-- SNSアイコン -->
+        <div class="sns_back clearfix">
+          <div class="sns_icons">
+            <v-fa :icon="['fab', 'facebook']" class="fb_icon" />
+            <v-fa :icon="['fab', 'twitter']"  class="tw_icon" />
+            <v-fa :icon="['fab', 'instagram']" class="ig_icon" />
+            <v-fa :icon="['fab', 'linkedin']" class="li_icon" />
+            <v-fa :icon="['fab', 'pinterest']" class="pi_icon" />
+          </div>
+        </div>
+        <!-- SNSアイコン -->
+      </div>
+
       <v-card
         class="card_style"
         max-width="800"
       >
-      <div>
-        <div v-for="result in results" :key="result">
-          <div v-html="result.text" class="post_text"></div>
+        <div>
+          <div v-html="post.text" class="post_text"></div>
         </div>
-      </div>
-      </v-card>
 
-      <!-- <v-layout wrap class="profile" v-for="(user, index) in post.user_info" :key="index">
-        <v-flex xs12 sm6 md2>
-          <div class="icon">
-            <img :src="user.icon">
-          </div>
-        </v-flex>
-        <v-flex xs12 sm6 md10>
-          <div class="pr_profile">
-            <p class="prof_name">{{ user.name }}</p>
-            <p>{{ user.pr }}</p>
-          </div>
-        </v-flex>
-      </v-layout> -->
+        <v-layout wrap class="profile">
+          <v-flex xs12 sm6 md2>
+            <div class="icon">
+              <img src="">
+            </div>
+          </v-flex>
+          <v-flex xs12 sm6 md10>
+            <div class="pr_profile">
+              <p class="prof_name">{{ username }}</p>
+              <p></p>
+            </div>
+          </v-flex>
+        </v-layout>
+
+      </v-card>
 
       <PrFooter/>
     </div>
@@ -85,6 +98,24 @@ export default {
           this.$router.replace(next)
         })
     }
+  },
+  computed: {
+    user_id() {
+      console.log('ログインユーザーID', this.$store.getters['auth/id'])
+      return this.$store.getters['auth/id']
+    },
+    username(){
+      return this.$store.getters['auth/username']
+    },
+    id(){
+      console.log('投稿ID', this.$route.params.id)
+      return Number(this.$route.params.id);
+    },
+    post(){
+      const post = this.results.find(results => results.id === this.id);
+      return post
+    }
+
   }
 };
 </script>
@@ -95,6 +126,7 @@ export default {
 p{
     font-size: 1.2rem;
     font-family: Rubik, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", BlinkMacSystemFont, YuGothic, "Yu Gothic", sans-serif;
+    line-height: 2.0;
   }
 
 img{
@@ -109,7 +141,7 @@ ul{
 li{
   font-size: 1.2rem;
   font-family: Rubik, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", BlinkMacSystemFont, YuGothic, "Yu Gothic", sans-serif;
-  line-height: 1.5;
+  line-height: 2.5;
 }
 
 h1{
@@ -169,4 +201,69 @@ h3{
 .v-input{
   font-size: 3rem;
 }
+
+.sns_back {
+  display: inline-block;
+  float: left;
+}
+
+
+.sns_photo{
+  width: 780px;
+  margin: 0 auto;
+
+  .blog_text{
+    font-size: 1.2rem;
+    padding: 20px;
+
+    h2{
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-align: left;
+      margin: 20px 0;
+    }
+
+    img{
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    ul{
+      line-height: 2.5;
+    }
+
+    p{
+      line-height: 2;
+    }
+  }
+}
+
+
+
+.sns_back .sns_icons {
+  font-size: 2.5rem;
+  width: 50px;
+  display: inline-block;
+  float: left;
+  position: relative;
+  right: 90px;
+
+  .fb_icon{
+    color: #3b5998;
+  }
+  .tw_icon{
+    color: #2196f3;
+  }
+  .ig_icon{
+    color: #e91e63;
+  }
+  .li_icon{
+    color: #2867B2;
+  }
+  .pi_icon{
+    color: #f44336;
+  }
+}
+
 </style>

@@ -9,7 +9,19 @@
     >
       <v-form v-model="form.valid" @submit.prevent="submitSignup">
         <v-layout wrap>
-          <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png" width="115"></v-flex>
+          <v-flex xs12 sm6 md3>
+            <div class="file_input">
+              <label class="input-item__label">
+                <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
+                <input type="file" ref="preview" @change="uploadFile" v-show="show">
+              </label>
+            </div>
+
+            <div class="image_area" v-if="url" style="position:relative">
+              <div style="position:absolute" @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
+              <img :src="url">
+            </div>
+          </v-flex>
           <v-flex xs12 sm6 md9>
             <v-container>
               <v-row>
@@ -103,7 +115,9 @@ export default {
           v => !!v || 'E-mail is required',
           v => /.+@.+/.test(v) || 'E-mail must be valid',
         ],
-      }
+      },
+      url: '',
+      show: true,
     }
   },
   methods: {
@@ -122,13 +136,39 @@ export default {
             const next = this.$route.query.next || '/login'
             this.$router.replace(next)
           })
-      }
+      },
+      uploadFile(){
+        const file = this.$refs.preview.files[0];
+        this.url = URL.createObjectURL(file);
+        this.$refs.preview.value = '';
+        // 画像のアップ時にfileinputを消す
+        this.show = !this.show
+      },
+      deletePreview(){
+        this.url = '';
+        // ファイルアップロードの復活
+        this.show = !this.show
+      },
     }
 }
 </script>
 
 
 <style lang="scss" scoped>
+label > input {
+  display: none;
+}
+
+label {
+  padding: 0 1rem;
+} 
+
+label::after {
+  font-size: 1rem;
+  color: #888;
+  padding-left: 1rem;
+}
+
 .back_body{
   background-color: #eee;
   overflow: hidden;
@@ -147,6 +187,29 @@ export default {
     margin: 30px auto;
     padding: 50px;
     border-top: 5px solid #33b5e5;
+
+    img {
+      width: 150px;
+    }
+
+    p{
+      font-size: 1.0 rem;
+    }
+
+    .file_input{
+      position: relative;
+      top: 70px;
+    }
+
+    // button{
+    //   font-size: 4rem;
+    //   position: relative;
+    //   top: 50px;
+    //   left: 50px;
+    //   border: 1px solid #999;
+    //   border-radius: 65px;
+    //   padding: 30px;
+    // }
 
     .back-color{
       button.start{
@@ -178,5 +241,25 @@ export default {
       transition: 0.5s;
     }
   }
+}
+
+.file_input{
+
+  border: 1px solid #999;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+
+  .camera_icon{
+    font-size: 3rem;
+    position: relative;
+    top: 23px;
+  }
+}
+
+.image_area{
+  position: relative;
+  bottom: 100px;
+  right: 20px;
 }
 </style>

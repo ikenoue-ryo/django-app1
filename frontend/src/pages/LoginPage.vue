@@ -118,6 +118,10 @@ export default {
     padding: 50px;
     border-top: 5px solid #33b5e5;
 
+    img {
+      width: 120px;
+    }
+
     .back-color{
       button.start{
         background-color: #329eff!important;

@@ -8,17 +8,11 @@
       max-width="800"
     >
 
-    <form @submit.prevent="submitPost" class="form_class">
-      <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
-      <button type="submit">送信</button>
-    </form>
-    <br><br><br>
-    【出力結果】
-    <ul>
-    <li v-for="result in results" :key="result">
-      <p v-html="result.text"></p>
-    </li>
-    </ul>
+
+      <form @submit.prevent="submitPost" class="form_class">
+        <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
+        <button type="submit">送信</button>
+      </form>
     </v-card>
 
     <PrFooter/>
@@ -65,20 +59,25 @@ export default {
         url: '/posts/',
         data: {
           'id': this.form.posts.id,
-          'author': 1,
+          'author': this.$store.getters['auth/id'],
           'title': this.form.posts.title,
           'text': this.form.posts.text,
         }
       })
         .then(response => {
           this.form.posts = response.data
-          console.log('これ', this.form.posts)
+          console.log(this.form.posts)
           console.log('Post succeeded.')
           this.$store.dispatch('message/setInfoMessage', { message: '投稿しました。' })
-          const next = this.$route.query.next || 'post_preview'
+          const next = this.$route.query.next || 'post_preview/' + this.form.posts.id
           this.$router.replace(next)
         })
     }
+  },
+  computed: {
+    username() {
+      return this.$store.getters['auth/username']
+    },
   }
 };
 </script>
@@ -105,6 +104,7 @@ export default {
 .ql-editor ol, .ql-editor ul {
   padding-left: 0;
   font-size: 1.4rem;
+  line-height: 2.5;
 }
 
 img{
