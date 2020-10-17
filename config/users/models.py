@@ -39,7 +39,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
-    #iconを必須に設定
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
@@ -48,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     # nickname = models.CharField(max_length=20, null=True, blank=True)
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=50, null=True, blank=True)
     introduction = models.TextField(null=True, blank=True)
     address = models.CharField(max_length=50, null=True, blank=True)
     post = models.ForeignKey(Post, verbose_name='投稿', null=True, blank=True, on_delete=models.CASCADE)
@@ -63,5 +62,5 @@ class Profile(models.Model):
     )
     icon = models.ImageField(upload_to="image/", null=True, blank=True)
 
-    def __str__(self):
-        return self.username
+    # def __str__(self):
+    #     return self.username

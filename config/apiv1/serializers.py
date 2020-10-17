@@ -13,5 +13,5 @@ class PostSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['username', 'introduction', 'address', 'userpro', 'post', 'icon']
+        fields = ['id', 'username', 'introduction', 'address', 'userpro', 'post', 'icon']
         # extra_kwargs = {'userpro': { 'read_only': True }}

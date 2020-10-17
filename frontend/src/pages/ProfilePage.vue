@@ -4,17 +4,13 @@
     <GlobalHeader />
 
     <h2>Profile</h2>
-
     <v-card
       class="card_style"
       max-width="800"
     >
-    <ul v-for="profile in profiles" :key="profile">
-      <li>{{profile}}</li>
-    </ul>
       <v-form v-model="form.valid" @submit.prevent="submitLogin">
         <v-layout wrap>
-          <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png" width="115" class="sticky"></v-flex>
+          <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png" width="115" class="sticky" style="width:150px;"></v-flex>
           <v-flex xs12 sm6 md9>
             <v-container>
               <v-row>
@@ -30,7 +26,9 @@
                   md="12"
                 >
                   <h2>自己紹介</h2>
-                  <p></p>
+                  <p>車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！
+                     ご質問あれば連絡くださいね。
+                  </p>
                 </v-col>
 
                 <div class="border_line"></div>
@@ -248,12 +246,15 @@ export default {
       // 1
       console.log('ログインユーザーID', this.$store.getters['auth/id'])
       // ryo
-      console.log('ユーザーネーム', this.$store.getters['auth/username'])
+      console.log('ユーザーネーム？', this.$store.getters['auth/username'])
+      console.log('results', this.results)
+      
       return this.$store.getters['auth/id']
     },
     profiles(){
-      const profiles = this.results.find(results => results.username === this.auth_id);
-      return profiles
+      const profiles = this.results.find(results => results.username === this.$route.params.username);
+      console.log(profiles)
+      return this.profiles
     }
   },
 }
@@ -285,10 +286,6 @@ export default {
     margin: 30px auto;
     padding: 50px;
     border-top: 5px solid #33b5e5;
-
-    img {
-      width: 150px;
-    }
 
     h1{
       font-size: 2.0rem;
