@@ -30,8 +30,8 @@
                     color="primary"
                   >
                     <v-list-item
-                      v-for="car_type in filterdCarTypes"
-                      :key="car_type"
+                      v-for="(car_type, index) in filterdCarTypes"
+                      :key="index"
                       :href="car_type.en_name"
                     >
                       <v-list-item-icon style="margin-right:20px;">

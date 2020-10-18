@@ -116,7 +116,7 @@ import GlobalFooter from '../components/GlobalFooter'
 import posts from '../pages/postLists';
 
 
-export default{
+export default {
   components:{
     GlobalHeader,
     GlobalFooter,

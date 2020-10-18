@@ -4,6 +4,8 @@
     <GlobalHeader />
 
     <h2>Profile</h2>
+    <p>{{ user_info }}</p>
+
     <v-card
       class="card_style"
       max-width="800"
@@ -136,7 +138,7 @@
                       md="10"
                       class="pa-0 review"
                     >
-                    <h3>スーパーマン</h3>{{ id }}
+                    <h3>スーパーマン</h3>
                     <p>とても清潔な車でした！乗り心地も良くて購入しようか迷うぐらいです。ありがとうございました！</p>
                     </v-col>
                   </v-row>
@@ -171,7 +173,7 @@ export default {
     GlobalHeader,
     PrFooter,
   },
-  data (){
+  data(){
     return {
       google: null,
       mapConfig: {
@@ -238,24 +240,16 @@ export default {
       }
   },
   computed: {
-    username(){
-      //ryo
-      return this.$route.params.username
+    user_info(){
+      console.log('全オブジェクト', this.results)
+      const users = this.results.find(results => results.username === this.$route.params.username);
+      console.log('users', users)
+      return users
     },
-    auth_id(){
-      // 1
-      console.log('ログインユーザーID', this.$store.getters['auth/id'])
-      // ryo
-      console.log('ユーザーネーム？', this.$store.getters['auth/username'])
-      console.log('results', this.results)
-      
-      return this.$store.getters['auth/id']
+    address(){
+      const results = this.results.find(results => results.username === this.$route.params.username);
+      return results
     },
-    profiles(){
-      const profiles = this.results.find(results => results.username === this.$route.params.username);
-      console.log(profiles)
-      return this.profiles
-    }
   },
 }
 </script>
