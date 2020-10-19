@@ -42,6 +42,9 @@
               <div class="back-color">
                   <v-btn type="submit" class="start">ログイン</v-btn>
               </div>
+              <div class="signup_page">
+                <a href="signup"><p>アカウント作成はこちら</p></a>
+              </div>
             </v-container>
           </v-flex>
 
@@ -133,6 +136,24 @@ export default {
         text-decoration: none;
         outline: none;
       }
+    }
+  }
+}
+
+.signup_page{
+  p{
+    color: #329eff;
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  a{
+    text-decoration: none;
+
+    :hover{
+      opacity: 0.8;
+      transition: 0.5s;
     }
   }
 }

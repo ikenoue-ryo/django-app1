@@ -215,7 +215,9 @@ export default {
       return this.$store.getters['auth/username']
     },
     user_profile(){
-      const profiles = this.profiles.find(profiles => profiles.username === this.username)
+      console.log(this.profiles)
+      console.log(this.profiles.userpro)
+      const profiles = this.profiles.find(profiles => profiles.userpro === this.$store.getters['auth/id'])
       if(!profiles){
         return {
           title: '見つかりません',

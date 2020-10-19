@@ -121,35 +121,35 @@ export default {
     }
   },
   methods: {
-      // サインアップボタン押下
-      submitSignup: function () {
-        // サインアップ
-        this.$store.dispatch('auth/signup', {
-          email: this.form.email,
-          username: this.form.username,
-          password: this.form.password
+    // サインアップボタン押下
+    submitSignup: function () {
+      // サインアップ
+      this.$store.dispatch('auth/signup', {
+        email: this.form.email,
+        username: this.form.username,
+        password: this.form.password
+      })
+        .then(() => {
+          console.log('Signup succeeded.')
+          this.$store.dispatch('message/setInfoMessage', { message: 'サインアップしました。' })
+          // クエリ文字列に「next」がなければ、ホーム画面へ
+          const next = this.$route.query.next || '/login'
+          this.$router.replace(next)
         })
-          .then(() => {
-            console.log('Signup succeeded.')
-            this.$store.dispatch('message/setInfoMessage', { message: 'サインアップしました。' })
-            // クエリ文字列に「next」がなければ、ホーム画面へ
-            const next = this.$route.query.next || '/login'
-            this.$router.replace(next)
-          })
-      },
-      uploadFile(){
-        const file = this.$refs.preview.files[0];
-        this.url = URL.createObjectURL(file);
-        this.$refs.preview.value = '';
-        // 画像のアップ時にfileinputを消す
-        this.show = !this.show
-      },
-      deletePreview(){
-        this.url = '';
-        // ファイルアップロードの復活
-        this.show = !this.show
-      },
-    }
+    },
+    uploadFile(){
+      const file = this.$refs.preview.files[0];
+      this.url = URL.createObjectURL(file);
+      this.$refs.preview.value = '';
+      // 画像のアップ時にfileinputを消す
+      this.show = !this.show
+    },
+    deletePreview(){
+      this.url = '';
+      // ファイルアップロードの復活
+      this.show = !this.show
+    },
+  },
 }
 </script>
 

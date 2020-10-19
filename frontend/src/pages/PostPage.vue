@@ -61,8 +61,7 @@ export default {
         url: '/posts/',
         data: {
           'id': this.form.posts.id,
-          // 'profile': 1,
-          'profile': this.$store.getters['auth/id'],
+          'author': this.$store.getters['auth/id'],
           'title': this.form.posts.title,
           'text': this.form.posts.text,
         }
