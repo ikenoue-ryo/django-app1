@@ -8,7 +8,7 @@
       class="card_style"
       max-width="800"
     >
-      <v-form v-model="form.valid" @submit.prevent="submitLogin">
+      
         <v-layout wrap>
           <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png" width="115" class="sticky" style="width:150px;"></v-flex>
           <v-flex xs12 sm6 md9>
@@ -18,6 +18,75 @@
                   cols="12"
                   md="12"
                 >
+                <!-- モーダル -->
+                <div class="text-center">
+                  <v-dialog
+                    v-model="dialog"
+                    width="500"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text
+                        color="red lighten-2"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                    <p class="text-lg-right">編集</p>
+                    </v-text>
+                    </template>
+
+                    <v-card>
+                      <form @submit.prevent="submitPost">
+                      <v-flex xs12 sm6 md9>
+                        <v-container>
+                          <v-row>
+                            <v-col
+                              cols="12"
+                              md="12"
+                            >
+                              <v-text-field
+                                v-model="form.edit.introduction"
+                                label="自己紹介"
+                                required
+                              ></v-text-field>
+                            </v-col>
+<!-- 
+                            <v-col
+                              cols="12"
+                              md="12"
+                            >
+                              <v-text-field
+                                type="text"
+                                v-model="form.username"
+                                label="ユーザーネーム"
+                                required
+                              ></v-text-field>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              md="12"
+                            >
+                              <v-text-field
+                                v-model="form.password"
+                                type="password"
+                                label="パスワード"
+                                required
+                              ></v-text-field>
+                            </v-col> -->
+
+                          </v-row>
+                          <div class="back-color">
+                              <button type="submit" class="start">保存</button>
+                          </div>
+                        </v-container>
+                      </v-flex>
+                      </form>
+                    </v-card>
+                  </v-dialog>
+                </div>
+                <!-- モーダル -->
+
                   <h1>こんにちは、{{ username }} です</h1>
                 </v-col>
 
@@ -126,7 +195,6 @@
           </v-flex>
 
         </v-layout>
-      </v-form>
     </v-card>
 
     <PrFooter />
@@ -140,6 +208,7 @@
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
+import api from '@/services/api'
 
 export default {
   name: 'Map',
@@ -149,6 +218,8 @@ export default {
   },
   data(){
     return {
+      dialog: false,
+      
       google: null,
       mapConfig: {
         center: {
@@ -169,6 +240,9 @@ export default {
           v => !!v || 'E-mail is required',
           v => /.+@.+/.test(v) || 'E-mail must be valid',
         ],
+        edit: {
+          introduction: '',
+        }
       },
       fav: true,
       menu: false,
@@ -206,6 +280,23 @@ export default {
           this.$store.dispatch('message/setInfoMessage', { message: 'ログインしました。' })
           // クエリ文字列に「next」がなければ、ホーム画面へ
           const next = this.$route.query.next || '/'
+          this.$router.replace(next)
+        })
+    },
+    //プロフィール
+    submitPost: function(){
+      api({
+        method: 'post',
+        url: '/profile/',
+        data: {
+          // 'userpro': this.$store.getters['auth/id'],
+          'introduction': this.form.edit.introduction
+        }
+      })
+        .then(response => {
+          this.form.edit = response.data
+          this.$store.dispatch('message/setInfoMessage', { message: '投稿しました。' })
+          const next = this.$route.query.next || 'post/'
           this.$router.replace(next)
         })
     }
