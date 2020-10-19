@@ -4,8 +4,6 @@
     <GlobalHeader />
 
     <h2>Profile</h2>
-    <p>{{ user_info }}</p>
-
     <v-card
       class="card_style"
       max-width="800"
@@ -28,9 +26,7 @@
                   md="12"
                 >
                   <h2>自己紹介</h2>
-                  <p>車好きの中でも車を愛している方です！いつも車内を綺麗に掃除するのが日課になってます。笑 ぜひ、僕の愛車で旅行などを楽しんでもらえたら嬉しいです！
-                     ご質問あれば連絡くださいね。
-                  </p>
+                  <p>{{ user_profile.introduction }}</p>
                 </v-col>
 
                 <div class="border_line"></div>
@@ -88,9 +84,8 @@
                 <h2>駐車場</h2>
                   <v-row class="parking_area">
                       <v-fa :icon="['fas', 'parking']" class="parking_icon sns_icons" />
-                    <p class="ma-2">福岡県福岡市博多区</p>
+                    <p class="ma-2">{{ user_profile.address }}</p>
                   </v-row>
-                <div class="map" ref="googleMap" />
                 </v-col>
 
 
@@ -105,7 +100,7 @@
                   <v-fa :icon="['far', 'comments']" class="parking_icon sns_icons" />
                   <p class="ma-2">120 件</p>
                   </v-row>
-                  <v-row>
+                  <v-row v-for="comment in user_comments" :key="comment.id">
                     <v-col
                       cols="2"
                       md="2"
@@ -119,31 +114,11 @@
                       md="10"
                       class="pa-0 review"
                     >
-                    <h3>スパイダーマン</h3>
-                    <p>とても清潔な車でした！乗り心地も良くて購入しようか迷うぐらいです。ありがとうございました！</p>
+                    <h3>{{ comment.author }}</h3>
+                    <p>{{ comment.comment }}</p>
                     </v-col>
+                    <div class="border_line mb-5"></div>
                   </v-row>
-                  <div class="border_line mb-5"></div>
-                  <v-row>
-                    <v-col
-                      cols="2"
-                      md="2"
-                    >
-                    <div class="profile_icons">
-                      <img src="http://localhost:8080/img/superman.1aa320f6.png">
-                    </div>
-                    </v-col>
-                    <v-col
-                      cols="10"
-                      md="10"
-                      class="pa-0 review"
-                    >
-                    <h3>スーパーマン</h3>
-                    <p>とても清潔な車でした！乗り心地も良くて購入しようか迷うぐらいです。ありがとうございました！</p>
-                    </v-col>
-                  </v-row>
-                  <div class="border_line mb-5"></div>
-
                 </v-col>
 
               </v-row>
@@ -164,7 +139,6 @@
 <script>
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import PrFooter from '@/components/PrFooter.vue'
-import GoogleMapsApiLoader from 'google-maps-api-loader'
 import axios from 'axios'
 
 export default {
@@ -200,8 +174,8 @@ export default {
       menu: false,
       message: false,
       hints: true,
-      // profile
-      results: [],
+      profiles: [],
+      comments: [],
       post_form: {
         posts: {
           title: '',
@@ -210,46 +184,51 @@ export default {
       }
     }
   },
-  async mounted(){
-        this.google = await GoogleMapsApiLoader({
-          apiKey: ''
-        });
-        this.initializeMap();
-        //profile
-        axios.get('http://localhost:8000/api/v1/profile/')
-        .then(response => { this.results = response.data })
-      },
+  mounted(){
+    //profile
+    axios.get('http://localhost:8000/api/v1/profile/')
+    .then(response => { this.profiles = response.data }),
+
+    //comment
+    axios.get('http://localhost:8000/api/v1/comment/')
+    .then(response => { this.comments = response.data })
+  },
   methods: {
-      initializeMap(){
-        new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
-      },
-      // ログインボタン押下
-      submitLogin: function () {
-        // ログイン
-        this.$store.dispatch('auth/login', {
-          email: this.form.email,
-          password: this.form.password
+    // ログインボタン押下
+    submitLogin: function () {
+      // ログイン
+      this.$store.dispatch('auth/login', {
+        email: this.form.email,
+        password: this.form.password
+      })
+        .then(() => {
+          console.log('Login succeeded.')
+          this.$store.dispatch('message/setInfoMessage', { message: 'ログインしました。' })
+          // クエリ文字列に「next」がなければ、ホーム画面へ
+          const next = this.$route.query.next || '/'
+          this.$router.replace(next)
         })
-          .then(() => {
-            console.log('Login succeeded.')
-            this.$store.dispatch('message/setInfoMessage', { message: 'ログインしました。' })
-            // クエリ文字列に「next」がなければ、ホーム画面へ
-            const next = this.$route.query.next || '/'
-            this.$router.replace(next)
-          })
-      }
+    }
   },
   computed: {
-    user_info(){
-      console.log('全オブジェクト', this.results)
-      const users = this.results.find(results => results.username === this.$route.params.username);
-      console.log('users', users)
-      return users
+    username(){
+      return this.$store.getters['auth/username']
     },
-    address(){
-      const results = this.results.find(results => results.username === this.$route.params.username);
-      return results
+    user_profile(){
+      const profiles = this.profiles.find(profiles => profiles.username === this.username)
+      if(!profiles){
+        return {
+          title: '見つかりません',
+          text: '見つかりません',
+        }
+      }
+      console.log('profiles', profiles)
+      return profiles
     },
+    user_comments(){
+      const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
+      return comments
+    }
   },
 }
 </script>

@@ -4,7 +4,7 @@
       <GlobalHeader />
 
       <h2>Post Preview</h2>
-
+      
       <div class="sns_photo">
         <!-- SNSアイコン -->
         <div class="sns_back clearfix">
@@ -23,28 +23,38 @@
         class="card_style"
         max-width="800"
       >
-        <div>
+        <div style="width:700px;">
           <div v-html="post.text" class="post_text"></div>
         </div>
+
+        <!-- <p>{{ user_profile }}</p>
+        <p>{{ user_profile.username }}</p>
+        <p>{{ user_profile.introduction }}</p>
+        <p>{{ user_profile.address }}</p>
+        <p><img :src="user_profile.icon" width=150></p> -->
 
         <v-layout wrap class="profile">
           <v-flex xs12 sm6 md2>
             <div class="icon">
-              <img src="">
+              <router-link :to="`/profile/${username}`">
+                <img :src="user_profile.icon">
+              </router-link>
             </div>
           </v-flex>
           <v-flex xs12 sm6 md10>
             <div class="pr_profile">
-              <p class="prof_name">{{ username }}</p>
-              <p></p>
+              <p class="prof_name">{{ user_profile.username }}</p>
+              <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
         </v-layout>
 
+
+
       </v-card>
 
-      <PrFooter/>
     </div>
+    <PrFooter/>
 
   </v-app>
 </template>
@@ -67,6 +77,7 @@ export default {
   data(){
     return{
       results: [],
+      profiles: [],
       form: {
         posts: {
           title: '',
@@ -78,6 +89,9 @@ export default {
   mounted(){
     axios.get('http://127.0.0.1:8000/api/v1/posts/')
     .then(response => {this.results = response.data})
+
+    axios.get('http://localhost:8000/api/v1/profile/')
+    .then(response => {this.profiles = response.data})
   },
   methods: {
     submitPost: function(){
@@ -114,6 +128,18 @@ export default {
     post(){
       const post = this.results.find(results => results.id === this.id);
       return post
+    },
+    user_profile(){
+      console.log('ここは', this.profiles)
+      console.log('こっちは', this.profiles.username)
+      const profiles = this.profiles.find(profiles => profiles.username === this.username)
+      if(!profiles){
+        return {
+          title: '見つかりません',
+          text: '見つかりません',
+        }
+      }
+      return profiles
     }
 
   }
@@ -158,12 +184,22 @@ h3{
   font-size: 1.3rem;
   font-weight: 600;
 }
+
+.clearfix::after {
+   content: "";
+   display: block;
+   clear: both;
+}
 </style>
 
 
 
 <style lang="scss" scoped>
-
+.clearfix::after {
+   content: "";
+   display: block;
+   clear: both;
+}
 
 .back_body{
   background-color: #eee;
@@ -183,6 +219,10 @@ h3{
     padding: 50px;
     border-top: 5px solid #33b5e5;
     min-height: 100vh;
+    display: inline-block;
+    float: left;
+    position: relative;
+    right: 70px;
 
     .back-color{
       a.start{
@@ -239,15 +279,14 @@ h3{
   }
 }
 
-
-
 .sns_back .sns_icons {
   font-size: 2.5rem;
   width: 50px;
   display: inline-block;
   float: left;
   position: relative;
-  right: 90px;
+  top: 50px;
+  right: 80px;
 
   .fb_icon{
     color: #3b5998;
@@ -263,6 +302,41 @@ h3{
   }
   .pi_icon{
     color: #f44336;
+  }
+}
+
+
+.profile{
+  border: solid 2px #dce4ec;
+  padding: 40px;
+  border-radius: 10px;
+  background: #eee;
+  margin: 50px 0;
+  
+  .icon{
+    width: 80px;
+    display: inline-block;
+    float: left;
+    height: 130px;
+  }
+
+  img{
+    width: 70px;
+    border-radius: 50%;
+    border: 1px solid grey;
+  }
+
+  .pr_profile{
+    p.prof_name {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  }
+
+  p{
+    margin-bottom: 5px;
+    line-height: 1.6;
+    font-size: 1.1rem;
   }
 }
 

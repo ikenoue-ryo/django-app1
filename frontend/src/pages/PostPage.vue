@@ -44,6 +44,8 @@ export default {
           author: '',
           title: '',
           text: '',
+          price: '',
+          photo: '',
         }
       }
     }
@@ -59,7 +61,8 @@ export default {
         url: '/posts/',
         data: {
           'id': this.form.posts.id,
-          'author': this.$store.getters['auth/id'],
+          // 'profile': 1,
+          'profile': this.$store.getters['auth/id'],
           'title': this.form.posts.title,
           'text': this.form.posts.text,
         }
@@ -74,11 +77,6 @@ export default {
         })
     }
   },
-  computed: {
-    username() {
-      return this.$store.getters['auth/username']
-    },
-  }
 };
 </script>
 

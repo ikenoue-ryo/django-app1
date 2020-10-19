@@ -231,6 +231,7 @@ label::after {
     color: #329eff;
     margin: 20px 0;
     font-weight: 500;
+    font-size: 1rem;
   }
 
   a{
