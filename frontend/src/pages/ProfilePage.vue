@@ -30,6 +30,7 @@
                         dark
                         v-bind="attrs"
                         v-on="on"
+                        @click="editButton"
                       >
                     <p class="text-lg-right">編集</p>
                     </v-text>
@@ -50,19 +51,18 @@
                                 required
                               ></v-text-field>
                             </v-col>
-<!-- 
+
                             <v-col
                               cols="12"
                               md="12"
                             >
                               <v-text-field
-                                type="text"
-                                v-model="form.username"
-                                label="ユーザーネーム"
+                                v-model="form.edit.address"
+                                label="駐車場"
                                 required
                               ></v-text-field>
                             </v-col>
-
+<!-- 
                             <v-col
                               cols="12"
                               md="12"
@@ -242,6 +242,7 @@ export default {
         ],
         edit: {
           introduction: '',
+          address: '',
         }
       },
       fav: true,
@@ -255,7 +256,9 @@ export default {
           title: '',
           text: '',
         }
-      }
+      },
+      id : this.$store.getters['auth/id'],
+      name : this.$store.getters['auth/username']
     }
   },
   mounted(){
@@ -283,20 +286,30 @@ export default {
           this.$router.replace(next)
         })
     },
+    // 編集ボタンでインスタンスを挿入
+    editButton(){
+      this.form.edit = this.user_profile
+    },
     //プロフィール
     submitPost: function(){
+      // this.form.edit.introduction = this.user_profile.introduction
       api({
-        method: 'post',
-        url: '/profile/',
+        method: 'put',
+        url: '/profile/' + this.id + '/',
         data: {
-          // 'userpro': this.$store.getters['auth/id'],
-          'introduction': this.form.edit.introduction
+          'userpro': this.$store.getters['auth/id'],
+          'introduction': this.form.edit.introduction,
+          'address': this.form.edit.address,
         }
       })
         .then(response => {
+          // const username = this.$store.getters['auth/username']
           this.form.edit = response.data
-          this.$store.dispatch('message/setInfoMessage', { message: '投稿しました。' })
-          const next = this.$route.query.next || 'post/'
+          console.log('ここは', this.form.edit)
+          this.$store.dispatch('message/setInfoMessage', { message: '保存しました。' })
+          // const next = this.$route.query.next || `/profile/${username}`
+          const next = this.$route.query.next || '/'
+          console.log('path', next)
           this.$router.replace(next)
         })
     }

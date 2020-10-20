@@ -12,8 +12,14 @@ class PostSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['id', 'username', 'introduction', 'address', 'userpro', 'icon']
+        fields = ['id', 'introduction', 'address', 'userpro', 'icon']
         # extra_kwargs = {'userpro': { 'read_only': True }}
+        extra_kwargs = {
+            'userpro': {'validators': []},
+        }
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:

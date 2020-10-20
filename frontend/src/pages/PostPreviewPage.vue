@@ -130,8 +130,6 @@ export default {
       return post
     },
     user_profile(){
-      console.log('ここは', this.profiles)
-      console.log('こっちは', this.profiles.username)
       const profiles = this.profiles.find(profiles => profiles.username === this.username)
       if(!profiles){
         return {

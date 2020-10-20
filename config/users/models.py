@@ -46,18 +46,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     # nickname = models.CharField(max_length=20, null=True, blank=True)
-    username = models.CharField(max_length=50, null=True, blank=True)
-    introduction = models.TextField(null=True, blank=True)
+    # username = models.CharField(max_length=50, null=True, blank=True)
+    introduction = models.TextField()
     address = models.CharField(max_length=50, null=True, blank=True)
     userpro = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name='userpro',
         on_delete=models.CASCADE,
-        null=True, blank=True
     )
     created_on = models.DateTimeField(auto_now_add=True)
-    friends = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name='friends',
-    )
     icon = models.ImageField(upload_to="image/", null=True, blank=True)
 
     # def __str__(self):
