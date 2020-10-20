@@ -45,8 +45,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    # nickname = models.CharField(max_length=20, null=True, blank=True)
-    # username = models.CharField(max_length=50, null=True, blank=True)
     introduction = models.TextField()
     address = models.CharField(max_length=50, null=True, blank=True)
     userpro = models.OneToOneField(
@@ -56,8 +54,8 @@ class Profile(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     icon = models.ImageField(upload_to="image/", null=True, blank=True)
 
-    # def __str__(self):
-    #     return self.username
+    def __str__(self):
+        return self.userpro.username
 
 
 class Post(models.Model):
@@ -67,7 +65,6 @@ class Post(models.Model):
         db_table = 'post'
         
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿者', on_delete=models.CASCADE)
-    # profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(verbose_name='タイトル', max_length=120, null=True, blank=True )
     text = models.TextField(verbose_name='本文', null=True, blank=True)
     price = models.IntegerField(verbose_name='価格', null=True, blank=True)
