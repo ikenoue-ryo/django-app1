@@ -305,7 +305,6 @@ export default {
         .then(response => {
           // const username = this.$store.getters['auth/username']
           this.form.edit = response.data
-          console.log('ここは', this.form.edit)
           this.$store.dispatch('message/setInfoMessage', { message: '保存しました。' })
           // const next = this.$route.query.next || `/profile/${username}`
           const next = this.$route.query.next || '/'
