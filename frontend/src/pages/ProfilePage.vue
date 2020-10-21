@@ -192,22 +192,23 @@
                   <v-fa :icon="['far', 'comments']" class="parking_icon sns_icons" />
                   <p class="ma-2">{{ user_comments.length }} 件</p>
                   </v-row>
+                  
                   <v-row v-for="comment in user_comments" :key="comment.id">
                     <v-col
                       cols="2"
                       md="2"
                     >
                     <div class="profile_icons">
-                      <img src="https://d20r2glx6euv0l.cloudfront.net/avatar/6ebeed36dc.jpeg">
+                      <img :src="comment.profile.icon">
                     </div>
                     </v-col>
                     <v-col
                       cols="10"
                       md="10"
-                      class="pa-0 review"
+                      class="review"
                     >
-                    <h3>{{ comment.author }}</h3>
-                    <p>{{ comment.comment }}</p>
+                    <h3>{{ comment.profile.userpro.username }}</h3>
+                    <p>{{ comment.profile.introduction }}</p>
                     </v-col>
                     <div class="border_line mb-5"></div>
                   </v-row>
@@ -298,7 +299,7 @@ export default {
     axios.get('http://localhost:8000/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
 
-    //comment
+    //post
     axios.get('http://localhost:8000/api/v1/posts/')
     .then(response => { this.posts = response.data })
 
@@ -375,7 +376,7 @@ export default {
     user_profile(){
       console.log(this.profiles)
       console.log(this.profiles.userpro)
-      const profiles = this.profiles.find(profiles => profiles.userpro === this.$store.getters['auth/id'])
+      const profiles = this.profiles.find(profiles => profiles.userpro.username === this.$store.getters['auth/username'])
       if(!profiles){
         return {
           title: '見つかりません',
@@ -391,6 +392,11 @@ export default {
     },
 
     user_comments(){
+      const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
+      return comments
+    },
+
+    us_comments(){
       const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
       return comments
     }
@@ -502,6 +508,17 @@ label::after {
 }
 
 .review{
+  padding: 12px 0;
+
+  p{
+    position: relative;
+    max-height: calc(16 * 1.8 * 2 * 1px);
+    font-size: 16px;
+    line-height: 1.8;
+    word-break: break-all;
+    overflow: hidden;
+  }
+
   h3{
     font-size: 1rem;
     font-weight: 600;

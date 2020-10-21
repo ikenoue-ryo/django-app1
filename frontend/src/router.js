@@ -8,6 +8,7 @@ import PostPreviewPage from "@/pages/PostPreviewPage";
 import PostDetail from "@/pages/PostDetail";
 import PostList from "@/pages/PostList";
 import ProfilePage from "@/pages/ProfilePage";
+// import notFound from "@/pages/notFound";
 import store from "@/store";
 
 Vue.use(VueRouter);

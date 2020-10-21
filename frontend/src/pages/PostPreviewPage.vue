@@ -23,15 +23,82 @@
         class="card_style"
         max-width="800"
       >
+      
+      <!-- モーダル -->
+        <div class="text-center">
+          <v-dialog
+            v-model="dialog2"
+            width="500"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text
+                color="red lighten-2"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+              <p class="text-lg-right">削除</p>
+              </v-text>
+            </template>
+              <v-card
+                class="card_style"
+                max-width="800"
+              >
+              <v-btn @click="deleteButton">
+                削除
+              </v-btn>
+              </v-card>
+
+          </v-dialog>
+        </div>
+        <!-- モーダル -->
+      
+
+
+
+        <!-- モーダル -->
+        <div class="text-center">
+          <v-dialog
+            v-model="dialog"
+            width="500"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text
+                color="red lighten-2"
+                dark
+                v-bind="attrs"
+                v-on="on"
+                @click="editButton"
+              >
+              <p class="text-lg-right">編集</p>
+              </v-text>
+            </template>
+              <v-card
+                class="card_style"
+                max-width="800"
+              >
+                <form @submit.prevent="submitPost" class="form_class">
+
+                  <v-checkbox v-model="form.posts.car_type" label="カローラ" color="info" value="corolla" hide-details></v-checkbox>
+                  <v-checkbox v-model="form.posts.car_type" label="プリウス" color="info" value="prius" hide-details></v-checkbox>
+                  <v-checkbox v-model="form.posts.car_type" label="ヴォクシー" color="info" value="voxy" hide-details></v-checkbox>
+
+                  <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
+                  <button type="submit">送信</button>
+                </form>
+              </v-card>
+
+          </v-dialog>
+        </div>
+        <!-- モーダル -->
+
+
         <div style="width:700px;">
+          <p>{{ post.title }}</p>
+          <p>{{ post.car_type }}</p>
+          <p>{{ post.price }}円</p>
           <div v-html="post.text" class="post_text"></div>
         </div>
-
-        <!-- <p>{{ user_profile }}</p>
-        <p>{{ user_profile.username }}</p>
-        <p>{{ user_profile.introduction }}</p>
-        <p>{{ user_profile.address }}</p>
-        <p><img :src="user_profile.icon" width=150></p> -->
 
         <v-layout wrap class="profile">
           <v-flex xs12 sm6 md2>
@@ -67,22 +134,28 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
+import { quillEditor } from 'vue-quill-editor'
 import axios from 'axios'
 
 export default {
   components: {
     GlobalHeader,
     PrFooter,
+    quillEditor,
   },
   data(){
     return{
+      dialog: false,
+      dialog2: false,
       results: [],
       profiles: [],
       form: {
         posts: {
           title: '',
           text: '',
-        }
+          car_type: '',
+          price: ''
+        },
       }
     }
   },
@@ -111,6 +184,26 @@ export default {
           const next = this.$route.query.next || '/'
           this.$router.replace(next)
         })
+    },
+    // 編集ボタンでインスタンスを挿入
+    editButton(){
+      this.form.posts = this.post
+    },
+    // 削除ボタン
+    deleteButton(){
+      api({
+        method: 'delete',
+        url: `/posts/${this.post.id}`,
+      })
+      .then(response => {
+        console.log(response);
+        const next = this.$route.query.next || `/profile/${this.username}`
+        this.$router.replace(next)
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
     }
   },
   computed: {
@@ -130,7 +223,7 @@ export default {
       return post
     },
     user_profile(){
-      const profiles = this.profiles.find(profiles => profiles.userpro === this.user_id)
+      const profiles = this.profiles.find(profiles => profiles.userpro === this.post.author)
       if(!profiles){
         return {
           title: '見つかりません',
@@ -138,7 +231,11 @@ export default {
         }
       }
       return profiles
-    }
+    },
+    user_posts(){
+      const posts = this.posts.filter(posts => posts.author === this.$store.getters['auth/id']);
+      return posts
+    },
 
   }
 };
