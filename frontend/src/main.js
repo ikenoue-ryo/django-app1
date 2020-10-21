@@ -23,6 +23,7 @@ library.add(fas, far, fab);
 Vue.component('v-fa', FontAwesomeIcon);
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
+
 Vue.use(BootstrapVue)
 
 new Vue({

@@ -37,6 +37,8 @@
                     </template>
 
                     <v-card>
+                      <GlobalMessage />
+
                       <form @submit.prevent="submitPost">
                       <v-flex xs12 sm6 md9>
                         <v-container>
@@ -120,6 +122,12 @@
                   md="12"
                 >
                   <h2>貸し出し中の車</h2>
+                  <!-- {{ user_posts }} -->
+                  <ul v-for="posts in user_posts" :key="posts.id">
+                    <router-link :to="`/post_preview/${posts.id}`">
+                      <li>{{posts.car_type}}</li>
+                    </router-link>
+                  </ul>
                   <v-container style="padding:0; margin: 20px 0;">
                     <v-row>
                       <v-col cols="12" md="6" class="pa-3">
@@ -221,6 +229,7 @@
 
 <script>
 import GlobalHeader from '@/components/GlobalHeader.vue'
+import GlobalMessage from '@/components/GlobalMessage.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
 import api from '@/services/api'
@@ -229,6 +238,7 @@ export default {
   name: 'Map',
   components: {
     GlobalHeader,
+    GlobalMessage,
     PrFooter,
   },
   data(){
@@ -266,6 +276,7 @@ export default {
       message: false,
       hints: true,
       profiles: [],
+      posts: [],
       comments: [],
       post_form: {
         posts: {
@@ -286,6 +297,10 @@ export default {
     //profile
     axios.get('http://localhost:8000/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
+
+    //comment
+    axios.get('http://localhost:8000/api/v1/posts/')
+    .then(response => { this.posts = response.data })
 
     //comment
     axios.get('http://localhost:8000/api/v1/comment/')
@@ -370,6 +385,11 @@ export default {
       console.log('profiles', profiles)
       return profiles
     },
+    user_posts(){
+      const posts = this.posts.filter(posts => posts.author === this.$store.getters['auth/id']);
+      return posts
+    },
+
     user_comments(){
       const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
       return comments
