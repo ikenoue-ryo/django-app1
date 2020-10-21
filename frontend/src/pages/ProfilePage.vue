@@ -37,10 +37,27 @@
                     </template>
 
                     <v-card>
+                      <GlobalMessage />
+
                       <form @submit.prevent="submitPost">
                       <v-flex xs12 sm6 md9>
                         <v-container>
                           <v-row>
+                            <v-flex xs12 sm6 md3>
+                              <div class="file_input">
+                                <label class="input-item__label">
+                                  <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
+                                  <input type="file" name="file" ref="preview" @change="selectedFile" v-show="show">
+                                </label>
+                              </div>
+
+                              <div class="image_area" v-if="url" style="position:relative">
+                                <div style="position:absolute" @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
+                                <img :src="url">
+                              </div>
+                            </v-flex>
+
+
                             <v-col
                               cols="12"
                               md="12"
@@ -105,6 +122,12 @@
                   md="12"
                 >
                   <h2>貸し出し中の車</h2>
+                  <!-- {{ user_posts }} -->
+                  <ul v-for="posts in user_posts" :key="posts.id">
+                    <router-link :to="`/post_preview/${posts.id}`">
+                      <li>{{posts.car_type}}</li>
+                    </router-link>
+                  </ul>
                   <v-container style="padding:0; margin: 20px 0;">
                     <v-row>
                       <v-col cols="12" md="6" class="pa-3">
@@ -167,7 +190,7 @@
                   <h2>レビュー</h2>
                   <v-row>
                   <v-fa :icon="['far', 'comments']" class="parking_icon sns_icons" />
-                  <p class="ma-2">120 件</p>
+                  <p class="ma-2">{{ user_comments.length }} 件</p>
                   </v-row>
                   <v-row v-for="comment in user_comments" :key="comment.id">
                     <v-col
@@ -206,6 +229,7 @@
 
 <script>
 import GlobalHeader from '@/components/GlobalHeader.vue'
+import GlobalMessage from '@/components/GlobalMessage.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
 import api from '@/services/api'
@@ -214,6 +238,7 @@ export default {
   name: 'Map',
   components: {
     GlobalHeader,
+    GlobalMessage,
     PrFooter,
   },
   data(){
@@ -243,6 +268,7 @@ export default {
         edit: {
           introduction: '',
           address: '',
+          icon: '',
         }
       },
       fav: true,
@@ -250,6 +276,7 @@ export default {
       message: false,
       hints: true,
       profiles: [],
+      posts: [],
       comments: [],
       post_form: {
         posts: {
@@ -258,7 +285,12 @@ export default {
         }
       },
       id : this.$store.getters['auth/id'],
-      name : this.$store.getters['auth/username']
+      name : this.$store.getters['auth/username'],
+      //写真アップロード
+      uploadFile: null,
+      icon: '',
+      url: '',
+      show: true,
     }
   },
   mounted(){
@@ -267,39 +299,53 @@ export default {
     .then(response => { this.profiles = response.data }),
 
     //comment
+    axios.get('http://localhost:8000/api/v1/posts/')
+    .then(response => { this.posts = response.data })
+
+    //comment
     axios.get('http://localhost:8000/api/v1/comment/')
     .then(response => { this.comments = response.data })
   },
   methods: {
-    // ログインボタン押下
-    submitLogin: function () {
-      // ログイン
-      this.$store.dispatch('auth/login', {
-        email: this.form.email,
-        password: this.form.password
-      })
-        .then(() => {
-          console.log('Login succeeded.')
-          this.$store.dispatch('message/setInfoMessage', { message: 'ログインしました。' })
-          // クエリ文字列に「next」がなければ、ホーム画面へ
-          const next = this.$route.query.next || '/'
-          this.$router.replace(next)
-        })
+    // 写真アップロード
+    selectedFile(e){
+      e.preventDefault();
+      let files = e.target.files;
+      this.uploadFile = files[0];
+      console.log('uploadFile', this.uploadFile)
+
+      const file = this.$refs.preview.files[0];
+      this.url = URL.createObjectURL(file);
+      this.$refs.preview.value = '';
+      // 画像のアップ時にfileinputを消す
+      this.show = !this.show
     },
+    deletePreview(){
+      this.url = '';
+      // ファイルアップロードの復活
+      this.show = !this.show
+    },
+
     // 編集ボタンでインスタンスを挿入
     editButton(){
       this.form.edit = this.user_profile
     },
     //プロフィール
     submitPost: function(){
-      // this.form.edit.introduction = this.user_profile.introduction
+      let formData = new FormData();
+      formData.append('form.edit.icon', this.uploadFile);
+
       api({
         method: 'put',
         url: '/profile/' + this.id + '/',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         data: {
           'userpro': this.$store.getters['auth/id'],
           'introduction': this.form.edit.introduction,
           'address': this.form.edit.address,
+          'icon': this.form.edit.icon,
         }
       })
         .then(response => {
@@ -311,6 +357,15 @@ export default {
           console.log('path', next)
           this.$router.replace(next)
         })
+
+      // axios.
+      //   post('/profile/' + this.id + '/', formData, config)
+      //   .then(function(response){
+      //     console.log(response)
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error)
+      //   })
     }
   },
   computed: {
@@ -330,6 +385,11 @@ export default {
       console.log('profiles', profiles)
       return profiles
     },
+    user_posts(){
+      const posts = this.posts.filter(posts => posts.author === this.$store.getters['auth/id']);
+      return posts
+    },
+
     user_comments(){
       const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
       return comments
@@ -346,6 +406,21 @@ export default {
   border-radius: 20px;
   margin-bottom: 20px;
 }
+
+label > input {
+  display: none;
+}
+
+label {
+  padding: 0 1rem;
+} 
+
+label::after {
+  font-size: 1rem;
+  color: #888;
+  padding-left: 1rem;
+}
+
 
 .back_body{
   background-color: #eee;
@@ -432,5 +507,26 @@ export default {
     font-weight: 600;
   }
 }
+
+.file_input{
+
+  border: 1px solid #999;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+
+  .camera_icon{
+    font-size: 3rem;
+    position: relative;
+    top: 23px;
+  }
+}
+
+.image_area{
+  position: relative;
+  bottom: 100px;
+  right: 20px;
+}
+
 
 </style>

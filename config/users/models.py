@@ -61,16 +61,25 @@ class Profile(models.Model):
 class Post(models.Model):
     """投稿モデル"""
 
+    CAR_TYPE = (
+        ('corolla', 'Corolla'),  # (DB値, 読みやすい値)
+        ('prius', 'Prius'),
+        ('voxy', 'Voxy'),
+    )
+    
     class Meta:
         db_table = 'post'
         
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿者', on_delete=models.CASCADE)
+    # photo = models.ImageField(verbose_name='サムネイル画像', upload_to='photo/', null=False, blank=False)
     title = models.CharField(verbose_name='タイトル', max_length=120, null=True, blank=True )
     text = models.TextField(verbose_name='本文', null=True, blank=True)
+    car_type = models.CharField(max_length=20, choices=CAR_TYPE)
     price = models.IntegerField(verbose_name='価格', null=True, blank=True)
-    photo = models.ImageField(upload_to='photo/', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.author.username
 
 
 class Comment(models.Model):

@@ -43,7 +43,7 @@
           </v-flex>
           <v-flex xs12 sm6 md10>
             <div class="pr_profile">
-              <p class="prof_name">{{ user_profile.username }}</p>
+              <p class="prof_name">{{ user_profile.userpro }}</p>
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
@@ -130,7 +130,7 @@ export default {
       return post
     },
     user_profile(){
-      const profiles = this.profiles.find(profiles => profiles.username === this.username)
+      const profiles = this.profiles.find(profiles => profiles.userpro === this.user_id)
       if(!profiles){
         return {
           title: '見つかりません',

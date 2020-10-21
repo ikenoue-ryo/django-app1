@@ -1,4 +1,5 @@
 <template>
+<v-app>
   <div id="app" class="back_body">
     <GlobalHeader />
 
@@ -8,8 +9,13 @@
       max-width="800"
     >
 
-
+    
       <form @submit.prevent="submitPost" class="form_class">
+
+        <v-checkbox v-model="form.posts.car_type" label="カローラ" color="info" value="corolla" hide-details></v-checkbox>
+        <v-checkbox v-model="form.posts.car_type" label="プリウス" color="info" value="prius" hide-details></v-checkbox>
+        <v-checkbox v-model="form.posts.car_type" label="ヴォクシー" color="info" value="voxy" hide-details></v-checkbox>
+
         <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
         <button type="submit">送信</button>
       </form>
@@ -17,6 +23,8 @@
 
     <PrFooter/>
   </div>
+
+  </v-app>
 </template>
 
 <script>
@@ -45,9 +53,9 @@ export default {
           title: '',
           text: '',
           price: '',
-          photo: '',
         }
-      }
+      },
+      ex4: ['info'],
     }
   },
   mounted(){
@@ -64,6 +72,7 @@ export default {
           'author': this.$store.getters['auth/id'],
           'title': this.form.posts.title,
           'text': this.form.posts.text,
+          'car_type': this.form.posts.car_type,
         }
       })
         .then(response => {
@@ -164,4 +173,27 @@ p{
 .v-input{
   font-size: 3rem;
 }
+
+input[type="checkbox"] {
+        display: none;
+    }
+
+    label {
+        display: inline-block;
+        border-radius: 20px;
+        text-align: center;
+        text-decoration: none;
+        border: solid 1px #ccc;
+        transition: 0.25s;
+        padding: 6px 18px;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 3px;
+    }
+
+    input[type="checkbox"]:checked + label {
+        background: #00809d;
+        color: #fff;
+    }
+
 </style>

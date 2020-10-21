@@ -29,8 +29,14 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
-admin.site.register(models.User, UserAdmin)
-admin.site.register(models.Profile)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['author', 'created_at']
 
-admin.site.register(Post)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['userpro', 'created_on']
+
+admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Profile, ProfileAdmin)
+
+admin.site.register(models.Post, PostAdmin)
 admin.site.register(Comment)

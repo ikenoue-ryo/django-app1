@@ -214,6 +214,11 @@ export default {
   
   ul{
     font-size: 1.1rem;
+
+    li{
+      font-size: 1rem;
+      line-height: 1.8;
+    }
   }
 
   ul.tag {
@@ -232,7 +237,6 @@ export default {
         font-weight: 500;
         border: solid 2px #dce4ec;
         font-weight: 600;
-
     }
   }
 }
