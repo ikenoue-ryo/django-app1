@@ -3,7 +3,11 @@
   <div class="back_body">
     <GlobalHeader />
 
-    <h2>Profile</h2>
+    <h2>Profile
+      <!-- <ul v-for="profile in user_profile" :key="profile">
+        <li>{{ profile }}</li>
+      </ul> -->
+    </h2>
     <v-card
       class="card_style"
       max-width="800"
@@ -206,7 +210,7 @@
                       md="10"
                       class="pa-0 review"
                     >
-                    <h3>{{ comment.author }}</h3>
+                    <h3>{{ comment.author.userpro }}</h3>
                     <p>{{ comment.comment }}</p>
                     </v-col>
                     <div class="border_line mb-5"></div>
@@ -298,7 +302,7 @@ export default {
     axios.get('http://localhost:8000/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
 
-    //comment
+    //post
     axios.get('http://localhost:8000/api/v1/posts/')
     .then(response => { this.posts = response.data })
 
@@ -391,6 +395,11 @@ export default {
     },
 
     user_comments(){
+      const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
+      return comments
+    },
+
+    us_comments(){
       const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
       return comments
     }

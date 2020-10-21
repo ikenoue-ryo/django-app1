@@ -23,6 +23,38 @@
         class="card_style"
         max-width="800"
       >
+      
+      <!-- モーダル -->
+        <div class="text-center">
+          <v-dialog
+            v-model="dialog2"
+            width="500"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text
+                color="red lighten-2"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+              <p class="text-lg-right">削除</p>
+              </v-text>
+            </template>
+              <v-card
+                class="card_style"
+                max-width="800"
+              >
+              <v-btn @click="deleteButton">
+                削除
+              </v-btn>
+              </v-card>
+
+          </v-dialog>
+        </div>
+        <!-- モーダル -->
+      
+
+
 
         <!-- モーダル -->
         <div class="text-center">
@@ -41,7 +73,6 @@
               <p class="text-lg-right">編集</p>
               </v-text>
             </template>
-
               <v-card
                 class="card_style"
                 max-width="800"
@@ -59,6 +90,7 @@
 
           </v-dialog>
         </div>
+        <!-- モーダル -->
 
 
         <div style="width:700px;">
@@ -113,6 +145,8 @@ export default {
   },
   data(){
     return{
+      dialog: false,
+      dialog2: false,
       results: [],
       profiles: [],
       form: {
@@ -155,6 +189,22 @@ export default {
     editButton(){
       this.form.posts = this.post
     },
+    // 削除ボタン
+    deleteButton(){
+      api({
+        method: 'delete',
+        url: `/posts/${this.post.id}`,
+      })
+      .then(response => {
+        console.log(response);
+        const next = this.$route.query.next || `/profile/${this.username}`
+        this.$router.replace(next)
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+    }
   },
   computed: {
     user_id() {
@@ -173,7 +223,7 @@ export default {
       return post
     },
     user_profile(){
-      const profiles = this.profiles.find(profiles => profiles.userpro === this.user_id)
+      const profiles = this.profiles.find(profiles => profiles.userpro === this.post.author)
       if(!profiles){
         return {
           title: '見つかりません',

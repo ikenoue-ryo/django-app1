@@ -23,6 +23,24 @@ DATABASES = {
     }
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
