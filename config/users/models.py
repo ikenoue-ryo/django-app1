@@ -69,12 +69,12 @@ class Post(models.Model):
 
 
 class Profile(models.Model):
+    
     introduction = models.TextField()
-    address = models.CharField(max_length=50, null=True, blank=True, unique=True)
+    address = models.CharField(max_length=50, null=True, blank=True)
     userpro = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name='userpro',
         on_delete=models.CASCADE,
-        unique=True
     )
     created_on = models.DateTimeField(auto_now_add=True)
     icon = models.ImageField(upload_to="image/", null=True, blank=True)
@@ -88,7 +88,7 @@ class Comment(models.Model):
     """コメントモデル"""
 
     username = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿先', on_delete=models.CASCADE)
-    author = models.ForeignKey(Profile, verbose_name='投稿者', on_delete=models.CASCADE, to_field='userpro')
+    profile = models.ForeignKey(to=Profile, verbose_name='投稿者', on_delete=models.CASCADE)
     comment = models.TextField(blank=False, null=False)
 
     def __str__(self):
