@@ -136,7 +136,6 @@
 
 <script>
 import car_types from '../pages/carTypes';
-
 export default {
   data(){
     return{
@@ -162,7 +161,6 @@ export default {
       const car_types = [];
       for(const i in this.car_types){
           const car = this.car_types[i];
-
           if(car.jp_name.indexOf(this.keyword) !== -1 ||
           car.jp_hira.indexOf(this.keyword) !== -1) {
             car_types.push(car);
@@ -197,12 +195,10 @@ export default {
 <style lang="scss">
 .header_class{
   background-color: #fff;
-
   .header_inner{
     width: 900px;
     margin: 0 auto;
     padding: 0 20px;
-
     a{
       font-size: 1.2rem;
       font-weight: 600;
@@ -211,7 +207,6 @@ export default {
       color: #000;
       text-decoration: none;
     }
-
     a.start{
       background-color: #329eff!important;
       font-size: 0.9rem;
@@ -220,29 +215,24 @@ export default {
       margin-top: 8px;
     }
   }
-
   .icon {
     display: inline-block;
     float: right;
     margin: 10px;
   }
-
   .icon img {
     width: 35px;
     border-radius: 50%;
     border: 1px solid grey;
   }
-
   .v-btn{
     outline: none;
   }
 }
-
 .back-color{
   .search_form{
     position: relative;
     bottom: 5px;
-
     .v-input{
       display: inline-block;
       float: left;
@@ -250,7 +240,6 @@ export default {
       padding-top: 10px;
       height: 43px;
     }
-
     .search_icon{
       font-size: 27px !important;
       width: 33px;
@@ -260,15 +249,12 @@ export default {
     }
   }
 }
-
 #app{
   font-family: Rubik, "Noto Sans JP", sans-serif;
-
   .container {
     max-width: 100%;
   }
 }
-
 .search_form{
   .v-card{
     position: absolute;
@@ -276,19 +262,16 @@ export default {
     z-index: 10;
     right: 10px;
   }
-
   .v-list{
     width: 226px;
   }
 }
-
 .sns_icons {
   font-size: 1.5rem;
   width: 50px;
   display: inline-block;
   float: left;
   margin-left: 10px;
-
   .logout_icon{
     color: grey;
   }
@@ -296,11 +279,9 @@ export default {
     color: grey;
   }
 }
-
 .v-list{
   a{
     text-decoration: none;
   }
 }
-
 </style>
