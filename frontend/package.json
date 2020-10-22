@@ -21,6 +21,7 @@
     "vue-axios": "^3.0.1",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.4.6",
+    "vue-simple-spinner": "^1.2.10",
     "vue2-google-maps": "^0.10.7",
     "vuetify": "^2.2.11",
     "vuex": "^3.5.1"

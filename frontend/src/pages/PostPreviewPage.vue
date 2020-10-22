@@ -1,5 +1,7 @@
 <template>
   <v-app>
+    <!-- <Spinner v-show="!loading" /> -->
+
     <div id="app" class="back_body">
       <GlobalHeader />
 
@@ -110,7 +112,7 @@
           </v-flex>
           <v-flex xs12 sm6 md10>
             <div class="pr_profile">
-              <p class="prof_name">{{ user_profile.userpro }}</p>
+              <p class="prof_name">{{ user_profile.userpro.username }}</p>
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
@@ -137,14 +139,19 @@ import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor'
 import axios from 'axios'
 
+// import Spinner from 'vue-simple-spinner'
+
 export default {
   components: {
     GlobalHeader,
     PrFooter,
     quillEditor,
+    // Spinner,
   },
   data(){
     return{
+      // loading: true,
+
       dialog: false,
       dialog2: false,
       results: [],
@@ -161,18 +168,24 @@ export default {
   },
   mounted(){
     axios.get('http://127.0.0.1:8000/api/v1/posts/')
-    .then(response => {this.results = response.data})
+    .then(response => {
+      this.results = response.data;
+    })
 
     axios.get('http://localhost:8000/api/v1/profile/')
-    .then(response => {this.profiles = response.data})
+    .then(response => {
+      this.profiles = response.data;
+    })
   },
   methods: {
     submitPost: function(){
       api({
-        method: 'post',
-        url: '/posts/',
+        method: 'put',
+        url: '/posts/' + this.id + '/',
         data: {
           'id': this.form.posts.id,
+          'author': this.$store.getters['auth/id'],
+          'car_type': this.form.posts.car_type,
           'title': this.form.posts.title,
           'text': this.form.posts.text,
         }
@@ -223,7 +236,7 @@ export default {
       return post
     },
     user_profile(){
-      const profiles = this.profiles.find(profiles => profiles.userpro === this.post.author)
+      const profiles = this.profiles.find(profiles => profiles.userpro.id === this.post.author)
       if(!profiles){
         return {
           title: '見つかりません',
@@ -425,6 +438,13 @@ h3{
     p.prof_name {
       font-size: 1.2rem;
       font-weight: 600;
+    }
+
+    p{
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
     }
   }
 
