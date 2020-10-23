@@ -16,6 +16,15 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ['id', 'author', 'title', 'text', 'price', 'car_type']
 
+    def update(self, instance, validated_data): 
+        instance.author.username = validated_data.get('author', instance.author.username)
+        instance.title = validated_data.get('title', instance.title)
+        instance.text = validated_data.get('text', instance.text)
+        instance.price = validated_data.get('price', instance.price)
+        instance.car_type = validated_data.get('car_type', instance.car_type)
+        instance.save()
+        return instance
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     userpro = UserSerializer()
