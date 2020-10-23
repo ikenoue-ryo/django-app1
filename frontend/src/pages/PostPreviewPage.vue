@@ -30,7 +30,8 @@
         <div class="inline_block" style="margin-right:15px;">
           <v-dialog
             v-model="dialog"
-            width="500"
+            width="700"
+            class="inner_card"
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text
@@ -49,27 +50,27 @@
               >
                 <form @submit.prevent="submitPost" class="form_class">
 
-                  <!-- <v-checkbox v-model="form.posts.car_type" label="カローラ" color="info" value="corolla" hide-details></v-checkbox>
-                  <v-checkbox v-model="form.posts.car_type" label="プリウス" color="info" value="prius" hide-details></v-checkbox>
-                  <v-checkbox v-model="form.posts.car_type" label="ヴォクシー" color="info" value="voxy" hide-details></v-checkbox> -->
                   <v-col
-                    class="d-flex"
+                    class="d-flex pa-0"
                     cols="12"
                     sm="6"
                   >
                     <v-select
                       v-model="form.posts.car_type"
                       :items="car_types"
-                      label="Outlined style"
+                      label="Car Select"
                       outlined
                       style="font-size:16px;"
                       item-value="types"
+                      item-text="name"
                     ></v-select>
                   </v-col>
 
 
                   <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
-                  <button type="submit">送信</button>
+                  <div class="back-color">
+                    <button type="submit" class="start">保存</button>
+                  </div>
                 </form>
               </v-card>
 
@@ -179,7 +180,7 @@ export default {
         {name: 'カローラ', types: 'corolla'},
         {name: 'プリウス', types: 'prius'},
         {name: 'ヴォクシー',types: 'voxy'},
-        {name: 'シエンタ', types: 'wienta'},
+        {name: 'シエンタ', types: 'sienta'},
         {name: 'アクア', types: 'aqua'},
         {name: 'アルファード', types: 'alphard'},
       ],
@@ -554,4 +555,31 @@ h3{
     font-size: 0.9rem;
   }
 }
+
+.form_class{
+  padding: 25px 50px;
+}
+
+.inner_card{
+  max-width: 100%;
+  padding: 25px 50px;
+}
+
+.back-color{
+    text-align: center;
+
+    button.start{
+      background-color: #329eff!important;
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 10px;
+      text-decoration: none;
+      outline: none;
+      border-radius: 5px;
+      width: 80px;
+    }
+  }
+
 </style>
