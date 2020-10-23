@@ -25,41 +25,9 @@
         class="card_style"
         max-width="800"
       >
-      
-      <!-- モーダル -->
-        <div class="text-center">
-          <v-dialog
-            v-model="dialog2"
-            width="500"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text
-                color="red lighten-2"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-              <p class="text-lg-right">削除</p>
-              </v-text>
-            </template>
-              <v-card
-                class="card_style"
-                max-width="800"
-              >
-              <v-btn @click="deleteButton">
-                削除
-              </v-btn>
-              </v-card>
-
-          </v-dialog>
-        </div>
+        <div class="clearfix text-right edit_delete">
         <!-- モーダル -->
-      
-
-
-
-        <!-- モーダル -->
-        <div class="text-center">
+        <div class="inline_block" style="margin-right:15px;">
           <v-dialog
             v-model="dialog"
             width="500"
@@ -72,7 +40,7 @@
                 v-on="on"
                 @click="editButton"
               >
-              <p class="text-lg-right">編集</p>
+              <p class="">編集</p>
               </v-text>
             </template>
               <v-card
@@ -93,6 +61,37 @@
           </v-dialog>
         </div>
         <!-- モーダル -->
+
+        <!-- モーダル -->
+        <div class="inline_block">
+          <v-dialog
+            v-model="dialog2"
+            width="500"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text
+                color="red lighten-2"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+              <p class="">削除</p>
+              </v-text>
+            </template>
+              <v-card
+                class="card_style"
+                max-width="800"
+              >
+              <v-btn @click="deleteButton">
+                削除
+              </v-btn>
+              </v-card>
+
+          </v-dialog>
+        </div>
+        <!-- モーダル -->
+        </div>
+
 
 
         <div style="width:700px;">
@@ -236,7 +235,7 @@ export default {
       return post
     },
     user_profile(){
-      const profiles = this.profiles.find(profiles => profiles.userpro.id === this.post.author)
+      const profiles = this.profiles.find(profiles => profiles.userpro.id === this.post.author.id)
       if(!profiles){
         return {
           title: '見つかりません',
@@ -455,4 +454,12 @@ h3{
   }
 }
 
+.edit_delete{
+  width: 100%;
+  display: inline-block;
+
+  .inline_block{
+    display: inline-block;
+  }
+}
 </style>

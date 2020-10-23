@@ -16,6 +16,8 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import * as GoogleMaps from 'vue2-google-maps'
+
 // アイコンを読み込み
 library.add(fas, far, fab);
 
@@ -23,8 +25,13 @@ library.add(fas, far, fab);
 Vue.component('v-fa', FontAwesomeIcon);
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
-
 Vue.use(BootstrapVue)
+Vue.use(GoogleMaps, {
+  load: {
+    key: 'AIzaSyA7kzmlD0c7fX0bmM17YSWJhYzJQQnmz54',
+    libraries: 'places'
+  }
+});
 
 new Vue({
   vuetify,
