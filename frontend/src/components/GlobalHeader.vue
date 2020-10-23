@@ -15,6 +15,7 @@
                 v-model="keyword"
                 @input="onInput"
                 @focus="focus"
+                @change="change"
               >
               </v-text-field>
               
@@ -23,6 +24,7 @@
                 max-width="300"
                 tile
                 v-show="show"
+                v-on:mouseup.stop
               >
                 <v-list flat>
                   <v-subheader>CarType</v-subheader>
@@ -34,8 +36,8 @@
                       :key="index"
                       :href="car_type.en_name"
                     >
-                      <v-list-item-icon style="margin-right:20px;">
-                        <img :src="car_type.images" width="100">
+                      <v-list-item-icon style="margin:0;">
+                        <img :src="car_type.images" style="width:100px!important;">
                       </v-list-item-icon>
                       <v-list-item-content>
                         <v-list-item-title v-text="car_type.jp_name"></v-list-item-title>
@@ -179,9 +181,9 @@ export default {
       this.show = false
     },
     // カーソールが外れた時の処理
-    outblur(){
+    change(){
       this.keyword = ''
-      // this.show = false
+      this.show = false
     },
     logout(){
       this.$store.dispatch('auth/logout')
