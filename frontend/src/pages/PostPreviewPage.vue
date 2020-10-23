@@ -49,9 +49,24 @@
               >
                 <form @submit.prevent="submitPost" class="form_class">
 
-                  <v-checkbox v-model="form.posts.car_type" label="カローラ" color="info" value="corolla" hide-details></v-checkbox>
+                  <!-- <v-checkbox v-model="form.posts.car_type" label="カローラ" color="info" value="corolla" hide-details></v-checkbox>
                   <v-checkbox v-model="form.posts.car_type" label="プリウス" color="info" value="prius" hide-details></v-checkbox>
-                  <v-checkbox v-model="form.posts.car_type" label="ヴォクシー" color="info" value="voxy" hide-details></v-checkbox>
+                  <v-checkbox v-model="form.posts.car_type" label="ヴォクシー" color="info" value="voxy" hide-details></v-checkbox> -->
+                  <v-col
+                    class="d-flex"
+                    cols="12"
+                    sm="6"
+                  >
+                    <v-select
+                      v-model="form.posts.car_type"
+                      :items="car_types"
+                      label="Outlined style"
+                      outlined
+                      style="font-size:16px;"
+                      item-value="types"
+                    ></v-select>
+                  </v-col>
+
 
                   <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
                   <button type="submit">送信</button>
@@ -117,6 +132,15 @@
           </v-flex>
         </v-layout>
 
+        <div class="share_price">
+          <div class="card">
+            <div class="card-body">
+              <div class="price">{{ post.price }}<span class="yen"> 円/(月額)</span></div>
+              <p class="card-text">24h以内に指定の場所に返却してください。</p>
+              <a href="#"><v-btn color="#2bbbad">予約する</v-btn></a>
+            </div>
+          </div>
+        </div>
 
 
       </v-card>
@@ -151,6 +175,15 @@ export default {
     return{
       // loading: true,
 
+      car_types: [
+        {name: 'カローラ', types: 'corolla'},
+        {name: 'プリウス', types: 'prius'},
+        {name: 'ヴォクシー',types: 'voxy'},
+        {name: 'シエンタ', types: 'wienta'},
+        {name: 'アクア', types: 'aqua'},
+        {name: 'アルファード', types: 'alphard'},
+      ],
+
       dialog: false,
       dialog2: false,
       results: [],
@@ -183,7 +216,10 @@ export default {
         url: '/posts/' + this.id + '/',
         data: {
           'id': this.form.posts.id,
-          'author': this.$store.getters['auth/id'],
+          'author': {
+            'id': this.$store.getters['auth/id'],
+            'username': this.$store.getters['auth/username'],
+          },
           'car_type': this.form.posts.car_type,
           'title': this.form.posts.title,
           'text': this.form.posts.text,
@@ -349,6 +385,10 @@ h3{
   font-size: 3rem;
 }
 
+.v-text-field input {
+    font-size: 1.2em;
+  }
+
 .sns_back {
   display: inline-block;
   float: left;
@@ -460,6 +500,58 @@ h3{
 
   .inline_block{
     display: inline-block;
+  }
+}
+
+.share_price {
+  background-color: #f5f5f5;
+  margin: 36px;
+
+  p.card-text{
+    font-size: 1rem;
+  }
+
+  .card {
+    width: 230px;
+    border-radius: 15px;
+    position: fixed;
+    bottom: 30px;
+    right: 110px;
+    z-index: 10;
+    padding: 5px;
+    border: 1px solid #eee;
+    background: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  }
+
+  .card-body{
+    .price{
+      font-size: 1.4rem;      
+    }
+
+    .v-btn{
+      background: #2bbbad;
+      color: #fff;
+      font-size: 1rem;
+      padding: 10px;
+      width: 100%;
+      outline: none;
+    }
+
+    a{
+      text-decoration: none;
+    }
+  }
+
+  .price {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .price span.yen {
+    font-size: 0.9rem;
   }
 }
 </style>

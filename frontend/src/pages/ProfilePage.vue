@@ -180,7 +180,7 @@
                       <v-fa :icon="['fas', 'parking']" class="parking_icon sns_icons" />
                     <p class="ma-2">{{ user_profile.address }}</p>
                   </v-row>
-
+                  <div class="map" ref="googleMap" />
                 </v-col>
 
 
@@ -241,6 +241,8 @@ import GlobalMessage from '@/components/GlobalMessage.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
 import api from '@/services/api'
+import GoogleMapsApiLoader from 'google-maps-api-loader';
+
 
 export default {
   name: 'Map',
@@ -303,7 +305,7 @@ export default {
       isActive: true,
     }
   },
-  mounted(){
+  async mounted(){
     //profile
     axios.get('http://localhost:8000/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
@@ -315,8 +317,17 @@ export default {
     //comment
     axios.get('http://localhost:8000/api/v1/comment/')
     .then(response => { this.comments = response.data })
+
+    this.google = await GoogleMapsApiLoader({
+      apiKey: ''
+    });
+    this.initializeMap();
   },
   methods: {
+    initializeMap() {
+      new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
+    },
+
     // 写真アップロード
     selectedFile(e){
       e.preventDefault();
