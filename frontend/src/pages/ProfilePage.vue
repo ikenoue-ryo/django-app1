@@ -10,7 +10,7 @@
     >
       
         <v-layout wrap>
-          <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png" width="115" class="sticky" style="width:150px;"></v-flex>
+          <v-flex xs12 sm6 md3><img :src="user_profile.icon" width="115" class="sticky" style="width:150px;"></v-flex>
           <v-flex xs12 sm6 md9>
             <v-container>
               <v-row>
@@ -22,7 +22,7 @@
                 <div class="text-center">
                   <v-dialog
                     v-model="dialog"
-                    width="500"
+                    width="600"
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-text
@@ -36,14 +36,16 @@
                     </v-text>
                     </template>
 
-                    <v-card>
-                      <GlobalMessage />
+                    <v-card
+                      class="card_style"
+                    >
+                      <GlobalMessage class="message_card" />
 
                       <form @submit.prevent="submitPost">
-                      <v-flex xs12 sm6 md9>
+                      <v-flex xs12 sm6 md9 class="inner_card">
                         <v-container>
                           <v-row>
-                            <v-flex xs12 sm6 md3>
+                            <div xs12 sm6 md3 class="photo_area">
                               <div class="file_input">
                                 <label class="input-item__label">
                                   <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
@@ -55,7 +57,7 @@
                                 <div style="position:absolute" @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
                                 <img :src="url">
                               </div>
-                            </v-flex>
+                            </div>
 
 
                             <v-col
@@ -104,7 +106,7 @@
                 </div>
                 <!-- モーダル -->
 
-                  <h1>こんにちは、{{ username }} です</h1>
+                  <h1>こんにちは、{{ user_profile.userpro.username }} です</h1>
                 </v-col>
 
                 <v-col
@@ -178,6 +180,7 @@
                       <v-fa :icon="['fas', 'parking']" class="parking_icon sns_icons" />
                     <p class="ma-2">{{ user_profile.address }}</p>
                   </v-row>
+
                 </v-col>
 
 
@@ -186,6 +189,7 @@
                 <v-col
                   cols="6"
                   md="12"
+                  class="user_comment"
                 >
                   <h2>レビュー</h2>
                   <v-row>
@@ -199,7 +203,7 @@
                       md="2"
                     >
                     <div class="profile_icons">
-                      <img :src="comment.profile.icon">
+                      <router-link :to="`/profile/${comment.profile.userpro.username}`"><img :src="comment.profile.icon"></router-link>
                     </div>
                     </v-col>
                     <v-col
@@ -207,8 +211,12 @@
                       md="10"
                       class="review"
                     >
-                    <h3>{{ comment.profile.userpro.username }}</h3>
-                    <p>{{ comment.profile.introduction }}</p>
+                    <h3>
+                      <router-link :to="`/profile/${comment.profile.userpro.username}`">
+                        {{ comment.profile.userpro.username }}
+                      </router-link>
+                    </h3>
+                    <p @click="isActive = !isActive" :class="comment_all">{{ comment.comment }}</p>
                     </v-col>
                     <div class="border_line mb-5"></div>
                   </v-row>
@@ -225,7 +233,6 @@
   </div>
   </v-app>
 </template>
-
 
 
 <script>
@@ -292,6 +299,8 @@ export default {
       icon: '',
       url: '',
       show: true,
+
+      isActive: true,
     }
   },
   mounted(){
@@ -339,14 +348,17 @@ export default {
       api({
         method: 'put',
         url: '/profile/' + this.id + '/',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
         data: {
-          'userpro': this.$store.getters['auth/id'],
+          'userpro': {
+            'id': this.$store.getters['auth/id'],
+            'username': this.$store.getters['auth/username'],
+          },
           'introduction': this.form.edit.introduction,
           'address': this.form.edit.address,
           'icon': this.form.edit.icon,
+        },
+        headers: {
+          'content-type': 'multipart/form-data;'
         }
       })
         .then(response => {
@@ -376,7 +388,7 @@ export default {
     user_profile(){
       console.log(this.profiles)
       console.log(this.profiles.userpro)
-      const profiles = this.profiles.find(profiles => profiles.userpro.username === this.$store.getters['auth/username'])
+      const profiles = this.profiles.find(profiles => profiles.userpro.username === this.$route.params.username)
       if(!profiles){
         return {
           title: '見つかりません',
@@ -387,18 +399,20 @@ export default {
       return profiles
     },
     user_posts(){
-      const posts = this.posts.filter(posts => posts.author === this.$store.getters['auth/id']);
+      const posts = this.posts.filter(posts => posts.author.username === this.$route.params.username);
       return posts
     },
 
     user_comments(){
-      const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
+      const comments = this.comments.filter(comments => comments.username === this.user_profile.id);
       return comments
     },
 
-    us_comments(){
-      const comments = this.comments.filter(comments => comments.username === this.$store.getters['auth/id']);
-      return comments
+    comment_all(){
+      return{
+        all:this.isActive,
+        part:!this.isActive,
+      }
     }
   },
 }
@@ -511,11 +525,9 @@ label::after {
   padding: 12px 0;
 
   p{
-    position: relative;
-    max-height: calc(16 * 1.8 * 2 * 1px);
-    font-size: 16px;
-    line-height: 1.8;
-    word-break: break-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
   }
 
@@ -543,7 +555,72 @@ label::after {
   position: relative;
   bottom: 100px;
   right: 20px;
+
+  img{
+    background-color: #fff;
+  }
+}
+
+.inner_card{
+  max-width: 100%;
+  padding: 25px 50px;
+
+  .back-color{
+    text-align: center;
+
+    button.start{
+      background-color: #329eff!important;
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 10px;
+      text-decoration: none;
+      outline: none;
+      border-radius: 5px;
+      width: 80px;
+    }
+  }
+
+  .photo_area{
+    width: 200px;
+    height: 200px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  .file_input{
+    margin: 0 auto;
+    position: relative;
+    top: 50px;
+  }
+
+  .camera_icon{
+    top: 13px;
+    right: 2px;
+  }
+
+  .v-icon{
+    color: grey!important;
+  }
+
 }
 
 
+
+.all{
+  display: revert!important;
+}
+ 
+.part{
+  display: -webkit-box!important;
+}
+
+.user_comment{
+  p:hover{
+    cursor : pointer;
+    opacity: 0.8;
+    transition-duration: 0.5s;
+  }
+}
 </style>

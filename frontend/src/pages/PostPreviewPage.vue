@@ -1,5 +1,7 @@
 <template>
   <v-app>
+    <!-- <Spinner v-show="!loading" /> -->
+
     <div id="app" class="back_body">
       <GlobalHeader />
 
@@ -23,41 +25,9 @@
         class="card_style"
         max-width="800"
       >
-      
-      <!-- モーダル -->
-        <div class="text-center">
-          <v-dialog
-            v-model="dialog2"
-            width="500"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text
-                color="red lighten-2"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-              <p class="text-lg-right">削除</p>
-              </v-text>
-            </template>
-              <v-card
-                class="card_style"
-                max-width="800"
-              >
-              <v-btn @click="deleteButton">
-                削除
-              </v-btn>
-              </v-card>
-
-          </v-dialog>
-        </div>
+        <div class="clearfix text-right edit_delete">
         <!-- モーダル -->
-      
-
-
-
-        <!-- モーダル -->
-        <div class="text-center">
+        <div class="inline_block" style="margin-right:15px;">
           <v-dialog
             v-model="dialog"
             width="500"
@@ -70,7 +40,7 @@
                 v-on="on"
                 @click="editButton"
               >
-              <p class="text-lg-right">編集</p>
+              <p class="">編集</p>
               </v-text>
             </template>
               <v-card
@@ -92,6 +62,37 @@
         </div>
         <!-- モーダル -->
 
+        <!-- モーダル -->
+        <div class="inline_block">
+          <v-dialog
+            v-model="dialog2"
+            width="500"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text
+                color="red lighten-2"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+              <p class="">削除</p>
+              </v-text>
+            </template>
+              <v-card
+                class="card_style"
+                max-width="800"
+              >
+              <v-btn @click="deleteButton">
+                削除
+              </v-btn>
+              </v-card>
+
+          </v-dialog>
+        </div>
+        <!-- モーダル -->
+        </div>
+
+
 
         <div style="width:700px;">
           <p>{{ post.title }}</p>
@@ -110,7 +111,7 @@
           </v-flex>
           <v-flex xs12 sm6 md10>
             <div class="pr_profile">
-              <p class="prof_name">{{ user_profile.userpro }}</p>
+              <p class="prof_name">{{ user_profile.userpro.username }}</p>
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
@@ -137,14 +138,19 @@ import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor'
 import axios from 'axios'
 
+// import Spinner from 'vue-simple-spinner'
+
 export default {
   components: {
     GlobalHeader,
     PrFooter,
     quillEditor,
+    // Spinner,
   },
   data(){
     return{
+      // loading: true,
+
       dialog: false,
       dialog2: false,
       results: [],
@@ -161,18 +167,24 @@ export default {
   },
   mounted(){
     axios.get('http://127.0.0.1:8000/api/v1/posts/')
-    .then(response => {this.results = response.data})
+    .then(response => {
+      this.results = response.data;
+    })
 
     axios.get('http://localhost:8000/api/v1/profile/')
-    .then(response => {this.profiles = response.data})
+    .then(response => {
+      this.profiles = response.data;
+    })
   },
   methods: {
     submitPost: function(){
       api({
-        method: 'post',
-        url: '/posts/',
+        method: 'put',
+        url: '/posts/' + this.id + '/',
         data: {
           'id': this.form.posts.id,
+          'author': this.$store.getters['auth/id'],
+          'car_type': this.form.posts.car_type,
           'title': this.form.posts.title,
           'text': this.form.posts.text,
         }
@@ -223,7 +235,7 @@ export default {
       return post
     },
     user_profile(){
-      const profiles = this.profiles.find(profiles => profiles.userpro === this.post.author)
+      const profiles = this.profiles.find(profiles => profiles.userpro.id === this.post.author.id)
       if(!profiles){
         return {
           title: '見つかりません',
@@ -426,6 +438,13 @@ h3{
       font-size: 1.2rem;
       font-weight: 600;
     }
+
+    p{
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
   }
 
   p{
@@ -435,4 +454,12 @@ h3{
   }
 }
 
+.edit_delete{
+  width: 100%;
+  display: inline-block;
+
+  .inline_block{
+    display: inline-block;
+  }
+}
 </style>
