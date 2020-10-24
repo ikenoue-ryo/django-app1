@@ -39,7 +39,7 @@
                     <v-card
                       class="card_style"
                     >
-                      <GlobalMessage class="message_card" />
+                      <!-- <GlobalMessage class="message_card" /> -->
 
                       <form @submit.prevent="submitPost">
                       <v-flex xs12 sm6 md9 class="inner_card">
@@ -197,6 +197,27 @@
                   <p class="ma-2">{{ user_comments.length }} 件</p>
                   </v-row>
                   
+                  <div class="mb-5">
+                    <form @submit.prevent="submitComment" class="form_class">
+                      <v-rating
+                        v-model="form.comment.point"
+                        background-color="orange lighten-3"
+                        color="orange"
+                        size="20"
+                        dense
+                      ></v-rating>
+                      <v-text-field
+                        v-model="form.comment.comment"
+                        label="コメントを書く"
+                        :rules="rules"
+                        hide-details="auto"
+                      ></v-text-field>
+                      <div class="back-color">
+                        <button type="submit" class="comment_post">送信</button>
+                      </div>
+                    </form>
+                  </div>
+
                   <v-row v-for="comment in user_comments" :key="comment.id">
                     <v-col
                       cols="2"
@@ -212,9 +233,18 @@
                       class="review"
                     >
                     <h3>
-                      <router-link :to="`/profile/${comment.profile.userpro.username}`">
-                        {{ comment.profile.userpro.username }}
-                      </router-link>
+                      <v-row class="ml-0">
+                        <router-link :to="`/profile/${comment.profile.userpro.username}`" class="mr-3">
+                          {{ comment.profile.userpro.username }}
+                        </router-link>
+                        <v-rating
+                          v-model="comment.point"
+                          background-color="orange lighten-3"
+                          color="orange"
+                          size="20"
+                          dense
+                        ></v-rating>
+                      </v-row>
                     </h3>
                     <p @click="isActive = !isActive" :class="comment_all">{{ comment.comment }}</p>
                     </v-col>
@@ -237,7 +267,7 @@
 
 <script>
 import GlobalHeader from '@/components/GlobalHeader.vue'
-import GlobalMessage from '@/components/GlobalMessage.vue'
+// import GlobalMessage from '@/components/GlobalMessage.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
 import api from '@/services/api'
@@ -248,7 +278,7 @@ export default {
   name: 'Map',
   components: {
     GlobalHeader,
-    GlobalMessage,
+    // GlobalMessage,
     PrFooter,
   },
   data(){
@@ -279,6 +309,11 @@ export default {
           introduction: '',
           address: '',
           icon: '',
+        },
+        comment:{
+          username: '',
+          point: '',
+          comment: '',
         }
       },
       fav: true,
@@ -303,6 +338,12 @@ export default {
       show: true,
 
       isActive: true,
+
+      // コメント
+      rules: [
+        value => !!value || 'Required.',
+        value => (value && value.length >= 3) || 'Min 3 characters',
+      ],
     }
   },
   async mounted(){
@@ -390,7 +431,24 @@ export default {
       //   .catch(function(error) {
       //     console.log(error)
       //   })
-    }
+    },
+    // コメント
+    submitComment: function(){
+      api({
+        method: 'post',
+        url: '/comment/',
+        data: {
+          'username': this.$store.getters['auth/id'],
+          'point': this.form.comment.point,
+          'comment': this.form.comment.comment,
+          'profile': this.user_profile,
+        }
+      })
+      .then(response => {
+        this.form.comment = response.data
+        console.log('Comment succeded.')
+      })
+    },
   },
   computed: {
     username(){
@@ -418,13 +476,16 @@ export default {
       const comments = this.comments.filter(comments => comments.username === this.user_profile.id);
       return comments
     },
-
     comment_all(){
       return{
         all:this.isActive,
         part:!this.isActive,
       }
-    }
+    },
+    // id(){
+    //   console.log('投稿ID', this.$route.params.id)
+    //   return Number(this.$route.params.id);
+    // },
   },
 }
 </script>
@@ -590,6 +651,10 @@ label::after {
       outline: none;
       border-radius: 5px;
       width: 80px;
+    }
+
+    button.comment_post{
+      background-color: #329eff!important;
     }
   }
 

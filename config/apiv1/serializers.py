@@ -44,9 +44,17 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class CommentSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
 
     class Meta:
         model = Comment
-        fields = ('__all__')
+        fields = ['id', 'username', 'point', 'profile', 'comment']
+
+    def update(self, instance, validated_data): 
+        instance.username = validated_data.get('username', instance.username)
+        instance.point = validated_data.get('point', instance.point)
+        instance.comment = validated_data.get('comment', instance.comment)
+        instance.save()
+        return instance

@@ -70,24 +70,32 @@ class Post(models.Model):
 
 class Profile(models.Model):
     
-    introduction = models.TextField()
-    address = models.CharField(max_length=50, null=True, blank=True)
     userpro = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name='userpro',
         on_delete=models.CASCADE,
     )
-    created_on = models.DateTimeField(auto_now_add=True)
     icon = models.ImageField(upload_to="image/", null=True, blank=True)
+    introduction = models.TextField()
+    address = models.CharField(max_length=50, null=True, blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.userpro.username
 
 
+SCORE_CHOICES = (
+    (1, '★1'),
+    (2, '★2'),
+    (3, '★3'),
+    (4, '★4'),
+    (5, '★5'),
+)
 
 class Comment(models.Model):
     """コメントモデル"""
 
     username = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿先', on_delete=models.CASCADE)
+    point = models.IntegerField('評価点', choices=SCORE_CHOICES, default=3)
     profile = models.ForeignKey(to=Profile, verbose_name='投稿者', on_delete=models.CASCADE)
     comment = models.TextField(blank=False, null=False)
 
