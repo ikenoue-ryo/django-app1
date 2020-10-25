@@ -370,7 +370,7 @@ export default {
     },
 
     // 写真アップロード
-    selectedFile(e){
+    selectedFile: function(e){
       e.preventDefault();
       let files = e.target.files;
       this.uploadFile = files[0];

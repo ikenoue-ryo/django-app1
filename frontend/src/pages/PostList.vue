@@ -3,23 +3,23 @@
     <GlobalHeader />
 
     <div class="back_body">
-      <h2>Let's Ride {{ car_type.en_name }}</h2>
+      <h2>Let's Ride {{ car_name.toUpperCase()}}</h2>
           <v-list>
-            <v-list-item v-for="list in displayLists" :key="list.index">
+            <v-list-item v-for="info in car_info" :key="info.index">
                 <v-container fluid class="back_color">
                   <v-content>
-                    <v-list-item :to="`/post/${list.id}`" style="background-color: #fff; border-radius:10px;">
+                    <v-list-item :to="`/post_preview/${info.id}`" style="background-color: #fff; border-radius:10px;">
                       <v-container>
                         <v-layout wrap>
                           <v-flex xs12 sm6 md5>
                             <div class="back_size">
-                              <img :src="list.main_images[0].photo">
+                              <img :src="info.photo">
                             </div>
                           </v-flex>
                           <v-flex xs12 sm6 md7 px-5>
                             <div class="card_detail">
                                 <div class="card_info clearfix">
-                                  <h3>{{ list.address }}</h3>
+                                  <h3>福岡県福岡市博多区</h3>
                                   <v-btn
                                     large
                                     icon
@@ -29,16 +29,16 @@
                                   </v-btn>
 
                                   <ul>
-                                    <li v-if="list.pr1">{{ list.pr1 }}</li>
+                                    <!-- <li v-if="list.pr1">{{ list.pr1 }}</li>
                                     <li v-if="list.pr2">{{ list.pr2 }}</li>
                                     <li v-if="list.pr3">{{ list.pr3 }}</li>
-                                    <li v-if="list.pr4">{{ list.pr4 }}</li>
+                                    <li v-if="list.pr4">{{ list.pr4 }}</li> -->
                                   </ul>
                                   <ul class="tag">
-                                    <li v-if="list.tag1">{{ list.tag1 }}</li>
-                                    <li v-if="list.tag2">{{ list.tag2 }}</li>
+                                    <!-- <li v-if="list.tag1">{{ list.tag1 }}</li>
+                                    <li v-if="list.tag2">{{ list.tag2 }}</li> -->
                                   </ul>
-                                  <div class="price">{{ list.price }}
+                                  <div class="price">{{ info.price }}
                                     <span class="yen"> 円/(月額)</span>
                                   </div>
                                 </div>
@@ -53,16 +53,6 @@
             </v-list-item>
           </v-list>
 
-          <!-- ページネーション -->
-          <div class="text-center pagenation">
-            <v-pagination
-              v-model="page"
-              :length="length"
-              prev-icon="mdi-menu-left"
-              next-icon="mdi-menu-right"
-              @input="pageChange"
-            ></v-pagination>
-          </div>
         </div>
     
     <GlobalFooter />
@@ -72,8 +62,7 @@
 <script>
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
-import car_types from '../pages/carTypes';
-import posts from '../pages/postLists';
+import axios from 'axios'
 
 export default {
   components:{
@@ -82,6 +71,8 @@ export default {
   },
   data () {
     return {
+    post_list: [],
+
     // カルーセル
     model: 0,
     photos: [
@@ -101,45 +92,27 @@ export default {
           image: 'https://lh3.googleusercontent.com/pw/ACtC-3fcS4fX1FG55xLgw55LvePc5CpqLW1HN5ruL3Awcu8mvRCq-YuJ0E4pnzgTJ5reJ1FOmtYtQ6RaXrcS6LjvOhySGSu-cuipRO5sqrJbnFq_cnbh4ZHb1vXCEFJl71ilcct9oDCe6DjngIY40x5DSsjA=w1880-h1410-no?authuser=0'
         },
       ],
-    // ページネーション
-    page: 1,
-    length: 0,
-    lists: [],
-    displayLists: [],
-    pageSize: 3,
     }
   },
   computed:{
-    car_types(){
-      return this.$route.params.en_name
+    car_name(){
+      const name = this.$route.params.en_name
+      return name
     },
-    car_type(){
-      return car_types.find(car_type => car_type.en_name === this.car_types)
-    },
-    posts(){
-      const post = posts.filter(posts => posts.car_type === this.car_types);
-      if (!posts) {
-        return {
-          author: '見つかりません',
-          car_type: '',
-          title: '',
-          text: '',
-        };
-      }
-      return post
+    car_info(){
+      const post_list = this.post_list.filter(post_list => post_list.car_type === this.car_name)
+      return post_list
     },
   },
   methods: {
     pageChange: function(pageNumber){
       this.displayLists = this.lists.slice(this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
-    }
+    },
   },
   mounted: function(){
-    this.lists = this.posts
-
-    this.length = Math.ceil(this.lists.length/this.pageSize);
-
-    this.displayLists = this.lists.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
+    //post
+    axios.get('http://localhost:8000/api/v1/posts/')
+    .then(response => { this.post_list = response.data })
   }
 }
 </script>

@@ -14,7 +14,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'title', 'text', 'price', 'car_type']
+        fields = ['id', 'author', 'photo', 'title', 'text', 'price', 'car_type']
 
     def update(self, instance, validated_data): 
         instance.author.username = validated_data.get('author', instance.author.username)
@@ -35,6 +35,15 @@ class ProfileSerializer(serializers.ModelSerializer):
         # extra_kwargs = {
         #     'userpro': {'validators': []},
         # }
+
+    def create(self, validated_data):
+        userpro_data = validated_data.pop('userpro', None)
+        if userpro_data:
+            user = User.objects.get_or_create(**userpro_data)[0]
+            validated_data['userpro'] = user
+        return Profile.objects.create(**validated_data)
+        
+        return Profile(**validated_data)
 
     def update(self, instance, validated_data): 
         instance.introduction = validated_data.get('introduction', instance.introduction)
