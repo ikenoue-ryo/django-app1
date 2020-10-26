@@ -8,6 +8,7 @@ router.register('user', views.UserViewSet)
 router.register('posts', views.PostViewSet)
 router.register('profile', views.ProfileViewSet)
 router.register('comment', views.CommentViewSet)
+router.register('tag', views.TagViewSet)
 
 app_name = 'apiv1'
 urlpatterns = [

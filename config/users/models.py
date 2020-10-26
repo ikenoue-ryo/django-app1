@@ -44,22 +44,34 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
+class Tag(models.Model):
+    name = models.CharField('タグ名', max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     """投稿モデル"""
 
     CAR_TYPE = (
-        ('corolla', 'Corolla'),  # (DB値, 読みやすい値)
-        ('prius', 'Prius'),
-        ('voxy', 'Voxy'),
+        ('corolla', 'corolla'),  # (DB値, 読みやすい値)
+        ('prius', 'prius'),
+        ('voxy', 'voxy'),
     )
     
     class Meta:
         db_table = 'post'
         
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿者', on_delete=models.CASCADE)
-    # photo = models.ImageField(verbose_name='サムネイル画像', upload_to='photo/', null=False, blank=False)
+    photo = models.ImageField(verbose_name='サムネイル画像', upload_to='photo/', null=False, blank=False)
     title = models.CharField(verbose_name='タイトル', max_length=120, null=True, blank=True )
     text = models.TextField(verbose_name='本文', null=True, blank=True)
+    pr1 = models.CharField(verbose_name='おすすめ1', max_length=20, null=True, blank=True )
+    pr2 = models.CharField(verbose_name='おすすめ2', max_length=20, null=True, blank=True )
+    pr3 = models.CharField(verbose_name='おすすめ3', max_length=20, null=True, blank=True )
+    pr4 = models.CharField(verbose_name='おすすめ4', max_length=20, null=True, blank=True )
+    tag = models.ManyToManyField(Tag, verbose_name='タグ')
     car_type = models.CharField(max_length=20, choices=CAR_TYPE)
     price = models.IntegerField(verbose_name='価格', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
@@ -70,24 +82,32 @@ class Post(models.Model):
 
 class Profile(models.Model):
     
-    introduction = models.TextField()
-    address = models.CharField(max_length=50, null=True, blank=True)
     userpro = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name='userpro',
         on_delete=models.CASCADE,
     )
-    created_on = models.DateTimeField(auto_now_add=True)
     icon = models.ImageField(upload_to="image/", null=True, blank=True)
+    introduction = models.TextField()
+    address = models.CharField(max_length=50, null=True, blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.userpro.username
 
 
+SCORE_CHOICES = (
+    (1, '★1'),
+    (2, '★2'),
+    (3, '★3'),
+    (4, '★4'),
+    (5, '★5'),
+)
 
 class Comment(models.Model):
     """コメントモデル"""
 
     username = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿先', on_delete=models.CASCADE)
+    point = models.IntegerField('評価点', choices=SCORE_CHOICES, default=3)
     profile = models.ForeignKey(to=Profile, verbose_name='投稿者', on_delete=models.CASCADE)
     comment = models.TextField(blank=False, null=False)
 

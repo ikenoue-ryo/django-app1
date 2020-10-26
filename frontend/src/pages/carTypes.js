@@ -3,7 +3,7 @@ const car_types = [{
     brand: 'TOYOTA',
     jp_name: 'カローラ',
     jp_hira: 'かろーら',
-    en_name: 'Corolla',
+    en_name: 'corolla',
     images: 'https://toyota.jp/pages/contents/corollasport/001_p_001/4.0/image/car-viewer/43_1_5/43_1_5_030_c.jpg'
   },
   {
@@ -11,7 +11,7 @@ const car_types = [{
     brand: 'TOYOTA',
     jp_name: 'プリウス',
     jp_hira: 'ぷりうす',
-    en_name: 'Prius',
+    en_name: 'prius',
     images: 'https://toyota.jp/pages/contents/prius/004_p_007/4.0/image/car-viewer/24_5_7/24_5_7_030_c.jpg'
   },
   {
@@ -19,7 +19,7 @@ const car_types = [{
     brand: 'TOYOTA',
     jp_name: 'ヴォクシー',
     jp_hira: 'ゔぉくしー',
-    en_name: 'Voxy',
+    en_name: 'voxy',
     images: 'https://toyota.jp/pages/contents/voxy/003_p_007/4.0/image/car-viewer/11_1_1/11_1_1_030_c.jpg'
   },
   {
@@ -27,7 +27,7 @@ const car_types = [{
     brand: 'TOYOTA',
     jp_name: 'シエンタ',
     jp_hira: 'しえんた',
-    en_name: 'Sienta',
+    en_name: 'sienta',
     images: 'https://toyota.jp/pages/contents/sienta/002_p_003/4.0/image/car-viewer/15_24_2/15_24_2_030_c.jpg'
   },
   {
@@ -35,7 +35,7 @@ const car_types = [{
     brand: 'TOYOTA',
     jp_name: 'アクア',
     jp_hira: 'あくあ',
-    en_name: 'AQUA',
+    en_name: 'aqua',
     images: 'https://toyota.jp/pages/contents/aqua/001_p_011/4.0/image/car-viewer/1_6_9/1_6_9_030_c.jpg'
   },
   {
@@ -43,7 +43,7 @@ const car_types = [{
     brand: 'TOYOTA',
     jp_name: 'アルファード',
     jp_hira: 'あるふぁーど',
-    en_name: 'ALPHARD',
+    en_name: 'alphard',
     images: 'https://toyota.jp/pages/contents/alphard/003_p_009/image/car-viewer/9_20_6/9_20_6_030_c.jpg'
   },
   {
@@ -51,7 +51,7 @@ const car_types = [{
     brand: 'HONDA',
     jp_name: 'フィット',
     jp_hira: 'ふぃっと',
-    en_name: 'FIT',
+    en_name: 'fit',
     images: 'https://www.honda.co.jp/Fit/webcatalog/type/type/image/ehev_home/bc_sunlight_white.jpg'
   },
   {
@@ -59,7 +59,7 @@ const car_types = [{
     brand: 'HONDA',
     jp_name: 'シャトル',
     jp_hira: 'しゃとる',
-    en_name: 'SHUTTLE',
+    en_name: 'shuttle',
     images: 'https://img1.kakaku.k-img.com/images/productimage/fullscale/K0000770924.jpg'
   },
   {

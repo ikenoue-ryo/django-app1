@@ -12,6 +12,7 @@
         <ul class="horizontal-list">
           <li class="item mx-2" v-for="profile in profiles" :key="profile">
             <!-- Card -->
+            <router-link :to="`/profile/${profile.userpro.username}`">
             <a class="card hoverable mb-4" data-toggle="modal" data-target="#basicExampleModal">
               <v-col class="pa-0 card_size">
                 <v-hover
@@ -24,9 +25,9 @@
                 >
                   <v-img :src="profile.icon" width=144 height=144></v-img>
                   <div class="card-body">
-                    <h3 class="my-1">{{ profile.name }}</h3>
+                    <h3 class="my-1">{{ profile.userpro.username }}</h3>
                     <v-rating
-                      v-model="profile.rate"
+                      v-model="profile.point"
                       background-color="orange lighten-3"
                       color="orange"
                       size="20"
@@ -37,6 +38,7 @@
                 </v-hover>
               </v-col>
             </a>
+            </router-link>
             <!-- Card -->
           </li>
          
@@ -53,19 +55,26 @@
 
 
 <script>
-import profiles from '../pages/profileLists'
+// import profiles from '../pages/profileLists'
+import axios from 'axios'
 
 export default {
-  computed:{
-    profiles(){
-      return profiles;
-    }
-  },
   data(){
     return {
       rating: 0,
+      profiles: [],
     }
-  }
+  },
+  mounted(){
+    //profile
+    axios.get('http://localhost:8000/api/v1/profile/')
+    .then(response => { this.profiles = response.data })
+  },
+  // computed:{
+  //   profiles(){
+  //     return profiles;
+  //   }
+  // },
 }
 </script>
 

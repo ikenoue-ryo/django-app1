@@ -95,20 +95,28 @@
               </v-text>
             </template>
               <v-card
-                class="card_style"
+                class="card_style delete_area"
                 max-width="800"
               >
-              <v-btn @click="deleteButton">
-                削除
-              </v-btn>
+                <v-row>
+                  <v-text class="delete_question">
+                    この投稿を削除しますか？
+                  </v-text>
+                </v-row>
+                <v-row justify="center" style="padding-bottom:30px;">
+                  <v-btn @click="dialog2 = false" class="mr-5">
+                    キャンセル
+                  </v-btn>
+                  <v-btn @click="deleteButton" width="110">
+                    削除
+                  </v-btn>
+                </v-row>
               </v-card>
 
           </v-dialog>
         </div>
         <!-- モーダル -->
         </div>
-
-
 
         <div style="width:700px;">
           <p>{{ post.title }}</p>
@@ -137,15 +145,12 @@
           <div class="card">
             <div class="card-body">
               <div class="price">{{ post.price }}<span class="yen"> 円/(月額)</span></div>
-              <p class="card-text">24h以内に指定の場所に返却してください。</p>
+              <p class="card-text">指定の場所に返却してください。</p>
               <a href="#"><v-btn color="#2bbbad">予約する</v-btn></a>
             </div>
           </div>
         </div>
-
-
       </v-card>
-
     </div>
     <PrFooter/>
 
@@ -252,7 +257,9 @@ export default {
       .catch(error => {
         console.log(error);
       })
-
+    },
+    deletePreview(){
+      this.url = '';
     }
   },
   computed: {
@@ -566,20 +573,35 @@ h3{
 }
 
 .back-color{
-    text-align: center;
+  text-align: center;
 
-    button.start{
-      background-color: #329eff!important;
-      font-size: 0.9rem;
-      color: #fff;
-      font-weight: bold;
-      margin-top: 20px;
-      padding: 10px;
-      text-decoration: none;
-      outline: none;
-      border-radius: 5px;
-      width: 80px;
-    }
+  button.start{
+    background-color: #329eff!important;
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+    text-decoration: none;
+    outline: none;
+    border-radius: 5px;
+    width: 80px;
   }
+}
+
+.delete_area{
+  padding: 25px 50px;
+
+  .delete_question{
+    text-align: center;
+    width: 100%;
+    padding: 30px;
+    font-weight: 600;
+  }
+}
+
+.v-btn{
+  outline: none;
+}
 
 </style>
