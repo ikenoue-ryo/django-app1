@@ -9,15 +9,58 @@
       max-width="800"
     >
 
-    
       <form @submit.prevent="submitPost" class="form_class">
 
-        <v-checkbox v-model="form.posts.car_type" label="カローラ" color="info" value="corolla" hide-details></v-checkbox>
-        <v-checkbox v-model="form.posts.car_type" label="プリウス" color="info" value="prius" hide-details></v-checkbox>
-        <v-checkbox v-model="form.posts.car_type" label="ヴォクシー" color="info" value="voxy" hide-details></v-checkbox>
+        <!-- カーセレクト -->
+        <v-col
+          class="d-flex pa-0"
+          cols="12"
+          sm="6"
+        >
+          <v-select
+            v-model="form.posts.car_type"
+            :items="car_types"
+            label="Car Select"
+            outlined
+            style="font-size:16px;"
+            item-value="types"
+            item-text="name"
+          ></v-select>
+        </v-col>
+
+        <!-- タグ -->
+        <div class="tag">
+          <h3>Tag</h3>
+          <v-checkbox
+              class="ma-0"
+              v-model="ex4"
+              label="低燃費"
+              color="info"
+              value="nenpi"
+              hide-details
+            ></v-checkbox>
+          <v-checkbox
+              class="ma-0"
+              v-model="ex4"
+              label="駐車場無料"
+              color="info"
+              value="parking"
+              hide-details
+            ></v-checkbox>
+          <v-checkbox
+              class="ma-0"
+              v-model="ex4"
+              label="	1ヶ月間貸し出し可"
+              color="info"
+              value="monthfree"
+              hide-details
+            ></v-checkbox>
+        </div>
 
         <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
-        <button type="submit">送信</button>
+        <div class="back-color">
+          <button type="submit" class="start">送信</button>
+        </div>
       </form>
     </v-card>
 
@@ -46,7 +89,17 @@ export default {
   },
   data(){
     return{
+      car_types: [
+        {name: 'カローラ', types: 'corolla'},
+        {name: 'プリウス', types: 'prius'},
+        {name: 'ヴォクシー',types: 'voxy'},
+        {name: 'シエンタ', types: 'sienta'},
+        {name: 'アクア', types: 'aqua'},
+        {name: 'アルファード', types: 'alphard'},
+      ],
+
       results: [],
+
       form: {
         posts: {
           author: '',
@@ -55,6 +108,7 @@ export default {
           price: '',
         }
       },
+
       ex4: ['info'],
     }
   },
@@ -175,25 +229,60 @@ p{
 }
 
 input[type="checkbox"] {
-        display: none;
-    }
+  display: none;
+}
 
-    label {
-        display: inline-block;
-        border-radius: 20px;
-        text-align: center;
-        text-decoration: none;
-        border: solid 1px #ccc;
-        transition: 0.25s;
-        padding: 6px 18px;
-        cursor: pointer;
-        font-size: 14px;
-        margin: 3px;
-    }
+label {
+  display: inline-block;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  border: solid 1px #ccc;
+  transition: 0.25s;
+  padding: 6px 18px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 3px;
+}
 
-    input[type="checkbox"]:checked + label {
-        background: #00809d;
-        color: #fff;
-    }
+input[type="checkbox"]:checked + label {
+  background: #00809d;
+  color: #fff;
+}
+
+.back-color{
+  text-align: center;
+
+  button.start{
+    background-color: #329eff!important;
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+    text-decoration: none;
+    outline: none;
+    border-radius: 5px;
+    width: 80px;
+  }
+}
+
+.v-input{
+  width: 33.33%;
+  display: inline-block;
+}
+
+.tag{
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 20px 15px;
+  margin-bottom: 30px;
+
+  h3{
+    font-size: 1rem;
+    font-weight: normal;
+  }
+}
+
 
 </style>

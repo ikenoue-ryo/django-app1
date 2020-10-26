@@ -118,8 +118,6 @@
         <!-- モーダル -->
         </div>
 
-
-
         <div style="width:700px;">
           <p>{{ post.title }}</p>
           <p>{{ post.car_type }}</p>
@@ -152,10 +150,7 @@
             </div>
           </div>
         </div>
-
-
       </v-card>
-
     </div>
     <PrFooter/>
 

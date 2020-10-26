@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from users.models import User, Post, Comment, Profile
+from users.models import User, Post, Comment, Profile, Tag
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -9,17 +9,29 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username')
 
 
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ('__all__')
+
+
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
+    tag = TagSerializer(read_only=True, many=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'photo', 'title', 'text', 'price', 'car_type']
+        fields = ['id', 'author', 'photo', 'title', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'car_type']
 
     def update(self, instance, validated_data): 
         instance.author.username = validated_data.get('author', instance.author.username)
         instance.title = validated_data.get('title', instance.title)
         instance.text = validated_data.get('text', instance.text)
+        instance.pr1 = validated_data.get('pr1', instance.pr1)
+        instance.pr2 = validated_data.get('pr2', instance.pr2)
+        instance.pr3 = validated_data.get('pr3', instance.pr3)
+        instance.pr4 = validated_data.get('pr4', instance.pr4)
+        instance.tag = validated_data.get('tag', instance.tag)
         instance.price = validated_data.get('price', instance.price)
         instance.car_type = validated_data.get('car_type', instance.car_type)
         instance.save()

@@ -2,13 +2,18 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from users.models import User, Post, Comment, Profile
-from .serializers import UserSerializer, PostSerializer, ProfileSerializer, CommentSerializer
+from users.models import User, Post, Comment, Profile, Tag
+from .serializers import UserSerializer, PostSerializer, ProfileSerializer, CommentSerializer, TagSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):

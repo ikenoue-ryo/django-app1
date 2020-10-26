@@ -397,9 +397,13 @@ export default {
       let formData = new FormData();
       formData.append('form.edit.icon', this.uploadFile);
 
+
       api({
         method: 'put',
         url: '/profile/' + this.id + '/',
+        headers: {
+          'content-type': 'multipart/form-data'
+        },
         data: {
           'userpro': {
             'id': this.$store.getters['auth/id'],
@@ -408,9 +412,6 @@ export default {
           'introduction': this.form.edit.introduction,
           'address': this.form.edit.address,
           'icon': this.form.edit.icon,
-        },
-        headers: {
-          'content-type': 'multipart/form-data;'
         }
       })
         .then(response => {

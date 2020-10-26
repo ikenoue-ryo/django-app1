@@ -44,6 +44,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
+class Tag(models.Model):
+    name = models.CharField('タグ名', max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     """投稿モデル"""
 
@@ -60,6 +67,11 @@ class Post(models.Model):
     photo = models.ImageField(verbose_name='サムネイル画像', upload_to='photo/', null=False, blank=False)
     title = models.CharField(verbose_name='タイトル', max_length=120, null=True, blank=True )
     text = models.TextField(verbose_name='本文', null=True, blank=True)
+    pr1 = models.CharField(verbose_name='おすすめ1', max_length=20, null=True, blank=True )
+    pr2 = models.CharField(verbose_name='おすすめ2', max_length=20, null=True, blank=True )
+    pr3 = models.CharField(verbose_name='おすすめ3', max_length=20, null=True, blank=True )
+    pr4 = models.CharField(verbose_name='おすすめ4', max_length=20, null=True, blank=True )
+    tag = models.ManyToManyField(Tag, verbose_name='タグ')
     car_type = models.CharField(max_length=20, choices=CAR_TYPE)
     price = models.IntegerField(verbose_name='価格', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)

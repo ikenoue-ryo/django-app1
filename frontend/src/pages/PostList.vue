@@ -27,18 +27,16 @@
                                   >
                                     <v-icon>mdi-heart</v-icon>
                                   </v-btn>
-
                                   <ul>
-                                    <!-- <li v-if="list.pr1">{{ list.pr1 }}</li>
-                                    <li v-if="list.pr2">{{ list.pr2 }}</li>
-                                    <li v-if="list.pr3">{{ list.pr3 }}</li>
-                                    <li v-if="list.pr4">{{ list.pr4 }}</li> -->
+                                    <li v-if="info.pr1">{{ info.pr1 }}</li>
+                                    <li v-if="info.pr2">{{ info.pr2 }}</li>
+                                    <li v-if="info.pr3">{{ info.pr3 }}</li>
+                                    <li v-if="info.pr4">{{ info.pr4 }}</li>
                                   </ul>
-                                  <ul class="tag">
-                                    <!-- <li v-if="list.tag1">{{ list.tag1 }}</li>
-                                    <li v-if="list.tag2">{{ list.tag2 }}</li> -->
+                                  <ul class="tag" v-if="info.tag">
+                                      <li v-for="tag in info.tag" :key="tag"># {{ tag.name }}</li>
                                   </ul>
-                                  <div class="price">{{ info.price }}
+                                  <div class="price">{{ info.price.toLocaleString() }}
                                     <span class="yen"> 円/(月額)</span>
                                   </div>
                                 </div>
