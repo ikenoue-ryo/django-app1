@@ -28,12 +28,72 @@
           ></v-select>
         </v-col>
 
+        <!-- サムネイル画像 -->
+          <v-flex xs12 sm6 md12 class="inner_card">
+            <v-container>
+              <v-row>
+                <div xs12 sm6 md3 class="photo_area">
+                  <div class="file_input" v-show="show">
+                    <label class="input-item__label">
+                      <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
+                      <input type="file" name="file" ref="preview" @change="selectedFile">
+                    </label>
+                  </div>
+
+                  <div class="image_area" v-if="url">
+                    <div @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
+                    <img :src="url">
+                  </div>
+                </div>
+
+              </v-row>
+            </v-container>
+          </v-flex>
+
+        <!-- おすすめ -->
+        <v-text-field
+          style="margin-bottom: 30px; width: 350px;"
+          class="pa-3"
+          v-model="form.posts.pr1"
+          :counter="20"
+          :rules="nameRules"
+          label="おすすめポイント１"
+          required
+        ></v-text-field>
+        <v-text-field
+          style="margin-bottom: 30px; width: 350px;"
+          class="pa-3"
+          v-model="form.posts.pr2"
+          :counter="20"
+          :rules="nameRules"
+          label="おすすめポイント２"
+          required
+        ></v-text-field>
+        <v-text-field
+          style="margin-bottom: 30px; width: 350px;"
+          class="pa-3"
+          v-model="form.posts.pr3"
+          :counter="20"
+          :rules="nameRules"
+          label="おすすめポイント３"
+          required
+        ></v-text-field>
+        <v-text-field
+          style="margin-bottom: 30px; width: 350px;"
+          class="pa-3"
+          v-model="form.posts.pr4"
+          :counter="20"
+          :rules="nameRules"
+          label="おすすめポイント４"
+          required
+        ></v-text-field>
+
         <!-- タグ -->
         <div class="tag">
           <h3>Tag</h3>
           <v-checkbox
               class="ma-0"
-              v-model="ex4"
+              v-model="form.posts.tag"
               label="低燃費"
               color="info"
               value="nenpi"
@@ -41,7 +101,7 @@
             ></v-checkbox>
           <v-checkbox
               class="ma-0"
-              v-model="ex4"
+              v-model="form.posts.tag"
               label="駐車場無料"
               color="info"
               value="parking"
@@ -49,13 +109,23 @@
             ></v-checkbox>
           <v-checkbox
               class="ma-0"
-              v-model="ex4"
+              v-model="form.posts.tag"
               label="	1ヶ月間貸し出し可"
               color="info"
               value="monthfree"
               hide-details
             ></v-checkbox>
         </div>
+
+        <v-text-field
+          style="margin-bottom: 30px; width: 350px;"
+          class="pa-3"
+          v-model="form.posts.price"
+          :counter="5"
+          :rules="nameRules"
+          label="金額"
+          required
+        ></v-text-field>円
 
         <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
         <div class="back-color">
@@ -103,13 +173,26 @@ export default {
       form: {
         posts: {
           author: '',
+          photo: '',
           title: '',
           text: '',
+          pr1: '',
+          pr2: '',
+          pr3: '',
+          pr4: '',
+          tag: '',
+          car_type: '',
           price: '',
         }
       },
 
       ex4: ['info'],
+
+      //写真アップロード
+      uploadFile: null,
+      icon: '',
+      url: '',
+      show: true,
     }
   },
   mounted(){
@@ -118,16 +201,27 @@ export default {
   },
   methods: {
     submitPost: function(){
+      let formData = new FormData();
+      formData.append('author.id', this.$store.getters['auth/id'])
+      formData.append('author.username', this.$store.getters['auth/id'])
+      formData.append('photo', this.uploadFile)
+      formData.append('title', this.form.posts.title)
+      formData.append('text', this.form.posts.text)
+      formData.append('pr1', this.form.posts.pr1)
+      formData.append('pr2', this.form.posts.pr2)
+      formData.append('pr3', this.form.posts.pr3)
+      formData.append('pr4', this.form.posts.pr4)
+      formData.append('tag', this.form.posts.tag)
+      formData.append('car_type', this.form.posts.car_type)
+      formData.append('price', this.form.posts.price)
+
       api({
         method: 'post',
         url: '/posts/',
-        data: {
-          'id': this.form.posts.id,
-          'author': this.$store.getters['auth/id'],
-          'title': this.form.posts.title,
-          'text': this.form.posts.text,
-          'car_type': this.form.posts.car_type,
-        }
+        data: formData,
+        headers: {
+          'content-type': 'multipart/form-data'
+        },
       })
         .then(response => {
           this.form.posts = response.data
@@ -137,7 +231,25 @@ export default {
           const next = this.$route.query.next || 'post_preview/' + this.form.posts.id
           this.$router.replace(next)
         })
-    }
+    },
+    // 写真アップロード
+    selectedFile: function(e){
+      e.preventDefault();
+      let files = e.target.files;
+      this.uploadFile = files[0];
+      console.log('uploadFile', this.uploadFile)
+
+      const file = this.$refs.preview.files[0];
+      this.url = URL.createObjectURL(file);
+      this.$refs.preview.value = '';
+      // 画像のアップ時にfileinputを消す
+      this.show = !this.show
+    },
+    deletePreview(){
+      this.url = '';
+      // ファイルアップロードの復活
+      this.show = !this.show
+    },
   },
 };
 </script>
@@ -181,6 +293,20 @@ p{
   font-family: Rubik, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", BlinkMacSystemFont, YuGothic, "Yu Gothic", sans-serif;
 }
 
+label > input {
+  display: none;
+}
+
+label {
+  padding: 0 1rem;
+} 
+
+label::after {
+  font-size: 1rem;
+  color: #888;
+  padding-left: 1rem;
+}
+
 .back_body{
   background-color: #eee;
   overflow: hidden;
@@ -213,11 +339,9 @@ p{
   }
 
   .image_area{
-    margin-bottom: 20px;
-
     img{
       width: 700px;
-      height: 400px;
+      // height: 400px;
       object-fit: contain;
     }
   }
@@ -237,17 +361,10 @@ label {
   border-radius: 20px;
   text-align: center;
   text-decoration: none;
-  border: solid 1px #ccc;
   transition: 0.25s;
   padding: 6px 18px;
   cursor: pointer;
-  font-size: 14px;
   margin: 3px;
-}
-
-input[type="checkbox"]:checked + label {
-  background: #00809d;
-  color: #fff;
 }
 
 .back-color{
@@ -284,5 +401,70 @@ input[type="checkbox"]:checked + label {
   }
 }
 
+
+form{
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.file_input{
+  .camera_icon{
+    font-size: 3rem;
+  }
+}
+
+.image_area{
+  img{
+    background-color: #fff;
+  }
+}
+
+.inner_card{
+  // border: 1px solid #999;
+  // border-radius: 5px;
+
+  .back-color{
+    text-align: center;
+
+    button.start{
+      background-color: #329eff!important;
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 10px;
+      text-decoration: none;
+      outline: none;
+      border-radius: 5px;
+      width: 80px;
+    }
+
+    button.comment_post{
+      background-color: #329eff!important;
+    }
+  }
+
+  .photo_area{
+    margin: 0 auto;
+  }
+
+  .file_input{
+    margin: 0 auto;
+  }
+
+  .camera_icon{
+    top: 13px;
+    right: 2px;
+  }
+
+  .v-icon{
+    color: grey!important;
+  }
+}
+
+.v-input{
+  font-size: 1.1rem;
+  // width: 350px!important;
+}
 
 </style>

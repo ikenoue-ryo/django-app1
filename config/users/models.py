@@ -65,7 +65,7 @@ class Post(models.Model):
         
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿者', on_delete=models.CASCADE)
     photo = models.ImageField(verbose_name='サムネイル画像', upload_to='photo/', null=False, blank=False)
-    title = models.CharField(verbose_name='タイトル', max_length=120, null=True, blank=True )
+    # title = models.CharField(verbose_name='タイトル', max_length=120, null=True, blank=True )
     text = models.TextField(verbose_name='本文', null=True, blank=True)
     pr1 = models.CharField(verbose_name='おすすめ1', max_length=20, null=True, blank=True )
     pr2 = models.CharField(verbose_name='おすすめ2', max_length=20, null=True, blank=True )

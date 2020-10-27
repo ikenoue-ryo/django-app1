@@ -22,7 +22,7 @@
               </v-toolbar>
               <v-tabs vertical>
                 <v-tab v-for="message in messages" :key="message">
-                  {{ message.sender.username }}
+                  {{ message.sender }}
                 </v-tab>
                 <!-- <v-tab>
                   <v-icon left>
