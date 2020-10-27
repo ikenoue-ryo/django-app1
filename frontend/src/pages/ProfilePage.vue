@@ -1,4 +1,4 @@
-<template>
+f<template>
   <v-app>
   <div class="back_body">
     <GlobalHeader />
@@ -10,7 +10,17 @@
     >
       
         <v-layout wrap>
-          <v-flex xs12 sm6 md3><img :src="user_profile.icon" width="115" class="sticky" style="width:150px;"></v-flex>
+          <v-flex xs12 sm6 md3 text-center>
+            <img v-if="user_profile.icon" :src="user_profile.icon" width="115" class="sticky" style="width:150px; margin:10px;">
+            <div v-else class="file_input">
+              <label class="input-item__label">
+                <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
+              </label>
+            </div>
+            <router-link :to="`/message/${username}`">
+              <v-icon color="blue">mdi-email-outline</v-icon>Messageを送る
+            </router-link>
+          </v-flex>
           <v-flex xs12 sm6 md9>
             <v-container>
               <v-row>
@@ -81,19 +91,6 @@
                                 required
                               ></v-text-field>
                             </v-col>
-<!-- 
-                            <v-col
-                              cols="12"
-                              md="12"
-                            >
-                              <v-text-field
-                                v-model="form.password"
-                                type="password"
-                                label="パスワード"
-                                required
-                              ></v-text-field>
-                            </v-col> -->
-
                           </v-row>
                           <div class="back-color">
                               <button type="submit" class="start">保存</button>
@@ -124,46 +121,26 @@
                   md="12"
                 >
                   <h2>貸し出し中の車</h2>
-                  <!-- {{ user_posts }} -->
-                  <ul v-for="posts in user_posts" :key="posts.id">
-                    <router-link :to="`/post_preview/${posts.id}`">
-                      <li>{{posts.car_type}}</li>
-                    </router-link>
-                  </ul>
                   <v-container style="padding:0; margin: 20px 0;">
                     <v-row>
-                      <v-col cols="12" md="6" class="pa-3">
-                        <v-card
-                          class="pa-0"
-                          max-width="344"
-                          href="#"
-                        >
-                          <v-img
-                            src="https://toyota.jp/pages/contents/corollasport/001_p_001/4.0/image/car-viewer/43_1_5/43_1_5_030_c.jpg"
-                            height="150"
-                          ></v-img>
+                      <v-col cols="12" md="6" class="pa-3" v-for="posts in user_posts" :key="posts.id">
+                        <router-link :to="`/post_preview/${posts.id}`">
+                          <v-card
+                            class="pa-0"
+                            max-width="344"
+                          >
+                            <v-img
+                              :src="posts.photo"
+                              height="150"
+                            ></v-img>
 
-                          <v-card-title>
-                            カローラ
-                          </v-card-title>
-                        </v-card>
+                            <v-card-title>
+                              {{posts.car_type}}
+                            </v-card-title>
+                          </v-card>
+                        </router-link>
                       </v-col>
-                      <v-col cols="12" md="6" class="pa-3">
-                        <v-card
-                          class="pa-0"
-                          max-width="344"
-                          href="#"
-                        >
-                          <v-img
-                            src="https://toyota.jp/pages/contents/voxy/003_p_007/4.0/image/car-viewer/11_1_1/11_1_1_030_c.jpg"
-                            height="150"
-                          ></v-img>
 
-                          <v-card-title>
-                            ヴォクシー
-                          </v-card-title>
-                        </v-card>
-                      </v-col>
                     </v-row>
                   </v-container>
                 </v-col>
@@ -314,6 +291,7 @@ export default {
           username: '',
           point: '',
           comment: '',
+          profile: '',
         }
       },
       fav: true,
@@ -395,59 +373,50 @@ export default {
     //プロフィール
     submitPost: function(){
       let formData = new FormData();
-      formData.append('form.edit.icon', this.uploadFile);
-
+      formData.append('userpro.id', this.$store.getters['auth/id']);
+      formData.append('userpro.username', this.$store.getters['auth/username']);
+      formData.append('introduction', this.form.edit.introduction);
+      formData.append('address', this.form.edit.address);
+      formData.append('icon', this.uploadFile);
 
       api({
         method: 'put',
         url: '/profile/' + this.id + '/',
+        data: formData,
         headers: {
           'content-type': 'multipart/form-data'
         },
-        data: {
-          'userpro': {
-            'id': this.$store.getters['auth/id'],
-            'username': this.$store.getters['auth/username'],
-          },
-          'introduction': this.form.edit.introduction,
-          'address': this.form.edit.address,
-          'icon': this.form.edit.icon,
-        }
       })
         .then(response => {
-          // const username = this.$store.getters['auth/username']
           this.form.edit = response.data
           this.$store.dispatch('message/setInfoMessage', { message: '保存しました。' })
-          // const next = this.$route.query.next || `/profile/${username}`
-          const next = this.$route.query.next || '/'
+          const next = this.$route.query.next || `/profile/${this.name}`
           console.log('path', next)
-          this.$router.replace(next)
+          // goでリロード処理
+          this.$router.go(next)
         })
-
-      // axios.
-      //   post('/profile/' + this.id + '/', formData, config)
-      //   .then(function(response){
-      //     console.log(response)
-      //   })
-      //   .catch(function(error) {
-      //     console.log(error)
-      //   })
     },
     // コメント
     submitComment: function(){
+      let formData = new FormData();
+      formData.append('username', this.user_profile.id);
+      formData.append('point', this.form.comment.point);
+      formData.append('profile.id', this.user_profile.id);
+      formData.append('comment', this.form.comment.comment);
+
       api({
-        method: 'post',
-        url: '/comment/',
-        data: {
-          'username': this.$store.getters['auth/id'],
-          'point': this.form.comment.point,
-          'comment': this.form.comment.comment,
-          'profile': this.user_profile,
-        }
+        method: 'put',
+        url: '/comment/' + this.id + '/',
+        data: formData,
+        headers: {
+          'content-type': 'multipart/form-data'
+        },
       })
       .then(response => {
         this.form.comment = response.data
         console.log('Comment succeded.')
+        const next = this.$route.query.next || `/profile/${this.name}`
+        this.$router.go(next)
       })
     },
   },
@@ -616,11 +585,13 @@ label::after {
   border-radius: 50px;
   width: 100px;
   height: 100px;
+  margin: 5px auto;
 
   .camera_icon{
     font-size: 3rem;
     position: relative;
-    top: 23px;
+    top: 14px;
+    right: 3px;
   }
 }
 
