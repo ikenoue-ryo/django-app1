@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
 from users import models
-from .models import Post, Comment, Tag
+from .models import Post, Comment, Tag, Message
 
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
@@ -41,3 +41,4 @@ admin.site.register(models.Profile, ProfileAdmin)
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Comment)
 admin.site.register(models.Tag)
+admin.site.register(models.Message)

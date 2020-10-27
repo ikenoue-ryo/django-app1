@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from users.models import User, Post, Comment, Profile, Tag
+from users.models import User, Post, Comment, Profile, Tag, Message
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -67,7 +67,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer()
+    profile = ProfileSerializer(read_only=True)
 
     class Meta:
         model = Comment
@@ -76,6 +76,21 @@ class CommentSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data): 
         instance.username = validated_data.get('username', instance.username)
         instance.point = validated_data.get('point', instance.point)
+        instance.profile.userpro.id = validated_data.get('id', instance.profile.userpro.id)
+        instance.profile.userpro.username = validated_data.get('username', instance.profile.userpro.id)
+        instance.profile.icon = validated_data.get('icon', instance.profile.icon)
         instance.comment = validated_data.get('comment', instance.comment)
         instance.save()
         return instance
+
+
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    sender = UserSerializer()
+    receiver = UserSerializer()
+    profile = ProfileSerializer()
+
+    class Meta:
+        model = Message
+        fields = ['id', 'sender', 'receiver', 'message', 'profile']

@@ -9,8 +9,11 @@ router.register('posts', views.PostViewSet)
 router.register('profile', views.ProfileViewSet)
 router.register('comment', views.CommentViewSet)
 router.register('tag', views.TagViewSet)
+router.register('message', views.MessageViewSet)
 
 app_name = 'apiv1'
+
 urlpatterns = [
     path('', include(router.urls)),
+    path('inbox/', views.InboxListView.as_view(), name='inbox'),
 ]

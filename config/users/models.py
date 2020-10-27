@@ -71,7 +71,7 @@ class Post(models.Model):
     pr2 = models.CharField(verbose_name='おすすめ2', max_length=20, null=True, blank=True )
     pr3 = models.CharField(verbose_name='おすすめ3', max_length=20, null=True, blank=True )
     pr4 = models.CharField(verbose_name='おすすめ4', max_length=20, null=True, blank=True )
-    tag = models.ManyToManyField(Tag, verbose_name='タグ')
+    tag = models.ManyToManyField(Tag, verbose_name='タグ', null=True, blank=True)
     car_type = models.CharField(max_length=20, choices=CAR_TYPE)
     price = models.IntegerField(verbose_name='価格', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
@@ -106,10 +106,22 @@ SCORE_CHOICES = (
 class Comment(models.Model):
     """コメントモデル"""
 
-    username = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿先', on_delete=models.CASCADE)
+    username = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿先', on_delete=models.CASCADE, null=True)
     point = models.IntegerField('評価点', choices=SCORE_CHOICES, default=3)
-    profile = models.ForeignKey(to=Profile, verbose_name='投稿者', on_delete=models.CASCADE)
-    comment = models.TextField(blank=False, null=False)
+    profile = models.ForeignKey(to=Profile, verbose_name='投稿者', on_delete=models.CASCADE, null=True)
+    comment = models.TextField()
 
     def __str__(self):
         return self.comment
+
+
+class Message(models.Model):
+    """メッセージモデル"""
+
+    message = models.CharField(max_length=300)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sender', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='receiver', on_delete=models.CASCADE)
+    profile = models.ForeignKey(to=Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.message

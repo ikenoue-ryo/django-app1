@@ -9,19 +9,7 @@
     >
       <v-form v-model="form.valid" @submit.prevent="submitSignup">
         <v-layout wrap>
-          <v-flex xs12 sm6 md3>
-            <div class="file_input">
-              <label class="input-item__label">
-                <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
-                <input type="file" ref="preview" @change="uploadFile" v-show="show">
-              </label>
-            </div>
-
-            <div class="image_area" v-if="url" style="position:relative">
-              <div style="position:absolute" @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
-              <img :src="url">
-            </div>
-          </v-flex>
+          <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png"></v-flex>
           <v-flex xs12 sm6 md9>
             <v-container>
               <v-row>
@@ -189,27 +177,12 @@ label::after {
     border-top: 5px solid #33b5e5;
 
     img {
-      width: 150px;
+      width: 115px;
     }
 
     p{
       font-size: 1.0 rem;
     }
-
-    .file_input{
-      position: relative;
-      top: 70px;
-    }
-
-    // button{
-    //   font-size: 4rem;
-    //   position: relative;
-    //   top: 50px;
-    //   left: 50px;
-    //   border: 1px solid #999;
-    //   border-radius: 65px;
-    //   padding: 30px;
-    // }
 
     .back-color{
       button.start{

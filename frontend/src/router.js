@@ -8,6 +8,7 @@ import PostPreviewPage from "@/pages/PostPreviewPage";
 import PostDetail from "@/pages/PostDetail";
 import PostList from "@/pages/PostList";
 import ProfilePage from "@/pages/ProfilePage";
+import MessagePage from "@/pages/MessagePage";
 // import notFound from "@/pages/notFound";
 import store from "@/store";
 
@@ -25,6 +26,7 @@ const router = new VueRouter({
     { path: "/:en_name", component: PostList },
     { path: "/post/:id", component: PostDetail },
     { path: "/profile/:username", component: ProfilePage, meta: { requiresAuth: true } },
+    { path: "/message/:username", component: MessagePage, meta: { requiresAuth: true }},
     { path: "*", redirect: "/" },
   ],
 });
