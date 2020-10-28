@@ -21,7 +21,14 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'photo', 'title', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'car_type']
+        fields = ['id', 'author', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'car_type']
+
+    def create(self, validated_data):
+        author_data = validated_data.pop('author', None)
+        if author_data:
+            user = User.objects.get_or_create(**author_data)[0]
+            validated_data['author'] = user
+        return Post.objects.create(**validated_data)
 
     def update(self, instance, validated_data): 
         instance.author.username = validated_data.get('author', instance.author.username)
@@ -54,8 +61,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             user = User.objects.get_or_create(**userpro_data)[0]
             validated_data['userpro'] = user
         return Profile.objects.create(**validated_data)
-        
-        return Profile(**validated_data)
+        # return Profile(**validated_data)
 
     def update(self, instance, validated_data): 
         instance.introduction = validated_data.get('introduction', instance.introduction)
