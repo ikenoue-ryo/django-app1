@@ -29,26 +29,26 @@
         </v-col>
 
         <!-- サムネイル画像 -->
-          <v-flex xs12 sm6 md12 class="inner_card">
-            <v-container>
-              <v-row>
-                <div xs12 sm6 md3 class="photo_area">
-                  <div class="file_input" v-show="show">
-                    <label class="input-item__label">
-                      <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
-                      <input type="file" name="file" ref="preview" @change="selectedFile">
-                    </label>
-                  </div>
-
-                  <div class="image_area" v-if="url">
-                    <div @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
-                    <img :src="url">
-                  </div>
+        <v-flex xs12 sm6 md12 class="inner_card">
+          <v-container>
+            <v-row>
+              <div xs12 sm6 md3 class="photo_area">
+                <div class="file_input" v-show="show">
+                  <label class="input-item__label">
+                    <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
+                    <input type="file" name="file" ref="preview" @change="selectedFile">
+                  </label>
                 </div>
 
-              </v-row>
-            </v-container>
-          </v-flex>
+                <div class="image_area" v-if="url">
+                  <div @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
+                  <img :src="url">
+                </div>
+              </div>
+
+            </v-row>
+          </v-container>
+        </v-flex>
 
         <!-- おすすめ -->
         <v-text-field
@@ -203,7 +203,7 @@ export default {
     submitPost: function(){
       let formData = new FormData();
       formData.append('author.id', this.$store.getters['auth/id'])
-      formData.append('author.username', this.$store.getters['auth/id'])
+      formData.append('author.username', this.$store.getters['auth/username'])
       formData.append('photo', this.uploadFile)
       formData.append('title', this.form.posts.title)
       formData.append('text', this.form.posts.text)
@@ -341,12 +341,10 @@ label::after {
   .image_area{
     img{
       width: 700px;
-      // height: 400px;
       object-fit: contain;
     }
   }
 }
-
 
 .v-input{
   font-size: 3rem;
@@ -420,9 +418,6 @@ form{
 }
 
 .inner_card{
-  // border: 1px solid #999;
-  // border-radius: 5px;
-
   .back-color{
     text-align: center;
 
@@ -464,7 +459,6 @@ form{
 
 .v-input{
   font-size: 1.1rem;
-  // width: 350px!important;
 }
 
 </style>

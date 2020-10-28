@@ -50,6 +50,7 @@
               >
                 <form @submit.prevent="submitPost" class="form_class">
 
+                  <!-- カーセレクト -->
                   <v-col
                     class="d-flex pa-0"
                     cols="12"
@@ -65,6 +66,28 @@
                       item-text="name"
                     ></v-select>
                   </v-col>
+
+                  <!-- サムネイル画像 -->
+                  <v-flex xs12 sm6 md12 class="inner_card">
+                    <v-container>
+                      <v-row>
+                        <div xs12 sm6 md3 class="photo_area">
+                          <div class="file_input" v-show="show">
+                            <label class="input-item__label">
+                              <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
+                              <input type="file" name="file" ref="preview" @change="selectedFile">
+                            </label>
+                          </div>
+
+                          <div class="image_area" v-if="url">
+                            <div @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
+                            <img :src="url">
+                          </div>
+                        </div>
+
+                      </v-row>
+                    </v-container>
+                  </v-flex>
 
 
                   <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
@@ -119,7 +142,6 @@
         </div>
 
         <div style="width:700px;">
-          <p>{{ post.title }}</p>
           <p>{{ post.car_type }}</p>
           <p>{{ post.price }}円</p>
           <div v-html="post.text" class="post_text"></div>
@@ -144,7 +166,7 @@
         <div class="share_price">
           <div class="card">
             <div class="card-body">
-              <div class="price">{{ post.price }}<span class="yen"> 円/(月額)</span></div>
+              <div class="price">{{ post.price.toLocaleString() }}<span class="yen"> 円/(月額)</span></div>
               <p class="card-text">指定の場所に返却してください。</p>
               <a href="#"><v-btn color="#2bbbad">予約する</v-btn></a>
             </div>
@@ -196,12 +218,17 @@ export default {
       profiles: [],
       form: {
         posts: {
-          title: '',
           text: '',
           car_type: '',
           price: ''
         },
-      }
+      },
+
+      //写真アップロード
+      uploadFile: null,
+      icon: '',
+      url: '',
+      show: true,
     }
   },
   mounted(){
@@ -227,7 +254,6 @@ export default {
             'username': this.$store.getters['auth/username'],
           },
           'car_type': this.form.posts.car_type,
-          'title': this.form.posts.title,
           'text': this.form.posts.text,
         }
       })
@@ -239,6 +265,26 @@ export default {
           this.$router.replace(next)
         })
     },
+
+    // 写真アップロード
+    selectedFile: function(e){
+      e.preventDefault();
+      let files = e.target.files;
+      this.uploadFile = files[0];
+      console.log('uploadFile', this.uploadFile)
+
+      const file = this.$refs.preview.files[0];
+      this.url = URL.createObjectURL(file);
+      this.$refs.preview.value = '';
+      // 画像のアップ時にfileinputを消す
+      this.show = !this.show
+    },
+    deletePreview(){
+      this.url = '';
+      // ファイルアップロードの復活
+      this.show = !this.show
+    },
+
     // 編集ボタンでインスタンスを挿入
     editButton(){
       this.form.posts = this.post
@@ -258,9 +304,6 @@ export default {
         console.log(error);
       })
     },
-    deletePreview(){
-      this.url = '';
-    }
   },
   computed: {
     user_id() {
@@ -279,10 +322,9 @@ export default {
       return post
     },
     user_profile(){
-      const profiles = this.profiles.find(profiles => profiles.userpro.id === this.post.author.id)
+      const profiles = this.profiles.find(profiles => profiles.userpro.id === this.$store.getters['auth/id'])
       if(!profiles){
         return {
-          title: '見つかりません',
           text: '見つかりません',
         }
       }
@@ -350,6 +392,20 @@ h3{
    content: "";
    display: block;
    clear: both;
+}
+
+label > input {
+  display: none;
+}
+
+label {
+  padding: 0 1rem;
+} 
+
+label::after {
+  font-size: 1rem;
+  color: #888;
+  padding-left: 1rem;
 }
 
 .back_body{
@@ -567,9 +623,68 @@ h3{
   padding: 25px 50px;
 }
 
+form{
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.file_input{
+  .camera_icon{
+    font-size: 3rem;
+  }
+}
+
+.image_area{
+  img{
+    background-color: #fff;
+  }
+}
+
 .inner_card{
   max-width: 100%;
   padding: 25px 50px;
+
+  .back-color{
+    text-align: center;
+
+    button.start{
+      background-color: #329eff!important;
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 10px;
+      text-decoration: none;
+      outline: none;
+      border-radius: 5px;
+      width: 80px;
+    }
+
+    button.comment_post{
+      background-color: #329eff!important;
+    }
+  }
+
+.v-input{
+  font-size: 1.1rem;
+}
+
+  .photo_area{
+    margin: 0 auto;
+  }
+
+  .file_input{
+    margin: 0 auto;
+  }
+
+  .camera_icon{
+    top: 13px;
+    right: 2px;
+  }
+
+  .v-icon{
+    color: grey!important;
+  }
 }
 
 .back-color{
