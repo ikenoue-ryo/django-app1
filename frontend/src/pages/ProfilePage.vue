@@ -103,7 +103,7 @@ f<template>
                 </div>
                 <!-- モーダル -->
 
-                  <h1>こんにちは、{{ user_profile.userpro.username }} です</h1>
+                  <h1 v-if="user_profile.userpro">こんにちは、{{ user_profile.userpro.username }} です</h1>
                 </v-col>
 
                 <v-col
@@ -111,7 +111,8 @@ f<template>
                   md="12"
                 >
                   <h2>自己紹介</h2>
-                  <p>{{ user_profile.introduction }}</p>
+                  <p v-if="user_profile.introduction">{{ user_profile.introduction }}</p>
+                  <p v-else>入力してください</p>
                 </v-col>
 
                 <div class="border_line"></div>
@@ -121,7 +122,7 @@ f<template>
                   md="12"
                 >
                   <h2>貸し出し中の車</h2>
-                  <v-container style="padding:0; margin: 20px 0;">
+                  <v-container style="padding:0;">
                     <v-row>
                       <v-col cols="12" md="6" class="pa-3" v-for="posts in user_posts" :key="posts.id">
                         <router-link :to="`/post_preview/${posts.id}`">
@@ -140,7 +141,6 @@ f<template>
                           </v-card>
                         </router-link>
                       </v-col>
-
                     </v-row>
                   </v-container>
                 </v-col>
