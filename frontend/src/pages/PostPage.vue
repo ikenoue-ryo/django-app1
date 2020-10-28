@@ -211,7 +211,7 @@ export default {
       formData.append('pr2', this.form.posts.pr2)
       formData.append('pr3', this.form.posts.pr3)
       formData.append('pr4', this.form.posts.pr4)
-      formData.append('tag', this.form.posts.tag)
+      formData.append('tag.name', this.form.posts.tag)
       formData.append('car_type', this.form.posts.car_type)
       formData.append('price', this.form.posts.price)
 
