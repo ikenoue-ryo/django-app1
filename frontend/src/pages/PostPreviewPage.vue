@@ -168,7 +168,103 @@
             <div class="card-body">
               <div class="price">{{ post.price.toLocaleString() }}<span class="yen"> 円/(月額)</span></div>
               <p class="card-text">指定の場所に返却してください。</p>
-              <a href="#"><v-btn color="#2bbbad">予約する</v-btn></a>
+              <!-- モーダル -->
+                <div class="text-center">
+                  <v-dialog
+                    v-model="dialog3"
+                    width="600"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text
+                        color="red lighten-2"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="editButton"
+                      >
+
+                      <v-btn color="#2bbbad">予約する</v-btn>
+                      </v-text>
+                    </template>
+
+                  <v-card
+                    class="card_style"
+                  >
+                    <!-- <GlobalMessage class="message_card" /> -->
+
+                    <form @submit.prevent="submitPost">
+                    <v-flex xs12 sm6 md9 class="inner_card">
+                      <v-container>
+                        <v-row>
+
+                          <!-- 日付 -->
+                          <v-row>
+                            <v-col
+                              cols="12"
+                              sm="12"
+                            >
+                              <v-date-picker
+                                width=100%
+                                no-title
+                                v-model="dates"
+                                range
+                              ></v-date-picker>
+                            </v-col>
+                          </v-row>
+                          <v-row class="px-3">
+                            <v-col
+                              cols="12"
+                              sm="12"
+                            >
+                              <v-text-field
+                                v-model="dateRangeText"
+                                label="Date range"
+                                prepend-icon="mdi-calendar"
+                                readonly
+                              ></v-text-field>
+                              model: {{ dates }}
+                            </v-col>
+                          </v-row>
+                          <!-- 日付 -->
+
+
+                          <v-col
+                            cols="12"
+                            md="12"
+                          >
+                            <v-text-field
+                              label="自己紹介"
+                              required
+                            ></v-text-field>
+                          </v-col>
+
+                          <v-col
+                            cols="12"
+                            md="12"
+                          >
+                            <v-text-field
+                              label="駐車場"
+                              required
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <div class="back-color">
+                            <v-btn color="#2bbbad">予約する</v-btn>
+                        </div>
+                      </v-container>
+                    </v-flex>
+                    </form>
+                  </v-card>
+                </v-dialog>
+              </div>
+              <!-- モーダル -->
+
+
+
+
+
+
+
             </div>
           </div>
         </div>
@@ -214,6 +310,7 @@ export default {
 
       dialog: false,
       dialog2: false,
+      dialog3: false,
       results: [],
       profiles: [],
       form: {
@@ -229,6 +326,9 @@ export default {
       icon: '',
       url: '',
       show: true,
+
+      //日付フォーマット
+      dates: [],
     }
   },
   mounted(){
@@ -333,6 +433,9 @@ export default {
     user_posts(){
       const posts = this.posts.filter(posts => posts.author === this.$store.getters['auth/id']);
       return posts
+    },
+    dateRangeText(){
+      return this.dates.join(' ~ ')
     },
 
   }
@@ -715,8 +818,19 @@ form{
   }
 }
 
-.v-btn{
-  outline: none;
+button.v-btn{
+  color: #fff;
 }
+
+
+.v-date-picker{
+  width: 100%!important;
+}
+
+.v-date-picker-header {
+  display: none!important;
+}
+
+
 
 </style>
