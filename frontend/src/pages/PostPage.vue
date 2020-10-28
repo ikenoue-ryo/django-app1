@@ -180,7 +180,7 @@ export default {
           pr2: '',
           pr3: '',
           pr4: '',
-          tag: '',
+          tag: [],
           car_type: '',
           price: '',
         }
