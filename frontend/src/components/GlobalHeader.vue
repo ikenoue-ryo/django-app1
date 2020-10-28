@@ -13,9 +13,8 @@
               <v-text-field
                 label="検索..."
                 v-model="keyword"
+                v-click-outside="onClickOutside"
                 @input="onInput"
-                @focus="focus"
-                @change="change"
               >
               </v-text-field>
               
@@ -24,7 +23,6 @@
                 max-width="300"
                 tile
                 v-show="show"
-                v-on:mouseup.stop
               >
                 <v-list flat>
                   <v-subheader>CarType</v-subheader>
@@ -147,6 +145,8 @@ export default {
       menu: false,
       message: false,
       hints: true,
+
+      active: false,
     }
   },
   computed: {
@@ -175,15 +175,11 @@ export default {
     onInput(){
       this.show = true
     },
-    // フォーカスされた時の処理
-    focus(){
-      this.keyword = ''
-      this.show = false
-    },
     // カーソールが外れた時の処理
-    change(){
+    onClickOutside () {
       this.keyword = ''
       this.show = false
+      this.active = false
     },
     logout(){
       this.$store.dispatch('auth/logout')
