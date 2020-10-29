@@ -5,6 +5,13 @@
     <div id="app" class="back_body">
       <GlobalHeader />
 
+      <!-- テスト中 -->
+      <notFound v-if="notFound" />
+      <div v-else>
+        記事コンテンツ
+      </div>
+      <!-- テスト中 -->
+
       <h2>Post Preview</h2>
       
       <div class="sns_photo">
@@ -227,26 +234,6 @@
                           </v-row>
                           <!-- 日付 -->
 
-
-                          <v-col
-                            cols="12"
-                            md="12"
-                          >
-                            <v-text-field
-                              label="自己紹介"
-                              required
-                            ></v-text-field>
-                          </v-col>
-
-                          <v-col
-                            cols="12"
-                            md="12"
-                          >
-                            <v-text-field
-                              label="駐車場"
-                              required
-                            ></v-text-field>
-                          </v-col>
                         </v-row>
                         <div class="back-color">
                             <v-btn color="#2bbbad">予約する</v-btn>
@@ -279,6 +266,7 @@
 import api from '@/services/api'
 import GlobalHeader from '../components/GlobalHeader'
 import PrFooter from '../components/PrFooter'
+import notFound from '../pages/notFound'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
@@ -293,8 +281,42 @@ export default {
     GlobalHeader,
     PrFooter,
     quillEditor,
+    notFound,
     // Spinner,
   },
+  beforeRouteEnter(to, from, next) {
+      axios.get(`/post_preview/${to.params.id}/`)
+          .then(res => {
+              this.$store.commit('window/setNotFound', false)
+              console.log(res)
+              next()
+          })
+          .catch(err => {
+              if (err.response.status === 404) {
+                  this.$store.commit('window/setNotFound', true)
+                  next()
+              } else {
+                  next()
+              }
+          })
+    },
+    beforeRouteUpdate(to, from, next) {
+      axios.get(`/post_preview/${to.params.id}/`)
+          .then(res => {
+              this.$store.commit('window/setNotFound', true)
+              console.log(res)
+              next()
+          })
+          .catch(err => {
+              if (err.response.status === 404) {
+                  this.$store.commit('window/setNotFound', true)
+                  next()
+              } else {
+                  next()
+              }
+          })
+    },
+
   data(){
     return{
       // loading: true,
@@ -406,6 +428,10 @@ export default {
     },
   },
   computed: {
+    notFound() {
+      return this.$store.getters['window/isNotFound']
+    },
+
     user_id() {
       console.log('ログインユーザーID', this.$store.getters['auth/id'])
       return this.$store.getters['auth/id']

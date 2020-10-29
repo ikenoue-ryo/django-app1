@@ -152,10 +152,30 @@ const messageModule = {
   }
 }
 
+// 404
+const windowModule = {
+  strict: process.env.NODE_ENV !== 'production',
+  namespaced: true,
+  state: {
+    notFound: false,
+  },
+  getters: {
+    isNotFound(state) {
+      return state.notFound
+    }
+  },
+  mutations: {
+    setNotFound(state, val) {
+      state.notFound = val
+    }
+  },
+}
+
 const store = new Vuex.Store({
   modules: {
     auth: authModule,
-    message: messageModule
+    message: messageModule,
+    window: windowModule
   }
 })
 

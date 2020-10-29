@@ -17,9 +17,9 @@ f<template>
                 <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
               </label>
             </div>
-            <router-link :to="`/message/${username}`">
+            <!-- <router-link :to="`/message/${username}`">
               <v-icon color="blue">mdi-email-outline</v-icon>Messageを送る
-            </router-link>
+            </router-link> -->
           </v-flex>
           <v-flex xs12 sm6 md9>
             <v-container>
@@ -68,7 +68,6 @@ f<template>
                                 <img :src="url">
                               </div>
                             </div>
-
 
                             <v-col
                               cols="12"
@@ -157,7 +156,12 @@ f<template>
                       <v-fa :icon="['fas', 'parking']" class="parking_icon sns_icons" />
                     <p class="ma-2">{{ user_profile.address }}</p>
                   </v-row>
-                  <div class="map" ref="googleMap" />
+
+                  <!-- マップ -->
+                  <input type="text" v-model="address" style="border:1px solid;">
+                  <button type="button" @click="mapSearch">検索</button>
+                  <div id="map"></div>
+                  <!-- マップ -->
                 </v-col>
 
 
@@ -241,6 +245,7 @@ f<template>
   </v-app>
 </template>
 
+<script src="https://maps.googleapis.com/maps/api/js?key="></script>
 
 <script>
 import GlobalHeader from '@/components/GlobalHeader.vue'
@@ -248,8 +253,6 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
 import api from '@/services/api'
-import GoogleMapsApiLoader from 'google-maps-api-loader';
-
 
 export default {
   name: 'Map',
@@ -262,14 +265,6 @@ export default {
     return {
       dialog: false,
       
-      google: null,
-      mapConfig: {
-        center: {
-          lat: 35.68944,
-          lng: 139.69167
-        },
-        zoom: 17
-      },
       form: {
         valid: false,
         password: '',
@@ -322,9 +317,15 @@ export default {
         value => !!value || 'Required.',
         value => (value && value.length >= 3) || 'Min 3 characters',
       ],
+
+      // マップ
+      map: {},
+      marker: null,
+      geocoder: {},
+      address: ''
     }
   },
-  async mounted(){
+  mounted(){
     //profile
     axios.get('http://localhost:8000/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
@@ -337,15 +338,29 @@ export default {
     axios.get('http://localhost:8000/api/v1/comment/')
     .then(response => { this.comments = response.data })
 
-    this.google = await GoogleMapsApiLoader({
-      apiKey: ''
-    });
-    this.initializeMap();
+    this.map = new google.maps.Map(document.getElementById('map'));
+    this.geocoder = new google.maps.Geocoder();
+
   },
   methods: {
-    initializeMap() {
-      new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
+    mapSearch() {
+      console.log('mapSearch')
+      this.geocoder.geocode({
+        'address': this.address
+      }, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK) {
+          this.map.setCenter(results[0].geometry.location);
+          // 緯度経度の取得
+          // results[0].geometry.location.lat();
+          // results[0].geometry.location.lng();
+          this.marker = new google.maps.Marker({
+            map: this.map,
+            position: results[0].geometry.location
+          });
+        }
+      });
     },
+
 
     // 写真アップロード
     selectedFile: function(e){
