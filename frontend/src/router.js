@@ -9,7 +9,7 @@ import PostDetail from "@/pages/PostDetail";
 import PostList from "@/pages/PostList";
 import ProfilePage from "@/pages/ProfilePage";
 import MessagePage from "@/pages/MessagePage";
-// import notFound from "@/pages/notFound";
+import notFound from "@/pages/notFound";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -27,7 +27,8 @@ const router = new VueRouter({
     { path: "/post/:id", component: PostDetail },
     { path: "/profile/:username", component: ProfilePage, meta: { requiresAuth: true } },
     { path: "/message/:username", component: MessagePage, meta: { requiresAuth: true }},
-    { path: "*", redirect: "/" },
+    { path: "*", component: notFound, meta: { title: "ページが見つかりません" }},
+    // { path: "*", redirect: "/" },
   ],
 });
 

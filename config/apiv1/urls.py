@@ -16,4 +16,5 @@ app_name = 'apiv1'
 urlpatterns = [
     path('', include(router.urls)),
     path('inbox/', views.InboxListView.as_view(), name='inbox'),
+    path('booking/', views.sendmail, name='booking'),
 ]
