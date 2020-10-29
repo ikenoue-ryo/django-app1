@@ -25,6 +25,9 @@
         class="card_style"
         max-width="800"
       >
+      <notFound v-if="notFound" />
+      <template v-else>
+
         <div class="clearfix text-right edit_delete">
         <!-- モーダル -->
         <div class="inline_block" style="margin-right:15px;">
@@ -192,67 +195,47 @@
                   >
                     <!-- <GlobalMessage class="message_card" /> -->
 
-                    <form @submit.prevent="submitPost">
-                    <v-flex xs12 sm6 md9 class="inner_card">
-                      <v-container>
-                        <v-row>
-
-                          <!-- 日付 -->
+                    <form @submit.prevent="submitBooking">
+                      <v-flex xs12 sm6 md9 class="inner_card">
+                        <v-container>
                           <v-row>
-                            <v-col
-                              cols="12"
-                              sm="12"
-                            >
-                              <v-date-picker
-                                width=100%
-                                no-title
-                                v-model="dates"
-                                range
-                              ></v-date-picker>
-                            </v-col>
+
+                            <!-- 日付 -->
+                            <v-row>
+                              <v-col
+                                cols="12"
+                                sm="12"
+                              >
+                                <v-date-picker
+                                  width=100%
+                                  no-title
+                                  v-model="dates"
+                                  range
+                                ></v-date-picker>
+                              </v-col>
+                            </v-row>
+                            <v-row class="px-3">
+                              <v-col
+                                cols="12"
+                                sm="12"
+                              >
+                                <v-text-field
+                                  v-model="dateRangeText"
+                                  label="Date range"
+                                  prepend-icon="mdi-calendar"
+                                  readonly
+                                ></v-text-field>
+                                model: {{ dates }}
+                              </v-col>
+                            </v-row>
+                            <!-- 日付 -->
+
                           </v-row>
-                          <v-row class="px-3">
-                            <v-col
-                              cols="12"
-                              sm="12"
-                            >
-                              <v-text-field
-                                v-model="dateRangeText"
-                                label="Date range"
-                                prepend-icon="mdi-calendar"
-                                readonly
-                              ></v-text-field>
-                              model: {{ dates }}
-                            </v-col>
-                          </v-row>
-                          <!-- 日付 -->
-
-
-                          <v-col
-                            cols="12"
-                            md="12"
-                          >
-                            <v-text-field
-                              label="自己紹介"
-                              required
-                            ></v-text-field>
-                          </v-col>
-
-                          <v-col
-                            cols="12"
-                            md="12"
-                          >
-                            <v-text-field
-                              label="駐車場"
-                              required
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                        <div class="back-color">
-                            <v-btn color="#2bbbad">予約する</v-btn>
-                        </div>
-                      </v-container>
-                    </v-flex>
+                          <div class="back-color">
+                              <button type="submit" color="#2bbbad">予約する</button>
+                          </div>
+                        </v-container>
+                      </v-flex>
                     </form>
                   </v-card>
                 </v-dialog>
@@ -268,6 +251,7 @@
             </div>
           </div>
         </div>
+        </template>
       </v-card>
     </div>
     <PrFooter/>
@@ -279,12 +263,14 @@
 import api from '@/services/api'
 import GlobalHeader from '../components/GlobalHeader'
 import PrFooter from '../components/PrFooter'
+import notFound from '../pages/notFound'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 import { quillEditor } from 'vue-quill-editor'
 import axios from 'axios'
+import store from '../store'
 
 // import Spinner from 'vue-simple-spinner'
 
@@ -293,8 +279,44 @@ export default {
     GlobalHeader,
     PrFooter,
     quillEditor,
+    notFound,
     // Spinner,
   },
+  beforeRouteEnter(to, from, next) {
+      axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+          .then(res => {
+            store.commit('window/setNotFound', false)
+            console.log('レスポンス1', res)
+            next()
+          })
+          .catch(err => {
+            if (err.response.status === 404) {
+              store.commit('window/setNotFound', true)
+              console.log('エラー1', err)
+              next()
+            } else {
+              next()
+            }
+          })
+    },
+    beforeRouteUpdate(to, from, next) {
+      axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+          .then(res => {
+            store.commit('window/setNotFound', true)
+            console.log('レスポンス2', res)
+            next()
+          })
+          .catch(err => {
+            if (err.response.status === 404) {
+                store.commit('window/setNotFound', true)
+                console.log('エラー2', err)
+                next()
+            } else {
+                next()
+            }
+          })
+    },
+
   data(){
     return{
       // loading: true,
@@ -366,6 +388,17 @@ export default {
         })
     },
 
+    // 予約
+    submitBooking(){
+      api({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/api/v1/booking/'
+      })
+      .then(() => {
+        console.log('予約送信！')
+      })
+    },
+
     // 写真アップロード
     selectedFile: function(e){
       e.preventDefault();
@@ -406,6 +439,10 @@ export default {
     },
   },
   computed: {
+    notFound() {
+      return this.$store.getters['window/isNotFound']
+    },
+
     user_id() {
       console.log('ログインユーザーID', this.$store.getters['auth/id'])
       return this.$store.getters['auth/id']
