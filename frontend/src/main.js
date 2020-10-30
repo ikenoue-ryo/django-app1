@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueMeta from 'vue-meta'
 
 // BootstrapVue
 import BootstrapVue from 'bootstrap-vue'
@@ -24,6 +25,7 @@ Vue.component('v-fa', FontAwesomeIcon);
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 Vue.use(BootstrapVue)
+Vue.use(VueMeta)
 
 new Vue({
   vuetify,

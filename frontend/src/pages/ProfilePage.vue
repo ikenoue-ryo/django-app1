@@ -245,7 +245,6 @@ f<template>
   </v-app>
 </template>
 
-<script src="https://maps.googleapis.com/maps/api/js?key="></script>
 
 <script>
 import GlobalHeader from '@/components/GlobalHeader.vue'
@@ -253,9 +252,15 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
 import api from '@/services/api'
+import google from '../main'
 
 export default {
   name: 'Map',
+  metaInfo: {
+    script: [
+      { src: 'https://maps.googleapis.com/maps/api/js?key=apiキーいれてます', async: true, defer: true }
+    ],
+  },
   components: {
     GlobalHeader,
     // GlobalMessage,
