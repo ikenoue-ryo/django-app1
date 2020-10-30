@@ -81,5 +81,5 @@ class InboxListView(generics.ListAPIView):
 
 """予約メール送信"""
 def sendmail(request):
-    send_mail('Example Subject', 'Example message', 'ryo.ikenoue@gmail.com', ['ikenoue.ryo@gmail.com'], fail_silently=False)
+    send_mail('Example Subject', 'Example message', 'xxx@gmail.com', ['xxx@gmail.com'], fail_silently=False)
     return send_mail
