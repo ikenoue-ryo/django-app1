@@ -252,13 +252,12 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
 import api from '@/services/api'
-import google from '../main'
 
 export default {
   name: 'Map',
   metaInfo: {
     script: [
-      { src: 'https://maps.googleapis.com/maps/api/js?key=apiキーいれてます', async: true, defer: true }
+      { src: 'https://maps.googleapis.com/maps/api/js?key=apiキーここ', async: true, defer: true }
     ],
   },
   components: {
@@ -343,8 +342,8 @@ export default {
     axios.get('http://localhost:8000/api/v1/comment/')
     .then(response => { this.comments = response.data })
 
-    this.map = new google.maps.Map(document.getElementById('map'));
-    this.geocoder = new google.maps.Geocoder();
+    this.map = new window.google.maps.Map(document.getElementById('map'));
+    this.geocoder = new window.google.maps.Geocoder();
 
   },
   methods: {
@@ -353,12 +352,12 @@ export default {
       this.geocoder.geocode({
         'address': this.address
       }, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
+        if (status === window.google.maps.GeocoderStatus.OK) {
           this.map.setCenter(results[0].geometry.location);
           // 緯度経度の取得
           // results[0].geometry.location.lat();
           // results[0].geometry.location.lng();
-          this.marker = new google.maps.Marker({
+          this.marker = new window.google.maps.Marker({
             map: this.map,
             position: results[0].geometry.location
           });
