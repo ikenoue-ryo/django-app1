@@ -7,7 +7,7 @@
 *.pyc
 __pycache__/
 local_settings.py
-local.py
+# local.py
 prod
 db.sqlite3
 media
