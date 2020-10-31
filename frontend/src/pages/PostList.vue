@@ -3,7 +3,7 @@
     <GlobalHeader />
 
     <div class="back_body">
-      <h2>Let's Ride {{ car_name.toUpperCase()}}</h2>
+      <h2>{{ car_name.toUpperCase()}}</h2>
           <v-list>
             <v-list-item v-for="info in car_info" :key="info.index">
                 <v-container fluid class="back_color">

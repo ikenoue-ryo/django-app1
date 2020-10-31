@@ -144,10 +144,18 @@
         <!-- モーダル -->
         </div>
 
-        <div style="width:700px;">
+        <div style="width:700px;" class="post_contents">
           <p>{{ post.car_type }}</p>
-          <p>{{ post.price }}円</p>
           <div v-html="post.text" class="post_text"></div>
+          <ul>
+            <v-row>
+              <router-link :to="`/profile/${username}`">
+                <li v-for="tags in post.tag" :key="tags" class="float-left">
+                  #{{ tags.name }}
+                </li>
+              </router-link>
+            </v-row>
+          </ul>
         </div>
 
         <v-layout wrap class="profile">
@@ -390,6 +398,8 @@ export default {
 
     // 予約
     submitBooking(){
+      axios.defaults.xsrfCookieName = 'csrftoken' // ←ココと
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN" // ←ココに追加しました
       api({
         method: 'post',
         url: 'http://127.0.0.1:8000/api/v1/booking/'
@@ -565,7 +575,7 @@ label::after {
     margin: 30px auto;
     padding: 50px;
     border-top: 5px solid #33b5e5;
-    min-height: 100vh;
+    // min-height: 100vh;
     display: inline-block;
     float: left;
     position: relative;
@@ -868,6 +878,17 @@ button.v-btn{
   display: none!important;
 }
 
+.post_contents{
+  ul{
+    padding: 0;
+    margin:0 10px;
 
+    li{
+      list-style: none;
+      margin-right: 10px;
+      font-size: 1.2rem;;
+    }
+  }
+}
 
 </style>

@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TagSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Tag
         fields = ('__all__')
@@ -17,7 +18,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
-    tag = TagSerializer()
+    tag = TagSerializer(many=True)
 
     class Meta:
         model = Post
@@ -28,7 +29,12 @@ class PostSerializer(serializers.ModelSerializer):
         if author_data:
             user = User.objects.get_or_create(**author_data)[0]
             validated_data['author'] = user
-        return Post.objects.create(**validated_data)
+        tags = validated_data.pop('tag')
+        post = Post.objects.create(**validated_data)
+        for tag in tags:
+            post.tag.add(Tag.objects.create(**tag))
+        post.save()
+        return post
 
     def update(self, instance, validated_data): 
         instance.author.username = validated_data.get('author', instance.author.username)

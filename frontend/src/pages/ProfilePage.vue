@@ -1,14 +1,14 @@
-f<template>
+<template>
   <v-app>
-  <div class="back_body">
-    <GlobalHeader />
+    <div class="back_body">
+      <GlobalHeader />
 
-    <h2>Profile</h2>
-    <v-card
-      class="card_style"
-      max-width="800"
-    >
-      
+      <h2>Profile</h2>
+      <v-card
+        class="card_style"
+        max-width="800"
+      >
+        
         <v-layout wrap>
           <v-flex xs12 sm6 md3 text-center>
             <img v-if="user_profile.icon" :src="user_profile.icon" width="115" class="sticky" style="width:150px; margin:10px;">
@@ -236,12 +236,10 @@ f<template>
               </v-row>
             </v-container>
           </v-flex>
-
         </v-layout>
-    </v-card>
-
-    <PrFooter />
-  </div>
+      </v-card>
+      <PrFooter />
+    </div>
   </v-app>
 </template>
 
@@ -257,7 +255,7 @@ export default {
   name: 'Map',
   metaInfo: {
     script: [
-      { src: 'https://maps.googleapis.com/maps/api/js?key=apiキーここ', async: true, defer: true }
+      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDX2C-4W9b_Os4iYD4HUmNxJD4ukZX3paA', async: true, defer: true }
     ],
   },
   components: {
@@ -352,6 +350,7 @@ export default {
       this.geocoder.geocode({
         'address': this.address
       }, (results, status) => {
+        console.log('results', results)
         if (status === window.google.maps.GeocoderStatus.OK) {
           this.map.setCenter(results[0].geometry.location);
           // 緯度経度の取得
@@ -361,6 +360,7 @@ export default {
             map: this.map,
             position: results[0].geometry.location
           });
+          console.log(this.marker)
         }
       });
     },

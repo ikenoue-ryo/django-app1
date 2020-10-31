@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 
 from users.models import User, Post, Comment, Profile, Tag, Message
+from .parsers import PostParser
 from .serializers import UserSerializer, PostSerializer, ProfileSerializer, CommentSerializer, TagSerializer, MessageSerializer
 
 from django.core.mail import send_mail
@@ -24,6 +25,7 @@ class TagViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    parser_classes = [PostParser]
     # permission_classes = [IsAuthenticatedOrReadOnly]
 
 
