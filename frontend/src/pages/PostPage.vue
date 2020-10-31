@@ -96,7 +96,7 @@
               v-model="form.posts.tag"
               label="低燃費"
               color="info"
-              value="nenpi"
+              value="低燃費"
               hide-details
             ></v-checkbox>
           <v-checkbox
@@ -104,7 +104,7 @@
               v-model="form.posts.tag"
               label="駐車場無料"
               color="info"
-              value="parking"
+              value="駐車場無料"
               hide-details
             ></v-checkbox>
           <v-checkbox
@@ -112,7 +112,7 @@
               v-model="form.posts.tag"
               label="	1ヶ月間貸し出し可"
               color="info"
-              value="monthfree"
+              value="1ヶ月間貸し出し可"
               hide-details
             ></v-checkbox>
         </div>
@@ -211,7 +211,9 @@ export default {
       formData.append('pr2', this.form.posts.pr2)
       formData.append('pr3', this.form.posts.pr3)
       formData.append('pr4', this.form.posts.pr4)
-      formData.append('tag.name', this.form.posts.tag)
+      for (let i = 0; i < this.form.posts.tag.length; i++) {
+        formData.append('tag[' + i + ']', JSON.stringify({'name': this.form.posts.tag[i]}))
+      }
       formData.append('car_type', this.form.posts.car_type)
       formData.append('price', this.form.posts.price)
 

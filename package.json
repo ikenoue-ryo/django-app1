@@ -6,6 +6,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "object-to-formdata": "^4.1.0",
+    "vue-meta": "^2.4.0",
     "vue2-google-maps": "^0.10.7"
   },
   "devDependencies": {},

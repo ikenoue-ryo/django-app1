@@ -1,14 +1,14 @@
-f<template>
+<template>
   <v-app>
-  <div class="back_body">
-    <GlobalHeader />
+    <div class="back_body">
+      <GlobalHeader />
 
-    <h2>Profile</h2>
-    <v-card
-      class="card_style"
-      max-width="800"
-    >
-      
+      <h2>Profile</h2>
+      <v-card
+        class="card_style"
+        max-width="800"
+      >
+        
         <v-layout wrap>
           <v-flex xs12 sm6 md3 text-center>
             <img v-if="user_profile.icon" :src="user_profile.icon" width="115" class="sticky" style="width:150px; margin:10px;">
@@ -236,12 +236,10 @@ f<template>
               </v-row>
             </v-container>
           </v-flex>
-
         </v-layout>
-    </v-card>
-
-    <PrFooter />
-  </div>
+      </v-card>
+      <PrFooter />
+    </div>
   </v-app>
 </template>
 
@@ -252,13 +250,12 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 import PrFooter from '@/components/PrFooter.vue'
 import axios from 'axios'
 import api from '@/services/api'
-import google from '../main'
 
 export default {
   name: 'Map',
   metaInfo: {
     script: [
-      { src: 'https://maps.googleapis.com/maps/api/js?key=apiキーいれてます', async: true, defer: true }
+      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDX2C-4W9b_Os4iYD4HUmNxJD4ukZX3paA', async: true, defer: true }
     ],
   },
   components: {
@@ -343,8 +340,8 @@ export default {
     axios.get('http://localhost:8000/api/v1/comment/')
     .then(response => { this.comments = response.data })
 
-    this.map = new google.maps.Map(document.getElementById('map'));
-    this.geocoder = new google.maps.Geocoder();
+    this.map = new window.google.maps.Map(document.getElementById('map'));
+    this.geocoder = new window.google.maps.Geocoder();
 
   },
   methods: {
@@ -353,15 +350,17 @@ export default {
       this.geocoder.geocode({
         'address': this.address
       }, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
+        console.log('results', results)
+        if (status === window.google.maps.GeocoderStatus.OK) {
           this.map.setCenter(results[0].geometry.location);
           // 緯度経度の取得
           // results[0].geometry.location.lat();
           // results[0].geometry.location.lng();
-          this.marker = new google.maps.Marker({
+          this.marker = new window.google.maps.Marker({
             map: this.map,
             position: results[0].geometry.location
           });
+          console.log(this.marker)
         }
       });
     },
