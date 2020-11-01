@@ -4,8 +4,8 @@
         <div>
           <v-carousel cycle interval="4000" class="rounded-lg">
             <v-carousel-item
-              v-for="(photo) in photos"
-              :key="photo"
+              v-for="(photo, index) in photos"
+              :key="index"
             >
               <v-row>
                 <v-col class="mt-3">

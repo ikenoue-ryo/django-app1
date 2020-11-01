@@ -10,7 +10,7 @@
           <hr class="w-header my-4">
         </div>
         <ul class="horizontal-list">
-          <li class="item mx-2" v-for="profile in profiles" :key="profile">
+          <li class="item mx-2" v-for="(profile, index) in profiles" :key="index">
             <!-- Card -->
             <router-link :to="`/profile/${profile.userpro.username}`">
             <a class="card hoverable mb-4" data-toggle="modal" data-target="#basicExampleModal">

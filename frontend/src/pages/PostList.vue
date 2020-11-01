@@ -1,55 +1,62 @@
 <template>
-  <v-app>
+  <v-app class="app">
     <GlobalHeader />
+    <div class="app_flex">
+      <div style="width: 100%;">
 
-    <div class="back_body">
-      <h2>{{ car_name.toUpperCase()}}</h2>
-      <v-list>
-        <v-list-item v-for="info in car_info" :key="info.index">
-            <v-container fluid class="back_color">
-              <v-content>
-                <v-list-item :to="`/post_preview/${info.id}`" style="background-color: #fff; border-radius:10px;">
-                  <v-container>
-                    <v-layout wrap>
-                      <v-flex xs12 sm6 md5>
-                        <div class="back_size">
-                          <img :src="info.photo">
-                        </div>
-                      </v-flex>
-                      <v-flex xs12 sm6 md7 px-5>
-                        <div class="card_detail">
-                            <div class="card_info clearfix">
-                              <h3>{{ info.profile.address }}</h3>
-                              <v-btn
-                                large
-                                icon
-                                color="pink"
-                              >
-                                <v-icon>mdi-heart</v-icon>
-                              </v-btn>
-                              <ul>
-                                <li v-if="info.pr1">{{ info.pr1 }}</li>
-                                <li v-if="info.pr2">{{ info.pr2 }}</li>
-                                <li v-if="info.pr3">{{ info.pr3 }}</li>
-                                <li v-if="info.pr4">{{ info.pr4 }}</li>
-                              </ul>
-                              <ul class="tag" v-if="info.tag">
-                                  <li v-for="tag in info.tag" :key="tag"># {{ tag.name }}</li>
-                              </ul>
-                              <div class="price">{{ info.price.toLocaleString() }}
-                                <span class="yen"> 円/(月額)</span>
-                              </div>
+        <div class="back_body">
+          <h2>{{ car_name.toUpperCase()}}</h2>
+          <v-list v-if="car_info && car_info.length > 0">
+            <v-list-item v-for="info in car_info" :key="info.index">
+                <v-container fluid class="back_color">
+                  <v-content>
+                    <v-list-item :to="`/post_preview/${info.id}`" style="background-color: #fff; border-radius:10px;">
+                      <v-container>
+                        <v-layout wrap>
+                          <v-flex xs12 sm6 md5>
+                            <div class="back_size">
+                              <img :src="info.photo">
                             </div>
-                        </div>
-                      </v-flex>
+                          </v-flex>
+                          <v-flex xs12 sm6 md7 px-5>
+                            <div class="card_detail">
+                                <div class="card_info clearfix">
+                                  <h3>{{ info.profile.address }}</h3>
+                                  <v-btn
+                                    large
+                                    icon
+                                    color="pink"
+                                  >
+                                    <v-icon>mdi-heart</v-icon>
+                                  </v-btn>
+                                  <ul>
+                                    <li v-if="info.pr1">{{ info.pr1 }}</li>
+                                    <li v-if="info.pr2">{{ info.pr2 }}</li>
+                                    <li v-if="info.pr3">{{ info.pr3 }}</li>
+                                    <li v-if="info.pr4">{{ info.pr4 }}</li>
+                                  </ul>
+                                  <ul class="tag" v-if="info.tag">
+                                      <li v-for="tag in info.tag" :key="tag"># {{ tag.name }}</li>
+                                  </ul>
+                                  <div class="price">{{ info.price.toLocaleString() }}
+                                    <span class="yen"> 円/(月額)</span>
+                                  </div>
+                                </div>
+                            </div>
+                          </v-flex>
 
-                    </v-layout>
-                  </v-container>
-                </v-list-item>
-              </v-content>
-            </v-container>
-        </v-list-item>
-      </v-list>
+                        </v-layout>
+                      </v-container>
+                    </v-list-item>
+                  </v-content>
+                </v-container>
+            </v-list-item>
+          </v-list>
+          <div v-else class="non_contents">
+            <p>投稿がありません</p>
+          </div>
+        </div>
+      </div>
     </div>
     <GlobalFooter />
   </v-app>
@@ -115,6 +122,17 @@ export default {
 
 
 <style lang="scss" scoped>
+.app{
+  display: flex;
+  flex-direction: column;
+
+  .app_flex{
+    display: flex;
+    flex-grow: 1;
+    background-color: #eee;
+  }
+}
+
 .container{
   background: #fff;
   a{
@@ -148,6 +166,7 @@ export default {
   .v-list{
     background-color: #eee;
     padding: 0;
+    margin-bottom: 40px;
   }
 }
 
@@ -240,5 +259,10 @@ export default {
    clear: both;
 }
 
+.non_contents{
+  margin: 0 auto;
+  text-align: center;
+  padding: 50px;
+}
 
 </style>

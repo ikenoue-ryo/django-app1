@@ -5,7 +5,7 @@
     <div id="app" class="back_body">
       <GlobalHeader />
 
-      <h2>Post Preview{{ post }}</h2>
+      <h2>Post Preview</h2>
       
       <div class="sns_photo">
         <!-- SNSアイコン -->
@@ -37,7 +37,7 @@
             class="inner_card"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-text
+              <div
                 color="red lighten-2"
                 dark
                 v-bind="attrs"
@@ -45,7 +45,7 @@
                 @click="editButton"
               >
               <p class="">編集</p>
-              </v-text>
+              </div>
             </template>
               <v-card
                 class="card_style"
@@ -59,7 +59,7 @@
                     cols="12"
                     sm="6"
                   >
-                    <!-- <v-select
+                    <v-select
                       v-model="form.posts.car_type"
                       :items="car_types"
                       label="Car Select"
@@ -67,7 +67,7 @@
                       style="font-size:16px;"
                       item-value="types"
                       item-text="name"
-                    ></v-select> -->
+                    ></v-select>
                   </v-col>
 
                   <!-- サムネイル画像 -->
@@ -111,23 +111,23 @@
             width="500"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-text
+              <div
                 color="red lighten-2"
                 dark
                 v-bind="attrs"
                 v-on="on"
               >
               <p class="">削除</p>
-              </v-text>
+              </div>
             </template>
               <v-card
                 class="card_style delete_area"
                 max-width="800"
               >
                 <v-row>
-                  <v-text class="delete_question">
+                  <div class="delete_question">
                     この投稿を削除しますか？
-                  </v-text>
+                  </div>
                 </v-row>
                 <v-row justify="center" style="padding-bottom:30px;">
                   <v-btn @click="dialog2 = false" class="mr-5">
@@ -177,7 +177,10 @@
         <div class="share_price">
           <div class="card">
             <div class="card-body">
-              <div class="price">{{ post.price.toLocaleString() }}<span class="yen"> 円/(月額)</span></div>
+              <div v-if="post.price" class="price">
+                {{ post.price.toLocaleString() }}
+                <span class="yen"> 円/(月額)</span>
+              </div>
               <p class="card-text">指定の場所に返却してください。</p>
               <!-- モーダル -->
                 <div class="text-center">
@@ -186,7 +189,7 @@
                     width="600"
                   >
                     <template v-slot:activator="{ on, attrs }">
-                      <v-text
+                      <div
                         color="red lighten-2"
                         dark
                         v-bind="attrs"
@@ -195,7 +198,7 @@
                       >
 
                       <v-btn color="#2bbbad">予約する</v-btn>
-                      </v-text>
+                      </div>
                     </template>
 
                   <v-card
@@ -227,12 +230,12 @@
                                 cols="12"
                                 sm="12"
                               >
-                                <v-text-field
+                                <div-field
                                   v-model="dateRangeText"
                                   label="Date range"
                                   prepend-icon="mdi-calendar"
                                   readonly
-                                ></v-text-field>
+                                ></div-field>
                                 model: {{ dates }}
                               </v-col>
                             </v-row>
@@ -249,12 +252,6 @@
                 </v-dialog>
               </div>
               <!-- モーダル -->
-
-
-
-
-
-
 
             </div>
           </div>
@@ -291,39 +288,39 @@ export default {
     // Spinner,
   },
   beforeRouteEnter(to, from, next) {
-      axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
-          .then(res => {
-            store.commit('window/setNotFound', false)
-            console.log('レスポンス1', res)
-            next()
-          })
-          .catch(err => {
-            if (err.response.status === 404) {
-              store.commit('window/setNotFound', true)
-              console.log('エラー1', err)
-              next()
-            } else {
-              next()
-            }
-          })
+    axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+      .then(res => {
+        store.commit('window/setNotFound', false)
+        console.log('レスポンス1', res)
+        next()
+      })
+      .catch(err => {
+        if (err.response.status === 404) {
+          store.commit('window/setNotFound', true)
+          console.log('エラー1', err)
+          next()
+        } else {
+          next()
+        }
+      })
     },
-    beforeRouteUpdate(to, from, next) {
-      axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
-          .then(res => {
+  beforeRouteUpdate(to, from, next) {
+    axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+      .then(res => {
+        store.commit('window/setNotFound', true)
+        console.log('レスポンス2', res)
+        next()
+      })
+      .catch(err => {
+        if (err.response.status === 404) {
             store.commit('window/setNotFound', true)
-            console.log('レスポンス2', res)
+            console.log('エラー2', err)
             next()
-          })
-          .catch(err => {
-            if (err.response.status === 404) {
-                store.commit('window/setNotFound', true)
-                console.log('エラー2', err)
-                next()
-            } else {
-                next()
-            }
-          })
-    },
+        } else {
+            next()
+        }
+      })
+  },
 
   data(){
     return{
@@ -398,8 +395,8 @@ export default {
 
     // 予約
     submitBooking(){
-      axios.defaults.xsrfCookieName = 'csrftoken' // ←ココと
-      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN" // ←ココに追加しました
+      axios.defaults.xsrfCookieName = 'csrftoken'
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
       api({
         method: 'post',
         url: 'http://127.0.0.1:8000/api/v1/booking/'
@@ -466,6 +463,11 @@ export default {
     },
     post(){
       const post = this.results.find(results => results.id === this.id);
+      if(!post){
+        return {
+          text: '見つかりません',
+        }
+      }
       return post
     },
     user_profile(){
@@ -599,7 +601,7 @@ label::after {
   font-size: 3rem;
 }
 
-.v-text-field input {
+.div-field input {
     font-size: 1.2em;
   }
 

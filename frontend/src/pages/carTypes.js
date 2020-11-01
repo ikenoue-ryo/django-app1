@@ -76,7 +76,7 @@ const car_types = [{
     jp_name: 'インサイト',
     jp_hira: 'いんさいと',
     en_name: 'INSIGHT',
-    images: 'https://lh3.googleusercontent.com/proxy/_Pj52zDm-a0UB3xqkDdNsTVDj0MnLkzt7S3_mhO-Aqwl7DT-OL-r5AQnqVrmCnKLEv5szxYK_EUPD0hkNrqj9VQ5P2HKrGnI8RT8YQrHPEqpL7Z6sD5E6Pv5iECt7M41bHzVEPgIFZmxE-FxznoVulgY5fhExieFTIa_'
+    images: 'https://smartcdn.prod.postmedia.digital/driving/wp-content/uploads/2019/06/chrome-image-401020.png'
   },
   {
     id: 11,

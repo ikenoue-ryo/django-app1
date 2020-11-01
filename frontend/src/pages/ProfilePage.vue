@@ -111,7 +111,7 @@
                 >
                   <h2>自己紹介</h2>
                   <p v-if="user_profile.introduction">{{ user_profile.introduction }}</p>
-                  <p v-else>入力してください</p>
+                  <p v-else class="non_post">入力してください</p>
                 </v-col>
 
                 <div class="border_line"></div>
@@ -122,10 +122,10 @@
                   md="12"
                 >
                   <h2>貸し出し中の車</h2>
-                  <v-container style="padding:0;">
+                  <v-container style="padding:0;" v-if="user_posts && user_posts.length > 0">
                     <v-row>
                       <v-col cols="12" md="6" class="pa-3" v-for="posts in user_posts" :key="posts.id">
-                        <router-link :to="`/post_preview/${posts.id}`">
+                        <router-link :to="`/post_preview/${posts.id}`" class="font_color">
                           <v-card
                             class="pa-0"
                             max-width="344"
@@ -143,6 +143,14 @@
                       </v-col>
                     </v-row>
                   </v-container>
+                  <div v-else class="non_post">
+                    <router-link :to="`/post/`">
+                      <v-row class="post_area" v-if="user_profile.address && user_profile.address.length > 0">
+                        <v-fa :icon="['fas', 'pencil-alt']" class="parking_icon sns_icons" />
+                        <p class="ma-2">投稿がまだありません</p>
+                      </v-row>
+                    </router-link>
+                  </div>
                 </v-col>
 
 
@@ -153,15 +161,18 @@
                   md="12"
                 >
                 <h2>駐車場</h2>
-                  <v-row class="parking_area">
+                  <v-row class="parking_area" v-if="user_profile.address && user_profile.address.length > 0">
                       <v-fa :icon="['fas', 'parking']" class="parking_icon sns_icons" />
                     <p class="ma-2">{{ user_profile.address }}</p>
                   </v-row>
+                    <div v-else class="non_post">
+                      <p>駐車場が入力されていません</p>
+                  </div>
 
                   <!-- マップ -->
-                  <input type="text" v-model="address" style="border:1px solid;">
+                  <!-- <input type="text" v-model="address" style="border:1px solid;">
                   <button type="button" @click="mapSearch">検索</button>
-                  <div id="map"></div>
+                  <div id="map"></div> -->
                   <!-- マップ -->
                 </v-col>
 
@@ -194,8 +205,8 @@
                         :rules="rules"
                         hide-details="auto"
                       ></v-text-field>
-                      <div class="back-color">
-                        <button type="submit" class="comment_post">送信</button>
+                      <div class="back-color text-lg-right pa-3">
+                        <v-btn type="submit" class="comment_post">送信</v-btn>
                       </div>
                     </form>
                   </div>
@@ -419,7 +430,7 @@ export default {
     // コメント
     submitComment: function(){
       let formData = new FormData();
-      formData.append('username', this.user_profile.id);
+      formData.append('username', 2);
       formData.append('point', this.form.comment.point);
       formData.append('profile.id', this.user_profile.id);
       formData.append('comment', this.form.comment.comment);
@@ -671,10 +682,7 @@ label::after {
   .v-icon{
     color: grey!important;
   }
-
 }
-
-
 
 .all{
   display: revert!important;
@@ -690,5 +698,17 @@ label::after {
     opacity: 0.8;
     transition-duration: 0.5s;
   }
+}
+
+.non_post{
+  padding: 30px 0;
+}
+
+.post_area {
+  color: #329eff;
+}
+
+button{
+  outline: none;
 }
 </style>
