@@ -5,7 +5,7 @@
     <div id="app" class="back_body">
       <GlobalHeader />
 
-      <h2>Post Preview</h2>
+      <h2>Post Preview{{ post }}</h2>
       
       <div class="sns_photo">
         <!-- SNSアイコン -->

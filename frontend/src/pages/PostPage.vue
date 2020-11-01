@@ -3,7 +3,7 @@
   <div id="app" class="back_body">
     <GlobalHeader />
 
-    <h2>Let's Post{{ user_profile }}</h2>
+    <h2>Let's Post</h2>
     <v-card
       class="card_style"
       max-width="800"
