@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TagSerializer(serializers.ModelSerializer):
+    # post = PostSerializer()
 
     class Meta:
         model = Tag
@@ -60,10 +61,6 @@ class PostSerializer(serializers.ModelSerializer):
         post = Post.objects.create(**validated_data)
         for tag in tags:
             post.tag.add(Tag.objects.create(**tag))
-        profile_data = validated_data.pop('profile', None)
-        if profile_data:
-            profile = Profile.objects.get_or_create(**profile_data)[0]
-            validated_data['profile'] = profile
         post.save()
         return post
 
