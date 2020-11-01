@@ -56,36 +56,28 @@
           class="pa-3"
           v-model="form.posts.pr1"
           :counter="20"
-          :rules="nameRules"
           label="おすすめポイント１"
-          required
         ></v-text-field>
         <v-text-field
           style="margin-bottom: 30px; width: 350px;"
           class="pa-3"
           v-model="form.posts.pr2"
           :counter="20"
-          :rules="nameRules"
           label="おすすめポイント２"
-          required
         ></v-text-field>
         <v-text-field
           style="margin-bottom: 30px; width: 350px;"
           class="pa-3"
           v-model="form.posts.pr3"
           :counter="20"
-          :rules="nameRules"
           label="おすすめポイント３"
-          required
         ></v-text-field>
         <v-text-field
           style="margin-bottom: 30px; width: 350px;"
           class="pa-3"
           v-model="form.posts.pr4"
           :counter="20"
-          :rules="nameRules"
           label="おすすめポイント４"
-          required
         ></v-text-field>
 
         <!-- タグ -->
@@ -183,8 +175,15 @@ export default {
           tag: [],
           car_type: '',
           price: '',
+          profile: {
+            introduction: '',
+            address: '',
+            userpro: '',
+          },
         }
       },
+
+      profiles: [],
 
       ex4: ['info'],
 
@@ -196,8 +195,14 @@ export default {
     }
   },
   mounted(){
+    //post
     axios.get('http://127.0.0.1:8000/api/v1/posts/')
     .then(response => {this.results = response.data})
+
+    //profile
+    axios.get('http://localhost:8000/api/v1/profile/')
+    .then(response => { this.profiles = response.data })
+    
   },
   methods: {
     submitPost: function(){
@@ -216,6 +221,10 @@ export default {
       }
       formData.append('car_type', this.form.posts.car_type)
       formData.append('price', this.form.posts.price)
+      formData.append('profile.introduction', this.user_profile.introduction);
+      formData.append('profile.address', this.user_profile.address);
+      formData.append('profile.userpro.id', this.$store.getters['auth/id']);
+      formData.append('profile.userpro.username', this.$store.getters['auth/username']);
 
       api({
         method: 'post',
@@ -232,6 +241,11 @@ export default {
           this.$store.dispatch('message/setInfoMessage', { message: '投稿しました。' })
           const next = this.$route.query.next || 'post_preview/' + this.form.posts.id
           this.$router.replace(next)
+        })
+        .catch(error => {
+          console.log('ここ1', this.form.posts);
+          console.log('ここ2', this.form.posts.profile.introduction);
+          console.log('ここ3', error);
         })
     },
     // 写真アップロード
@@ -253,6 +267,21 @@ export default {
       this.show = !this.show
     },
   },
+  computed:{
+    user_profile(){
+      console.log(this.profiles)
+      console.log(this.profiles.userpro)
+      const profiles = this.profiles.find(profiles => profiles.userpro.username === this.$store.getters['auth/username'])
+      if(!profiles){
+        return {
+          title: '見つかりません',
+          text: '見つかりません',
+        }
+      }
+      console.log('profiles', profiles)
+      return profiles
+    },
+  }
 };
 </script>
 

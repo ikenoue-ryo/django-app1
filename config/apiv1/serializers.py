@@ -10,45 +10,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TagSerializer(serializers.ModelSerializer):
+    # post = PostSerializer()
 
     class Meta:
         model = Tag
         fields = ('__all__')
-
-
-class PostSerializer(serializers.ModelSerializer):
-    author = UserSerializer()
-    tag = TagSerializer(many=True)
-
-    class Meta:
-        model = Post
-        fields = ['id', 'author', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'car_type']
-
-    def create(self, validated_data):
-        author_data = validated_data.pop('author', None)
-        if author_data:
-            user = User.objects.get_or_create(**author_data)[0]
-            validated_data['author'] = user
-        tags = validated_data.pop('tag')
-        post = Post.objects.create(**validated_data)
-        for tag in tags:
-            post.tag.add(Tag.objects.create(**tag))
-        post.save()
-        return post
-
-    def update(self, instance, validated_data): 
-        instance.author.username = validated_data.get('author', instance.author.username)
-        instance.title = validated_data.get('title', instance.title)
-        instance.text = validated_data.get('text', instance.text)
-        instance.pr1 = validated_data.get('pr1', instance.pr1)
-        instance.pr2 = validated_data.get('pr2', instance.pr2)
-        instance.pr3 = validated_data.get('pr3', instance.pr3)
-        instance.pr4 = validated_data.get('pr4', instance.pr4)
-        instance.tag = validated_data.get('tag', instance.tag)
-        instance.price = validated_data.get('price', instance.price)
-        instance.car_type = validated_data.get('car_type', instance.car_type)
-        instance.save()
-        return instance
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -74,6 +40,42 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.address = validated_data.get('address', instance.address)
         instance.userpro.username = validated_data.get('username', instance.userpro.username)
         instance.icon = validated_data.get('icon', instance.icon)
+        instance.save()
+        return instance
+
+class PostSerializer(serializers.ModelSerializer):
+    author = UserSerializer()
+    tag = TagSerializer(many=True)
+    profile = ProfileSerializer()
+
+    class Meta:
+        model = Post
+        fields = ['id', 'author', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'car_type', 'profile']
+
+    def create(self, validated_data):
+        author_data = validated_data.pop('author', None)
+        if author_data:
+            user = User.objects.get_or_create(**author_data)[0]
+            validated_data['author'] = user
+        tags = validated_data.pop('tag')
+        post = Post.objects.create(**validated_data)
+        for tag in tags:
+            post.tag.add(Tag.objects.create(**tag))
+        post.save()
+        return post
+
+    def update(self, instance, validated_data): 
+        instance.author.username = validated_data.get('author', instance.author.username)
+        instance.title = validated_data.get('title', instance.title)
+        instance.text = validated_data.get('text', instance.text)
+        instance.pr1 = validated_data.get('pr1', instance.pr1)
+        instance.pr2 = validated_data.get('pr2', instance.pr2)
+        instance.pr3 = validated_data.get('pr3', instance.pr3)
+        instance.pr4 = validated_data.get('pr4', instance.pr4)
+        instance.tag = validated_data.get('tag', instance.tag)
+        instance.price = validated_data.get('price', instance.price)
+        instance.car_type = validated_data.get('car_type', instance.car_type)
+        instance.profile = validated_data.get('profile', instance.profile)
         instance.save()
         return instance
 

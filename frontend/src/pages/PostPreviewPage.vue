@@ -5,7 +5,7 @@
     <div id="app" class="back_body">
       <GlobalHeader />
 
-      <h2>Post Preview</h2>
+      <h2>Post Preview{{ post }}</h2>
       
       <div class="sns_photo">
         <!-- SNSアイコン -->
@@ -59,7 +59,7 @@
                     cols="12"
                     sm="6"
                   >
-                    <v-select
+                    <!-- <v-select
                       v-model="form.posts.car_type"
                       :items="car_types"
                       label="Car Select"
@@ -67,7 +67,7 @@
                       style="font-size:16px;"
                       item-value="types"
                       item-text="name"
-                    ></v-select>
+                    ></v-select> -->
                   </v-col>
 
                   <!-- サムネイル画像 -->
@@ -168,7 +168,7 @@
           </v-flex>
           <v-flex xs12 sm6 md10>
             <div class="pr_profile">
-              <p class="prof_name">{{ user_profile.userpro.username }}</p>
+              <!-- <p class="prof_name">{{ user_profile.userpro.username }}</p> -->
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>

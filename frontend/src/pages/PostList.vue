@@ -4,55 +4,53 @@
 
     <div class="back_body">
       <h2>{{ car_name.toUpperCase()}}</h2>
-          <v-list>
-            <v-list-item v-for="info in car_info" :key="info.index">
-                <v-container fluid class="back_color">
-                  <v-content>
-                    <v-list-item :to="`/post_preview/${info.id}`" style="background-color: #fff; border-radius:10px;">
-                      <v-container>
-                        <v-layout wrap>
-                          <v-flex xs12 sm6 md5>
-                            <div class="back_size">
-                              <img :src="info.photo">
+      <v-list>
+        <v-list-item v-for="info in car_info" :key="info.index">
+            <v-container fluid class="back_color">
+              <v-content>
+                <v-list-item :to="`/post_preview/${info.id}`" style="background-color: #fff; border-radius:10px;">
+                  <v-container>
+                    <v-layout wrap>
+                      <v-flex xs12 sm6 md5>
+                        <div class="back_size">
+                          <img :src="info.photo">
+                        </div>
+                      </v-flex>
+                      <v-flex xs12 sm6 md7 px-5>
+                        <div class="card_detail">
+                            <div class="card_info clearfix">
+                              <h3>{{ info.profile.address }}</h3>
+                              <v-btn
+                                large
+                                icon
+                                color="pink"
+                              >
+                                <v-icon>mdi-heart</v-icon>
+                              </v-btn>
+                              <ul>
+                                <li v-if="info.pr1">{{ info.pr1 }}</li>
+                                <li v-if="info.pr2">{{ info.pr2 }}</li>
+                                <li v-if="info.pr3">{{ info.pr3 }}</li>
+                                <li v-if="info.pr4">{{ info.pr4 }}</li>
+                              </ul>
+                              <ul class="tag" v-if="info.tag">
+                                  <li v-for="tag in info.tag" :key="tag"># {{ tag.name }}</li>
+                              </ul>
+                              <div class="price">{{ info.price.toLocaleString() }}
+                                <span class="yen"> 円/(月額)</span>
+                              </div>
                             </div>
-                          </v-flex>
-                          <v-flex xs12 sm6 md7 px-5>
-                            <div class="card_detail">
-                                <div class="card_info clearfix">
-                                  <h3>福岡県福岡市博多区</h3>
-                                  <v-btn
-                                    large
-                                    icon
-                                    color="pink"
-                                  >
-                                    <v-icon>mdi-heart</v-icon>
-                                  </v-btn>
-                                  <ul>
-                                    <li v-if="info.pr1">{{ info.pr1 }}</li>
-                                    <li v-if="info.pr2">{{ info.pr2 }}</li>
-                                    <li v-if="info.pr3">{{ info.pr3 }}</li>
-                                    <li v-if="info.pr4">{{ info.pr4 }}</li>
-                                  </ul>
-                                  <ul class="tag" v-if="info.tag">
-                                      <li v-for="tag in info.tag" :key="tag"># {{ tag.name }}</li>
-                                  </ul>
-                                  <div class="price">{{ info.price.toLocaleString() }}
-                                    <span class="yen"> 円/(月額)</span>
-                                  </div>
-                                </div>
-                            </div>
-                          </v-flex>
+                        </div>
+                      </v-flex>
 
-                        </v-layout>
-                      </v-container>
-                    </v-list-item>
-                  </v-content>
-                </v-container>
-            </v-list-item>
-          </v-list>
-
-        </div>
-    
+                    </v-layout>
+                  </v-container>
+                </v-list-item>
+              </v-content>
+            </v-container>
+        </v-list-item>
+      </v-list>
+    </div>
     <GlobalFooter />
   </v-app>
 </template>
