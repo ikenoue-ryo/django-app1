@@ -5,7 +5,7 @@
     <div id="app" class="back_body">
       <GlobalHeader />
 
-      <h2>Post Preview{{ post }}</h2>
+      <h2>Post Preview</h2>
       
       <div class="sns_photo">
         <!-- SNSアイコン -->
@@ -250,12 +250,6 @@
               </div>
               <!-- モーダル -->
 
-
-
-
-
-
-
             </div>
           </div>
         </div>
@@ -291,39 +285,39 @@ export default {
     // Spinner,
   },
   beforeRouteEnter(to, from, next) {
-      axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
-          .then(res => {
-            store.commit('window/setNotFound', false)
-            console.log('レスポンス1', res)
-            next()
-          })
-          .catch(err => {
-            if (err.response.status === 404) {
-              store.commit('window/setNotFound', true)
-              console.log('エラー1', err)
-              next()
-            } else {
-              next()
-            }
-          })
+    axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+      .then(res => {
+        store.commit('window/setNotFound', false)
+        console.log('レスポンス1', res)
+        next()
+      })
+      .catch(err => {
+        if (err.response.status === 404) {
+          store.commit('window/setNotFound', true)
+          console.log('エラー1', err)
+          next()
+        } else {
+          next()
+        }
+      })
     },
-    beforeRouteUpdate(to, from, next) {
-      axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
-          .then(res => {
+  beforeRouteUpdate(to, from, next) {
+    axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+      .then(res => {
+        store.commit('window/setNotFound', true)
+        console.log('レスポンス2', res)
+        next()
+      })
+      .catch(err => {
+        if (err.response.status === 404) {
             store.commit('window/setNotFound', true)
-            console.log('レスポンス2', res)
+            console.log('エラー2', err)
             next()
-          })
-          .catch(err => {
-            if (err.response.status === 404) {
-                store.commit('window/setNotFound', true)
-                console.log('エラー2', err)
-                next()
-            } else {
-                next()
-            }
-          })
-    },
+        } else {
+            next()
+        }
+      })
+  },
 
   data(){
     return{
@@ -398,8 +392,8 @@ export default {
 
     // 予約
     submitBooking(){
-      axios.defaults.xsrfCookieName = 'csrftoken' // ←ココと
-      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN" // ←ココに追加しました
+      axios.defaults.xsrfCookieName = 'csrftoken'
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
       api({
         method: 'post',
         url: 'http://127.0.0.1:8000/api/v1/booking/'
