@@ -51,6 +51,21 @@ class Tag(models.Model):
         return self.name
 
 
+class Profile(models.Model):
+    
+    userpro = models.OneToOneField(
+        settings.AUTH_USER_MODEL, related_name='userpro',
+        on_delete=models.CASCADE,
+    )
+    icon = models.ImageField(upload_to="image/", null=True, blank=True)
+    introduction = models.TextField()
+    address = models.CharField(max_length=50, null=True, blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.userpro.username
+
+
 class Post(models.Model):
     """投稿モデル"""
 
@@ -64,6 +79,7 @@ class Post(models.Model):
         db_table = 'post'
         
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='投稿者', on_delete=models.CASCADE)
+    profile = models.ForeignKey(to=Profile, verbose_name='投稿者', on_delete=models.CASCADE, null=True)
     photo = models.ImageField(verbose_name='サムネイル画像', upload_to='photo/', null=False, blank=False)
     # title = models.CharField(verbose_name='タイトル', max_length=120, null=True, blank=True )
     text = models.TextField(verbose_name='本文', null=True, blank=True)
@@ -78,21 +94,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.author.username
-
-
-class Profile(models.Model):
-    
-    userpro = models.OneToOneField(
-        settings.AUTH_USER_MODEL, related_name='userpro',
-        on_delete=models.CASCADE,
-    )
-    icon = models.ImageField(upload_to="image/", null=True, blank=True)
-    introduction = models.TextField()
-    address = models.CharField(max_length=50, null=True, blank=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.userpro.username
 
 
 SCORE_CHOICES = (

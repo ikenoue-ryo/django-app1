@@ -56,36 +56,28 @@
           class="pa-3"
           v-model="form.posts.pr1"
           :counter="20"
-          :rules="nameRules"
           label="おすすめポイント１"
-          required
         ></v-text-field>
         <v-text-field
           style="margin-bottom: 30px; width: 350px;"
           class="pa-3"
           v-model="form.posts.pr2"
           :counter="20"
-          :rules="nameRules"
           label="おすすめポイント２"
-          required
         ></v-text-field>
         <v-text-field
           style="margin-bottom: 30px; width: 350px;"
           class="pa-3"
           v-model="form.posts.pr3"
           :counter="20"
-          :rules="nameRules"
           label="おすすめポイント３"
-          required
         ></v-text-field>
         <v-text-field
           style="margin-bottom: 30px; width: 350px;"
           class="pa-3"
           v-model="form.posts.pr4"
           :counter="20"
-          :rules="nameRules"
           label="おすすめポイント４"
-          required
         ></v-text-field>
 
         <!-- タグ -->
@@ -183,6 +175,7 @@ export default {
           tag: [],
           car_type: '',
           price: '',
+          profile: '',
         }
       },
 
@@ -216,6 +209,7 @@ export default {
       }
       formData.append('car_type', this.form.posts.car_type)
       formData.append('price', this.form.posts.price)
+      formData.append('profile', this.form.posts.profile)
 
       api({
         method: 'post',

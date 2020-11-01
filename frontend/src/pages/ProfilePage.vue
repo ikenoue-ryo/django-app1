@@ -14,7 +14,7 @@
             <img v-if="user_profile.icon" :src="user_profile.icon" width="115" class="sticky" style="width:150px; margin:10px;">
             <div v-else class="file_input">
               <label class="input-item__label">
-                <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
+                <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" :rules="rules"/>
               </label>
             </div>
             <!-- <router-link :to="`/message/${username}`">
@@ -117,6 +117,7 @@
                 <div class="border_line"></div>
 
                 <v-col
+                  
                   cols="6"
                   md="12"
                 >
