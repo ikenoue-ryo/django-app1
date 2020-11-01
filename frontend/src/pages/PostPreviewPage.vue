@@ -37,7 +37,7 @@
             class="inner_card"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-text
+              <div
                 color="red lighten-2"
                 dark
                 v-bind="attrs"
@@ -45,7 +45,7 @@
                 @click="editButton"
               >
               <p class="">編集</p>
-              </v-text>
+              </div>
             </template>
               <v-card
                 class="card_style"
@@ -111,23 +111,23 @@
             width="500"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-text
+              <div
                 color="red lighten-2"
                 dark
                 v-bind="attrs"
                 v-on="on"
               >
               <p class="">削除</p>
-              </v-text>
+              </div>
             </template>
               <v-card
                 class="card_style delete_area"
                 max-width="800"
               >
                 <v-row>
-                  <v-text class="delete_question">
+                  <div class="delete_question">
                     この投稿を削除しますか？
-                  </v-text>
+                  </div>
                 </v-row>
                 <v-row justify="center" style="padding-bottom:30px;">
                   <v-btn @click="dialog2 = false" class="mr-5">
@@ -146,8 +146,7 @@
 
         <div style="width:700px;" class="post_contents">
           <p>{{ post.car_type }}</p>
-          <div v-html="post.text" v-if="post.text" class="post_text"></div>
-          <div v-else>あああ</div>
+          <div v-html="post.text" class="post_text"></div>
           <ul>
             <v-row>
               <router-link :to="`/profile/${username}`">
@@ -178,7 +177,10 @@
         <div class="share_price">
           <div class="card">
             <div class="card-body">
-              <div class="price">{{ post.price.toLocaleString() }}<span class="yen"> 円/(月額)</span></div>
+              <div v-if="post.price" class="price">
+                {{ post.price.toLocaleString() }}
+                <span class="yen"> 円/(月額)</span>
+              </div>
               <p class="card-text">指定の場所に返却してください。</p>
               <!-- モーダル -->
                 <div class="text-center">
@@ -187,7 +189,7 @@
                     width="600"
                   >
                     <template v-slot:activator="{ on, attrs }">
-                      <v-text
+                      <div
                         color="red lighten-2"
                         dark
                         v-bind="attrs"
@@ -196,7 +198,7 @@
                       >
 
                       <v-btn color="#2bbbad">予約する</v-btn>
-                      </v-text>
+                      </div>
                     </template>
 
                   <v-card
@@ -228,12 +230,12 @@
                                 cols="12"
                                 sm="12"
                               >
-                                <v-text-field
+                                <div-field
                                   v-model="dateRangeText"
                                   label="Date range"
                                   prepend-icon="mdi-calendar"
                                   readonly
-                                ></v-text-field>
+                                ></div-field>
                                 model: {{ dates }}
                               </v-col>
                             </v-row>
@@ -599,7 +601,7 @@ label::after {
   font-size: 3rem;
 }
 
-.v-text-field input {
+.div-field input {
     font-size: 1.2em;
   }
 

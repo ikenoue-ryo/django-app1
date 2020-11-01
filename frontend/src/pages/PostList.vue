@@ -2,11 +2,11 @@
   <v-app class="app">
     <GlobalHeader />
     <div class="app_flex">
-      <div v-if="car_info" style="width: 100%;">
+      <div style="width: 100%;">
 
         <div class="back_body">
           <h2>{{ car_name.toUpperCase()}}</h2>
-          <v-list>
+          <v-list v-if="car_info && car_info.length > 0">
             <v-list-item v-for="info in car_info" :key="info.index">
                 <v-container fluid class="back_color">
                   <v-content>
@@ -52,11 +52,10 @@
                 </v-container>
             </v-list-item>
           </v-list>
+          <div v-else class="non_contents">
+            <p>投稿がありません</p>
+          </div>
         </div>
-
-      </div>
-      <div v-else>
-        <p>コンテンツがありません</p>
       </div>
     </div>
     <GlobalFooter />
@@ -260,5 +259,10 @@ export default {
    clear: both;
 }
 
+.non_contents{
+  margin: 0 auto;
+  text-align: center;
+  padding: 50px;
+}
 
 </style>
