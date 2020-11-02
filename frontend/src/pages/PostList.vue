@@ -18,7 +18,7 @@
                               <img :src="info.photo">
                             </div>
                           </v-flex>
-                          <v-flex xs12 sm6 md7 px-5>
+                          <v-flex xs12 sm6 md7 class="pad_class">
                             <div class="card_detail">
                                 <div class="card_info clearfix">
                                   <h3>{{ info.profile.address }}</h3>

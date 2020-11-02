@@ -90,7 +90,6 @@ export default {
 }
 
 .car_recommend_article .recommend_back_size {
-  width: 900px;
   margin: 0 auto;
   text-align: left;
 }

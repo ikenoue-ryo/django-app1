@@ -23,6 +23,7 @@
                     :rules="form.emailRules"
                     label="メールアドレス"
                     required
+                    class="login_input"
                   ></v-text-field>
                 </v-col>
 
@@ -35,6 +36,7 @@
                     type="password"
                     label="パスワード"
                     required
+                    class="login_input"
                   ></v-text-field>
                 </v-col>
 

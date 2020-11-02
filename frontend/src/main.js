@@ -17,6 +17,13 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+import './assets/css/top.scss';
+import './assets/css/post_page.scss';
+import './assets/css/login.scss';
+import './assets/css/profile.scss';
+import './assets/css/postlist_page.scss';
+import './assets/css/post_preview_page.scss';
+
 // アイコンを読み込み
 library.add(fas, far, fab);
 

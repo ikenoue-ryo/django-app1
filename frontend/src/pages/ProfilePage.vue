@@ -117,11 +117,9 @@
                 <div class="border_line"></div>
 
                 <v-col
-                  
-                  cols="6"
                   md="12"
                 >
-                  <h2>貸し出し中の車</h2>
+                  <h2>投稿した車</h2>
                   <v-container style="padding:0;" v-if="user_posts && user_posts.length > 0">
                     <v-row>
                       <v-col cols="12" md="6" class="pa-3" v-for="posts in user_posts" :key="posts.id">
@@ -157,17 +155,18 @@
                 <div class="border_line"></div>
 
                 <v-col
-                  cols="6"
                   md="12"
                 >
                 <h2>駐車場</h2>
-                  <v-row class="parking_area" v-if="user_profile.address && user_profile.address.length > 0">
-                      <v-fa :icon="['fas', 'parking']" class="parking_icon sns_icons" />
-                    <p class="ma-2">{{ user_profile.address }}</p>
-                  </v-row>
+                  <v-row>
+                    <div class="parking_area" v-if="user_profile.address && user_profile.address.length > 0">
+                        <v-fa :icon="['fas', 'parking']" class="parking_icon sns_icons" />
+                      <p class="ma-2">{{ user_profile.address }}</p>
+                    </div>
                     <div v-else class="non_post">
                       <p>駐車場が入力されていません</p>
-                  </div>
+                    </div>
+                  </v-row>
 
                   <!-- マップ -->
                   <!-- <input type="text" v-model="address" style="border:1px solid;">
@@ -180,7 +179,6 @@
                 <div class="border_line"></div>
 
                 <v-col
-                  cols="6"
                   md="12"
                   class="user_comment"
                 >
@@ -204,8 +202,9 @@
                         label="コメントを書く"
                         :rules="rules"
                         hide-details="auto"
+                        class="comment_form"
                       ></v-text-field>
-                      <div class="back-color text-lg-right pa-3">
+                      <div class="back-color text-lg-right pa-3 submit_comment">
                         <v-btn type="submit" class="comment_post">送信</v-btn>
                       </div>
                     </form>
@@ -690,6 +689,9 @@ label::after {
  
 .part{
   display: -webkit-box!important;
+}
+.parking_area{
+  width: 100%;
 }
 
 .user_comment{

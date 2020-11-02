@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout wrap class="main_img">
-        <div>
+        <div class="sp">
           <v-carousel cycle interval="4000" class="rounded-lg">
             <v-carousel-item
               v-for="(photo, index) in photos"
@@ -11,7 +11,7 @@
                 <v-col class="mt-3">
                   <v-img 
                   :src="photo.image"
-                  max-width=860 class="rounded-lg"
+                  class="rounded-lg pc sp"
                   ></v-img>
                 </v-col>
               </v-row>
@@ -53,7 +53,7 @@
 
 <style lang="scss" scoped>
 .main_img{
-  width: 860px;
+  width: 100%;
   margin: 0 auto;
 }
 

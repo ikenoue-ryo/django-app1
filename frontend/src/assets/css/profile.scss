@@ -1,0 +1,45 @@
+/*****************************/
+/* スマホ用CSS */
+/*****************************/
+@media screen and (max-width: 480px) {
+  .card_style{
+    p.text-lg-right{
+      text-align: right!important;
+    }
+
+    .v-rating{
+      text-align: left!important;
+    }
+
+    .comment_form{
+      width: 100%;
+    }
+
+    .submit_comment{
+      text-align: right!important;
+    }
+
+    .review{
+      padding: 12px 13px;
+    }
+
+  }
+}
+
+
+
+/****************************************/
+/* タブレット用CSS */
+/****************************************/
+@media screen and (min-width: 481px) {
+
+}
+
+
+/**********************************/
+/* PC用CSS */
+/**********************************/
+
+@media screen and (min-width: 960px) {
+
+}
