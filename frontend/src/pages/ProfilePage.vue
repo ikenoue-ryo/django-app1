@@ -403,8 +403,8 @@ export default {
     //プロフィール
     submitPost: function(){
       let formData = new FormData();
-      formData.append('userpro.id', this.$store.getters['auth/id']);
-      formData.append('userpro.username', this.$store.getters['auth/username']);
+      formData.append('userpro', this.$store.getters['auth/id']);
+      // formData.append('userpro.username', this.$store.getters['auth/username']);
       formData.append('introduction', this.form.edit.introduction);
       formData.append('address', this.form.edit.address);
       formData.append('icon', this.uploadFile);
@@ -456,7 +456,7 @@ export default {
     },
     user_profile(){
       console.log(this.profiles)
-      console.log(this.profiles.userpro)
+      console.log('これ', this.profiles.userpro)
       const profiles = this.profiles.find(profiles => profiles.userpro.username === this.$route.params.username)
       if(!profiles){
         return {

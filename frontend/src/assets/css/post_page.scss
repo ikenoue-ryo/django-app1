@@ -93,6 +93,10 @@
     color: #000;
     margin:0!important;
   }
+  .v-input{
+    width: 100%!important;
+    display: inline-block;
+  }
 }
 
 
@@ -113,14 +117,14 @@
   .card_style{
     width: 800px;
 
-    .v-input{
-      width: 33.33%;
-    }
+    // .v-input{
+    //   width: 33.33%;
+    // }
   }
   .price_area{
     width: 350px;
   }
-  .image_area{
+  .thumbnail{
     img{
       width: 700px;
     }
