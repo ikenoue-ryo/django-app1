@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <!-- <Spinner v-show="!loading" /> -->
-
     <div id="app" class="back_body">
       <GlobalHeader />
 
