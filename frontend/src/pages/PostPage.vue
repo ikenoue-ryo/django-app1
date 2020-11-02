@@ -39,7 +39,7 @@
                   </label>
                 </div>
 
-                <div class="image_area" v-if="url">
+                <div class="image_area thumbnail" v-if="url">
                   <div @click="deletePreview"><v-icon color="white">mdi-close</v-icon></div>
                   <img :src="url">
                 </div>
@@ -83,7 +83,7 @@
         <div class="tag">
           <h3>Tag</h3>
           <v-checkbox
-              class="ma-0"
+              class="ma-0 input_tag"
               v-model="form.posts.tag"
               label="低燃費"
               color="info"
@@ -91,7 +91,7 @@
               hide-details
             ></v-checkbox>
           <v-checkbox
-              class="ma-0"
+              class="ma-0 input_tag"
               v-model="form.posts.tag"
               label="駐車場無料"
               color="info"
@@ -99,7 +99,7 @@
               hide-details
             ></v-checkbox>
           <v-checkbox
-              class="ma-0"
+              class="ma-0 input_tag"
               v-model="form.posts.tag"
               label="	1ヶ月間貸し出し可"
               color="info"
@@ -411,8 +411,12 @@ label {
 }
 
 .v-input{
-  width: 33.33%;
+  // width: 33.33%;
   display: inline-block;
+}
+
+.input_tag{
+  width: 33.33%;
 }
 
 .tag{
