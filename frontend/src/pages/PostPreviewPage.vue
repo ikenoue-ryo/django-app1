@@ -1,11 +1,10 @@
 <template>
   <v-app>
     <!-- <Spinner v-show="!loading" /> -->
-
     <div id="app" class="back_body">
       <GlobalHeader />
 
-      <h2>Post Preview</h2>
+      <h2>Ride</h2>
       
       <div class="sns_photo">
         <!-- SNSアイコン -->
@@ -23,7 +22,6 @@
 
       <v-card
         class="card_style"
-        max-width="800"
       >
       <notFound v-if="notFound" />
       <template v-else>
@@ -33,8 +31,7 @@
         <div class="inline_block" style="margin-right:15px;">
           <v-dialog
             v-model="dialog"
-            width="700"
-            class="inner_card"
+            class="inner_card edit_form"
           >
             <template v-slot:activator="{ on, attrs }">
               <div
@@ -48,8 +45,7 @@
               </div>
             </template>
               <v-card
-                class="card_style"
-                max-width="800"
+                class="card_style card_edit"
               >
                 <form @submit.prevent="submitPost" class="form_class">
 
@@ -74,7 +70,7 @@
                   <v-flex xs12 sm6 md12 class="inner_card">
                     <v-container>
                       <v-row>
-                        <div xs12 sm6 md3 class="photo_area">
+                        <div xs12 sm6 md3 xs3 class="photo_area">
                           <div class="file_input" v-show="show">
                             <label class="input-item__label">
                               <v-fa :icon="['fas', 'camera']" class="camera_icon sns_icons" />
@@ -122,7 +118,6 @@
             </template>
               <v-card
                 class="card_style delete_area"
-                max-width="800"
               >
                 <v-row>
                   <div class="delete_question">
@@ -130,10 +125,10 @@
                   </div>
                 </v-row>
                 <v-row justify="center" style="padding-bottom:30px;">
-                  <v-btn @click="dialog2 = false" class="mr-5">
+                  <v-btn @click="dialog2 = false" class="mr-5" text color="black" elevation="2" outlined raised>
                     キャンセル
                   </v-btn>
-                  <v-btn @click="deleteButton" width="110">
+                  <v-btn @click="deleteButton" width="110" text color="black" elevation="2" outlined raised>
                     削除
                   </v-btn>
                 </v-row>
@@ -144,7 +139,7 @@
         <!-- モーダル -->
         </div>
 
-        <div style="width:700px;" class="post_contents">
+        <div class="post_contents">
           <p>{{ post.car_type }}</p>
           <div v-html="post.text" class="post_text"></div>
           <ul>
@@ -159,16 +154,16 @@
         </div>
 
         <v-layout wrap class="profile">
-          <v-flex xs12 sm6 md2>
+          <v-flex sm6 md2 xs3>
             <div class="icon">
               <router-link :to="`/profile/${username}`">
                 <img :src="user_profile.icon">
               </router-link>
             </div>
           </v-flex>
-          <v-flex xs12 sm6 md10>
+          <v-flex sm6 md10 xs9 class="text_left">
             <div class="pr_profile">
-              <!-- <p class="prof_name">{{ user_profile.userpro.username }}</p> -->
+              <p class="prof_name">{{ user_profile.userpro.username }}</p>
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
@@ -202,12 +197,12 @@
                     </template>
 
                   <v-card
-                    class="card_style"
+                    class="card_style card_preview"
                   >
                     <!-- <GlobalMessage class="message_card" /> -->
 
                     <form @submit.prevent="submitBooking">
-                      <v-flex xs12 sm6 md9 class="inner_card">
+                      <v-flex xs12 sm6 md9 xs9 class="inner_card">
                         <v-container>
                           <v-row>
 
@@ -577,11 +572,6 @@ label::after {
     margin: 30px auto;
     padding: 50px;
     border-top: 5px solid #33b5e5;
-    // min-height: 100vh;
-    display: inline-block;
-    float: left;
-    position: relative;
-    right: 70px;
 
     .back-color{
       a.start{
@@ -650,6 +640,7 @@ label::after {
   position: relative;
   top: 50px;
   right: 80px;
+  height: 0;
 
   .fb_icon{
     color: #3b5998;
@@ -728,12 +719,12 @@ label::after {
   }
 
   .card {
-    width: 230px;
+    // width: 230px;
     border-radius: 15px;
     position: fixed;
-    bottom: 30px;
-    right: 110px;
-    z-index: 10;
+    // bottom: 30px;
+    // right: 110px;
+    // z-index: 10;
     padding: 5px;
     border: 1px solid #eee;
     background: #fff;

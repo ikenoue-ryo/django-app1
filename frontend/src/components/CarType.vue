@@ -16,7 +16,7 @@
         <v-container fluid pa-0 pt-5>
           <v-row>
             <v-col
-             cols="12" md="4" class="pa-2"
+             cols="12" md="4" class="pa_class"
              v-for="car_type in car_types" :key="car_type.id"
             >
             <div v-if="car_type.brand ===model">
@@ -25,11 +25,11 @@
                 close-delay="200"
               >
                 <v-card 
-                  class="py-3 { 'on-hover': hover }"
+                  class="py-3 ma_class { 'on-hover': hover }"
                   :elevation="hover ? 12 : 2"
                   :href="car_type.en_name"
                 >
-                  <v-img :src="car_type.images" width=280 height=160></v-img>
+                  <v-img :src="car_type.images"></v-img>
                   <div class="card-body">
                     <h3 class="my-3">{{ car_type.jp_name }}</h3>
                     <p class="card-text text-uppercase">低燃費, 5人乗り, 駐無料</p>
@@ -45,7 +45,7 @@
         <v-container fluid pa-0 pt-5>
           <v-row>
             <v-col
-             cols="12" md="4" class="pa-2"
+             cols="12" md="4" class="pa_class"
              v-for="car_type in car_types" :key="car_type.id"
             >
             <div v-if="car_type.brand ===model">
@@ -54,11 +54,11 @@
                 close-delay="200"
               >
                 <v-card 
-                  class="py-3 { 'on-hover': hover }"
+                  class="py-3 ma_class { 'on-hover': hover }"
                   :elevation="hover ? 12 : 2"
                   :href="car_type.en_name"
                 >
-                  <v-img :src="car_type.images" width=280 height=160></v-img>
+                  <v-img :src="car_type.images"></v-img>
                   <div class="card-body">
                     <h3 class="my-3">{{ car_type.jp_name }}</h3>
                     <p class="card-text text-uppercase">低燃費, 5人乗り, 駐無料</p>
@@ -74,7 +74,7 @@
         <v-container fluid pa-0 pt-5>
           <v-row>
             <v-col
-             cols="12" md="4" class="pa-2"
+             cols="12" md="4" class="pa_class"
              v-for="car_type in car_types" :key="car_type.id"
             >
             <div v-if="car_type.brand ===model">
@@ -83,11 +83,11 @@
                 close-delay="200"
               >
                 <v-card 
-                  class="py-3 { 'on-hover': hover }"
+                  class="py-3 ma_class { 'on-hover': hover }"
                   :elevation="hover ? 12 : 2"
                   :href="car_type.en_name"
                 >
-                  <v-img :src="car_type.images" width=280 height=160></v-img>
+                  <v-img :src="car_type.images"></v-img>
                   <div class="card-body">
                     <h3 class="my-3">{{ car_type.jp_name }}</h3>
                     <p class="card-text text-uppercase">低燃費, 5人乗り, 駐無料</p>
@@ -127,7 +127,6 @@ export default{
 
 <style lang="scss" scoped>
 .car_type{
-  width: 900px;
   margin: 0 auto;
   padding: 0 20px;
   margin-bottom: 20px;

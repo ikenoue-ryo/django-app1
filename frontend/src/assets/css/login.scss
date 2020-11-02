@@ -1,0 +1,32 @@
+/*****************************/
+/* スマホ用CSS */
+/*****************************/
+@media screen and (max-width: 480px) {
+  .card_style{
+    text-align: center;
+
+    .login_input{
+      width: 100%!important;
+    }
+  }
+}
+
+
+
+/****************************************/
+/* タブレット用CSS */
+/****************************************/
+@media screen and (min-width: 481px) {
+
+}
+
+
+/**********************************/
+/* PC用CSS */
+/**********************************/
+
+@media screen and (min-width: 960px) {
+  .login_input{
+    width: 100%!important;
+  }
+}

@@ -6,10 +6,9 @@
     <h2>Let's Post</h2>
     <v-card
       class="card_style"
-      max-width="800"
     >
 
-      <form @submit.prevent="submitPost" class="form_class">
+      <form @submit.prevent="submitPost" class="form_class ma-0">
 
         <!-- カーセレクト -->
         <v-col
@@ -110,8 +109,8 @@
         </div>
 
         <v-text-field
-          style="margin-bottom: 30px; width: 350px;"
-          class="pa-3"
+          style="margin-bottom: 30px;"
+          class="pa-3 price_area"
           v-model="form.posts.price"
           :counter="5"
           :rules="nameRules"
@@ -355,7 +354,6 @@ label::after {
     margin: 30px auto;
     padding: 50px;
     border-top: 5px solid #33b5e5;
-    min-height: 100vh;
 
     .back-color{
       a.start{
@@ -371,7 +369,6 @@ label::after {
 
   .image_area{
     img{
-      width: 700px;
       object-fit: contain;
     }
   }
@@ -404,7 +401,7 @@ label {
     font-size: 0.9rem;
     color: #fff;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 40px;
     padding: 10px;
     text-decoration: none;
     outline: none;

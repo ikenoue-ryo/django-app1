@@ -203,7 +203,6 @@ p {
 }
 
 .car_recommend_article .recommend_back_size {
-  width: 900px;
   margin: 0 auto;
   text-align: left;
 }
@@ -241,7 +240,6 @@ p {
 }
 
 .car_recommend_article .back_size {
-  width: 900px;
   margin: 30px auto 0;
 }
 

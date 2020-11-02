@@ -29,18 +29,17 @@
                   <v-list-item-group
                     color="primary"
                   >
-                    <v-list-item
-                      v-for="(car_type, index) in filterdCarTypes"
-                      :key="index"
-                      :href="car_type.en_name"
-                    >
-                      <v-list-item-icon style="margin:0;">
-                        <img :src="car_type.images" style="width:100px!important;">
-                      </v-list-item-icon>
-                      <v-list-item-content>
-                        <v-list-item-title v-text="car_type.jp_name"></v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
+                    <router-link v-for="(car_type, index) in filterdCarTypes" :key="index" :to="`/${car_type.en_name}/`">
+                      <v-list-item
+                      >
+                        <v-list-item-icon style="margin:0;">
+                          <img :src="car_type.images" style="width:100px!important;">
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                          <v-list-item-title v-text="car_type.jp_name"></v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </router-link>
                   </v-list-item-group>
                 </v-list>
               </v-card>
@@ -123,8 +122,8 @@
               </div>
             
             </div>
-          <v-btn v-if="isLoggedIn" href="post" class="start">投稿する</v-btn>
-          <v-btn v-else href="signup" class="start">はじめる</v-btn>
+          <v-btn v-if="isLoggedIn" href="post" class="start sp">投稿する</v-btn>
+          <v-btn v-else href="signup" class="start sp">はじめる</v-btn>
           </v-row>
         </div>
       </v-toolbar-items>
@@ -244,6 +243,10 @@ export default {
       display: inline-block;
       float: left;
       padding: 12px 6px 0 5px;
+
+      .v-input{
+        width: 100%;
+      }
     }
   }
 }

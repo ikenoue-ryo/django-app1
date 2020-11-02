@@ -105,7 +105,6 @@ footer.page-footer button.btn-sub {
 }
 
 footer.page-footer .footer_area {
-  width: 900px;
   margin: 50px auto 80px;
 }
 
