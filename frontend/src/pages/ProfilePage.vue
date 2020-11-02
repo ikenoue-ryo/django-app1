@@ -111,7 +111,7 @@
                 >
                   <h2>自己紹介</h2>
                   <p v-if="user_profile.introduction">{{ user_profile.introduction }}</p>
-                  <p v-else class="non_post">入力してください</p>
+                  <p v-else class="non_post" style="padding-left:10px;">入力してください</p>
                 </v-col>
 
                 <div class="border_line"></div>
@@ -143,10 +143,8 @@
                   </v-container>
                   <div v-else class="non_post">
                     <router-link :to="`/post/`">
-                      <v-row class="post_area" v-if="user_profile.address && user_profile.address.length > 0">
                         <v-fa :icon="['fas', 'pencil-alt']" class="parking_icon sns_icons" />
                         <p class="ma-2">投稿がまだありません</p>
-                      </v-row>
                     </router-link>
                   </div>
                 </v-col>
@@ -163,7 +161,7 @@
                         <v-fa :icon="['fas', 'parking']" class="parking_icon sns_icons" />
                       <p class="ma-2">{{ user_profile.address }}</p>
                     </div>
-                    <div v-else class="non_post">
+                    <div v-else class="non_post" style="padding-left:10px;">
                       <p>駐車場が入力されていません</p>
                     </div>
                   </v-row>
@@ -403,8 +401,8 @@ export default {
     //プロフィール
     submitPost: function(){
       let formData = new FormData();
-      formData.append('userpro', this.$store.getters['auth/id']);
-      // formData.append('userpro.username', this.$store.getters['auth/username']);
+      formData.append('userpro.id', this.id);
+      formData.append('userpro.username', this.name);
       formData.append('introduction', this.form.edit.introduction);
       formData.append('address', this.form.edit.address);
       formData.append('icon', this.uploadFile);
