@@ -118,6 +118,14 @@
           required
         ></v-text-field>円
 
+        <v-text-field
+          style="margin-bottom: 30px;"
+          class="pa-3 price_area"
+          v-model="form.posts.place"
+          label="駐車場"
+          required
+        ></v-text-field>
+
         <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
         <div class="back-color">
           <button type="submit" class="start">送信</button>
@@ -174,11 +182,7 @@ export default {
           tag: [],
           car_type: '',
           price: '',
-          profile: {
-            introduction: '',
-            address: '',
-            userpro: '',
-          },
+          place: '',
         }
       },
 
@@ -220,10 +224,7 @@ export default {
       }
       formData.append('car_type', this.form.posts.car_type)
       formData.append('price', this.form.posts.price)
-      formData.append('profile.introduction', this.user_profile.introduction);
-      formData.append('profile.address', this.user_profile.address);
-      formData.append('profile.userpro.id', this.$store.getters['auth/id']);
-      formData.append('profile.userpro.username', this.$store.getters['auth/username']);
+      formData.append('place', this.form.posts.place)
 
       api({
         method: 'post',
@@ -242,9 +243,7 @@ export default {
           this.$router.replace(next)
         })
         .catch(error => {
-          console.log('ここ1', this.form.posts);
-          console.log('ここ2', this.form.posts.profile.introduction);
-          console.log('ここ3', error);
+          console.log(error);
         })
     },
     // 写真アップロード
