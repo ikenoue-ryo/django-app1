@@ -46,11 +46,10 @@ class ProfileSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
     tag = TagSerializer(many=True)
-    profile = ProfileSerializer()
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'car_type', 'profile']
+        fields = ['id', 'author', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'place', 'car_type']
 
     def create(self, validated_data):
         author_data = validated_data.pop('author', None)
@@ -75,7 +74,6 @@ class PostSerializer(serializers.ModelSerializer):
         instance.tag = validated_data.get('tag', instance.tag)
         instance.price = validated_data.get('price', instance.price)
         instance.car_type = validated_data.get('car_type', instance.car_type)
-        instance.profile = validated_data.get('profile', instance.profile)
         instance.save()
         return instance
 
