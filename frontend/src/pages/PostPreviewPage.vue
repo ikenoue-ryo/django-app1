@@ -163,7 +163,7 @@
           </v-flex>
           <v-flex sm6 md10 xs9 class="text_left">
             <div class="pr_profile">
-              <!-- <p class="prof_name">{{ user_profile.userpro.username }}</p> -->
+              <p class="prof_name" v-if="user_profile">{{ user_profile.userpro.username }}</p>
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
@@ -271,6 +271,7 @@ import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor'
 import axios from 'axios'
 import store from '../store'
+
 
 // import Spinner from 'vue-simple-spinner'
 

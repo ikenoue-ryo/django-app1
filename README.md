@@ -15,6 +15,20 @@ DATABASE=postgres
 ## 実行
 docker-compose up -d --build
 
+
+## コマンド集
+本番起動用  
+docker-compose -f docker-compose.prod.yml down -v  
+docker-compose -f docker-compose.prod.yml up -d --build  
+docker-compose -f docker-compose.prod.yml exec django python manage.py migrate --noinput  
+docker-compose -f docker-compose.prod.yml exec django python manage.py collectstatic --no-input --clear  
+.env.developmentの記述：VUE_APP_ROOT_API=http://127.0.0.1:1337/api/v1/  
+
+開発起動用  
+docker-compose -f docker-compose.yml exec django python manage.py makemigrations  
+docker-compose -f docker-compose.yml exec django python manage.py migrate --noinput  
+.env.developmentの記述：VUE_APP_ROOT_API=http://127.0.0.1:8000/api/v1/  
+
 <!-- 
 コマンド集
 
@@ -29,10 +43,12 @@ docker-compose -f docker-compose.prod.yml down -v
 docker-compose -f docker-compose.prod.yml up -d --build
 docker-compose -f docker-compose.prod.yml exec django python manage.py migrate --noinput
 docker-compose -f docker-compose.prod.yml exec django python manage.py collectstatic --no-input --clear
+.env.developmentの記述：VUE_APP_ROOT_API=http://127.0.0.1:1337/api/v1/
 
 開発起動用
 docker-compose -f docker-compose.yml exec django python manage.py makemigrations
 docker-compose -f docker-compose.yml exec django python manage.py migrate --noinput
+VUE_APP_ROOT_API=http://127.0.0.1:8000/api/v1/
 
 コンテナ未使用時
 python manage.py runserver --setting=config.settings.local
