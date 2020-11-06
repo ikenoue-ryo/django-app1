@@ -163,7 +163,7 @@
           </v-flex>
           <v-flex sm6 md10 xs9 class="text_left">
             <div class="pr_profile">
-              <p class="prof_name" v-if="user_profile">{{ user_profile.userpro }}</p>
+              <p class="prof_name" v-if="user_profile">{{ user_profile.userpro.username }}</p>
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>

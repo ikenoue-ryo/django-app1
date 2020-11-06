@@ -427,7 +427,7 @@ export default {
     // コメント
     submitComment: function(){
       let formData = new FormData();
-      formData.append('username', 2);
+      formData.append('username', this.user_profile.id);
       formData.append('point', this.form.comment.point);
       formData.append('profile.id', this.user_profile.id);
       formData.append('comment', this.form.comment.comment);

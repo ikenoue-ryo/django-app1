@@ -29,6 +29,14 @@ docker-compose -f docker-compose.yml exec django python manage.py makemigrations
 docker-compose -f docker-compose.yml exec django python manage.py migrate --noinput  
 .env.developmentの記述：VUE_APP_ROOT_API=http://127.0.0.1:8000/api/v1/  
 
+
+## 画面イメージ
+<img src="https://user-images.githubusercontent.com/61681360/98380895-8abbb600-208c-11eb-8a17-963ce000e40c.png">
+<img src="https://user-images.githubusercontent.com/61681360/98381026-aa52de80-208c-11eb-87b7-be1c4f4a7ad4.png">
+<img src="https://user-images.githubusercontent.com/61681360/98381070-b5a60a00-208c-11eb-85bf-91f9e9b32f1d.png">
+<img src="https://user-images.githubusercontent.com/61681360/98381126-ca829d80-208c-11eb-949d-cfb4f77a76c7.png">
+
+
 <!-- 
 コマンド集
 
