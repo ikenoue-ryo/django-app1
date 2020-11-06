@@ -119,7 +119,7 @@ export default {
       })
         .then(() => {
           console.log('Signup succeeded.')
-          this.$store.dispatch('message/setInfoMessage', { message: 'サインアップしました。' })
+          this.$store.dispatch('message/setInfoMessage', { message: '登録が完了しました。ログインしてください。' })
           // クエリ文字列に「next」がなければ、ホーム画面へ
           const next = this.$route.query.next || '/login'
           this.$router.replace(next)

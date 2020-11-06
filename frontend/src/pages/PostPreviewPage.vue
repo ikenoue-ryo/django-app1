@@ -163,7 +163,7 @@
           </v-flex>
           <v-flex sm6 md10 xs9 class="text_left">
             <div class="pr_profile">
-              <!-- <p class="prof_name">{{ user_profile.userpro.username }}</p> -->
+              <p class="prof_name" v-if="user_profile">{{ user_profile.userpro.username }}</p>
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
@@ -390,11 +390,13 @@ export default {
 
     // 予約
     submitBooking(){
-      axios.defaults.xsrfCookieName = 'csrftoken'
-      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
       api({
+        credentials: "include",
         method: 'post',
-        url: 'http://127.0.0.1:8000/api/v1/booking/'
+        url: 'http://127.0.0.1:8000/app/booking/',
+        headers: {
+          'X-CSRFToken': this.$csrfToken,
+        },
       })
       .then(() => {
         console.log('予約送信！')

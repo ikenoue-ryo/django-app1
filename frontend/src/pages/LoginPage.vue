@@ -7,6 +7,7 @@
       class="card_style"
       max-width="800"
     >
+    <GlobalMessage />
       <v-form v-model="form.valid" @submit.prevent="submitLogin">
         <v-layout wrap>
           <v-flex xs12 sm6 md3><img src="@/assets/img/superman.png" width="115"></v-flex>
@@ -61,10 +62,12 @@
 
 <script>
 import GlobalHeader from '@/components/GlobalHeader.vue'
+import GlobalMessage from '@/components/GlobalMessage.vue'
 
 export default {
   components: {
     GlobalHeader,
+    GlobalMessage,
   },
   data (){
     return {

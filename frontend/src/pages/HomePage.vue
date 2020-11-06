@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <GlobalHeader />
-    <!-- <GlobalMessage/> -->
+    <div class="message">
+      <GlobalMessage />
+    </div>
     <MainSlider />
     <CarType />
     <CarRecommend />
@@ -13,7 +15,7 @@
 
 <script>
 import GlobalHeader from '../components/GlobalHeader'
-// import GlobalMessage from '../components/GlobalMessage'
+import GlobalMessage from '../components/GlobalMessage'
 import MainSlider from '../components/MainSlider'
 import CarType from '../components/CarType'
 import CarRecommend from '../components/CarRecommend'
@@ -23,7 +25,7 @@ import GlobalFooter from '../components/GlobalFooter'
 export default{
   components: {
     GlobalHeader,
-    // GlobalMessage,
+    GlobalMessage,
     MainSlider,
     CarType,
     CarRecommend,
@@ -47,5 +49,11 @@ export default{
 
 .fullheight {
   height: 100%;
+}
+
+.message{
+  width: 860px;
+  margin: 30px auto 0px;
+  text-align: center;
 }
 </style>
