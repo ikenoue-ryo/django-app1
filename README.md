@@ -1,19 +1,44 @@
+## 概要  
+カーシェアサービス  
+CtoC型の車のシェアサービスとなります。  
+車を所有しているユーザーが、車を使わない期間に他人に貸し出すサービスのことで、貸し出す側のユーザーは自分の車をどれぐらいの期間、いくらで貸し出すのかを投稿します。その際に駐車場自体の貸し出しOKや乗り心地などもPRできます。  
+これにより、これまで手の届かなかった高級車や乗ったことのない車に乗ることができるようになり、レンタカーやBtoC向けのカーシェアリングにはない、体験価値を提供することができます。  
+
+一方、課題としては事故の際の補償やユーザー同士のトラブルをどのように解決できるかという点で試行錯誤中です。  
+
+## 使用技術  
+### フロントエンド  
+レスポンシブ対応  
+- Vue.js: 2.6.11
+- Vue CLI: 3.5.2
+- Vuex: 3.5.1
+- Vuetify: 2.2.11
+- Sass(scss)
+- HTML/CSS
+
+### バックエンド  
+- Python: 3.8.3
+- Django: 3.1.2
+- Django Rest Framework: 3.11.1
+
 ## ファイル作成1  
 touch .env  
 
 <ファイル内記述例>  
-DEBUG=0
-SECRET_KEY=hoge
-DATABASE_ENGINE=django.db.backends.postgresql
-DATABASE_DB=django_db
-DATABASE_USER=test
-DATABASE_PASSWORD=test
-DATABASE_HOST=postgres
-DATABASE_PORT=5432
-DATABASE=postgres
+DEBUG=0  
+SECRET_KEY=hoge  
+DATABASE_ENGINE=django.db.backends.postgresql  
+DATABASE_DB=django_db  
+DATABASE_USER=test  
+DATABASE_PASSWORD=test  
+DATABASE_HOST=postgres  
+DATABASE_PORT=5432  
+DATABASE=postgres  
 
 ## 実行
-docker-compose up -d --build
+pipenv shell  
+pipenv install  
+docker-compose up -d --build  
 
 
 ## コマンド集
