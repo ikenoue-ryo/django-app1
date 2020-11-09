@@ -264,7 +264,7 @@ export default {
   name: 'Map',
   metaInfo: {
     script: [
-      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDX2C-4W9b_Os4iYD4HUmNxJD4ukZX3paA', async: true, defer: true }
+      { src: `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_GOOGLE_MAP_API}&callback=initMap`, async: true, defer: true }
     ],
   },
   components: {
@@ -338,15 +338,15 @@ export default {
   },
   mounted(){
     //profile
-    axios.get('http://localhost:8000/api/v1/profile/')
+    axios.get('http://garage-sharing.com/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
 
     //post
-    axios.get('http://localhost:8000/api/v1/posts/')
+    axios.get('http://garage-sharing.com/api/v1/posts/')
     .then(response => { this.posts = response.data })
 
     //comment
-    axios.get('http://localhost:8000/api/v1/comment/')
+    axios.get('http://garage-sharing.com/api/v1/comment/')
     .then(response => { this.comments = response.data })
 
     this.map = new window.google.maps.Map(document.getElementById('map'));
