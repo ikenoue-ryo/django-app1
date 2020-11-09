@@ -12,9 +12,25 @@
         display: none;
       }
 
-      .v-input{
-        width: 80%!important;
+      .back-color{
+        width: 230px!important;
       }
+
+      .v-input{
+        width: 70%!important;
+        margin-right: 0;
+      }
+
+      .search_form{
+        width: 75%!important;
+        position: relative!important;
+        left: 27px!important;
+
+        .v-item-group{
+          height: auto!important;
+        }
+      }
+
     }
   }
 
@@ -25,7 +41,7 @@
     }
 
     .v-window{
-      height: 243px!important;
+      height: 271px!important;
     }
   }
 
