@@ -35,12 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'sass_processor',
-    'django_sass',
-
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
 
     'django_ses',
 
@@ -72,7 +67,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'templates', 'allauth')
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -141,12 +135,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
-SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.(sass|scss)$'
-SASS_PRECISION = 8
-SASS_OUTPUT_STYLE = 'compressed'
-SASS_TEMPLATE_EXTS = ['.html', '.haml']
-
 #REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -169,12 +157,6 @@ CORS_ORIGIN_WHITELIST = (
 
 SITE_ID = 1
 
-AUTHENTICATION_BACKENDS = (
-    # 一般ユーザー用(メールアドレス認証)
-    'allauth.account.auth_backends.AuthenticationBackend',
-    # 管理サイト用(ユーザー名認証)
-    'django.contrib.auth.backends.ModelBackend',
-)
 
 # メールアドレス認証に変更する設定
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
