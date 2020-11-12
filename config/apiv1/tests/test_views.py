@@ -66,12 +66,13 @@ class TestProfileCreateAPIView(APITestCase):
         params = {
             'introduction': 'こんにちは',
             'address': '福岡県福岡市博多区',
-            'userpro.id': self.user.id,
-            'userpro.username': self.user.username,
-            "icon": "https://vue-django.s3.amazonaws.com/static/image/batman.png"
+            # 'userpro.id': self.user.id,
+            # 'userpro.username': self.user.username,
+            'userpro': data,
+            "icon": ""
         }
         response = self.client.post(self.TARGET_URL, params, format='json')
-        print('response', response)
+        print('response.data', response.data)
 
         # DBの状態を検証
         self.assertEqual(Profile.objects.count(), 1)

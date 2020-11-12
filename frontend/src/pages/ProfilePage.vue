@@ -338,15 +338,15 @@ export default {
   },
   mounted(){
     //profile
-    axios.get('http://garage-sharing.com/api/v1/profile/')
+    axios.get('http://localhost:8000/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
 
     //post
-    axios.get('http://garage-sharing.com/api/v1/posts/')
+    axios.get('http://localhost:8000/api/v1/posts/')
     .then(response => { this.posts = response.data })
 
     //comment
-    axios.get('http://garage-sharing.com/api/v1/comment/')
+    axios.get('http://localhost:8000/api/v1/comment/')
     .then(response => { this.comments = response.data })
 
     this.map = new window.google.maps.Map(document.getElementById('map'));
