@@ -1,0 +1,86 @@
+version: 2.1
+
+# 実行環境を定義
+executors:
+  test_default:
+    working_directory: ~/myproject
+    docker:
+      - image: circleci/python:3.8
+        environment:
+          PYTHONDONTWRITEBYTECODE: 1
+          PYTHONUNBUFFERED: 1
+          TZ: Asia/Tokyo
+
+# 実行コマンドの定義
+commands:
+  chown_python_package:
+    description: 'pipinstallする権限をcircleciに変更'
+    steps:
+      - run:
+          command: |
+            sudo chown -R circleci:circleci /usr/local/bin
+            sudo chown -R circleci:circleci /usr/local/lib/python3.8/site-packages
+  pip_install:
+    description: 'pip installを実行'
+    steps:
+      - run:
+          command: |
+            pwd
+            cd ./config
+            sudo pip install pipenv
+            pipenv install
+  db_migrations:
+    description: 'migrateを実行'
+    steps:
+      - run:
+          command: |
+            pwd
+            touch .env
+            echo SECRET_KEY=$SECRET_KEY > .env
+            cd ./config
+            pipenv run python manage.py makemigrations
+            pipenv run python manage.py migrate
+  save_python_package:
+    description: "pipinstallしたpackageをキャッシュする"
+    steps:
+      - save_cache:
+          name: Save Python Package
+          key: myapp-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - /usr/local/bin
+            - /usr/local/lib/python3.8/site-packages
+  restore_python_package:
+    description: 'Pipinstallしたpackageのキャッシュを読み込む'
+    steps:
+      - restore_cache:
+          name: Restore Python Package
+          key: myapp-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+  
+  run_test:
+    description: 'テストの実行'
+    steps:
+      - run:
+          name: Start running test
+          command: |
+            cd ./config
+            pipenv run python manage.py test apiv1.tests.test_urls
+
+# ジョブの定義
+jobs:
+  build:
+    executor: test_default
+    steps:
+      - checkout
+      - chown_python_package
+      - restore_python_package
+      - pip_install
+      - save_python_package
+      - db_migrations
+      - run_test
+
+# ワークフロー
+workflows:
+  version: 2.1
+  build_only:
+    jobs:
+      - build
