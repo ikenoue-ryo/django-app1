@@ -37,7 +37,7 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',
 
-    'django_ses',
+    # 'django_ses',
 
     'rest_framework',
     'rest_framework.authtoken',
