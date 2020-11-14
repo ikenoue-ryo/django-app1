@@ -3,6 +3,9 @@ from datetime import timedelta
 from os.path import join, dirname
 from dotenv import load_dotenv
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 load_dotenv(verbose=True)
 
 dotenv_path = join(dirname(__file__), '.env')
@@ -232,5 +235,17 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
 
 
-
 CORS_ALLOW_CREDENTIALS = True
+
+#######################
+#        ログ         #
+#######################
+sentry_sdk.init(
+    dsn="https://1774636c39e04e969c291e39191f1f55@o476661.ingest.sentry.io/5516669",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
