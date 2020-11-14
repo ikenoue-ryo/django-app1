@@ -274,12 +274,17 @@ class TestCommentCreateAPIView(APITestCase):
         user = User.objects.create(
             username='テストユーザー'
         )
+        profile = Profile.objects.create(
+            introduction='こんにちは',
+            address='福岡県福岡市博多区',
+            userpro=user,
+        )
 
         params = {
             'username': user.username,
             'point':  5,
             'comment': 'ありがとうございました。',
-            'profile': user
+            'profile': profile
         }
         response = self.client.post(self.TARGET_URL, params, format='json')
         # print('オブジェクト', response)
