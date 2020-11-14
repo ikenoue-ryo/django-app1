@@ -1,0 +1,141 @@
+/*****************************/
+/* スマホ用CSS */
+/*****************************/
+@media screen and (max-width: 480px) {
+  .card_style{
+    margin: 10px!important;
+    padding: 50px 20px!important;
+
+    .tag{
+      text-align: left!important;
+    }
+  }
+  .price_area{
+    width: 95%!important;
+  }
+
+  .ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+    padding: 0 5px!important;
+  }
+
+  button.ql-bold{
+    display: none!important;
+  }
+  button.ql-italic{
+    display: none!important;
+  }
+  button.ql-underline{
+    display: none!important;
+  }
+  button.ql-strike{
+    display: none!important;
+  }
+  button.ql-blockquote{
+    display: none!important;
+  }
+  button.ql-stroke{
+    display: none!important;
+  }
+  button.ql-code-block{
+    display: none!important;
+  }
+  button.ql-header{
+    display: none!important;
+  }
+  button.ql-list{
+    display: none!important;
+  }
+  button.ql-script{
+    display: none!important;
+  }
+  button.ql-stroke{
+    display: none!important;
+  }
+  button.ql-indent{
+    display: none!important;
+  }
+  button.ql-direction{
+    display: none!important;
+  }
+  button.ql-formats{
+    display: none!important;
+  }
+  .ql-picker{
+    display: none!important;
+  }
+  button.ql-video{
+    display: none!important;
+  }
+  button.ql-clean{
+    display: none!important;
+  }
+  button.ql-link{
+    display: none!important;
+  }
+
+  button.ql-image{
+    width: 40px!important;
+    height: 40px!important;
+    position: relative!important;
+    top: 0!important;
+    right: 220px!important;
+  }
+
+  .form_class{
+    padding: 0!important;
+  }
+
+  .card_edit{
+    margin: 0!important;
+  }
+
+  .delete_area{
+    color: #000;
+    margin:0!important;
+  }
+  .v-input{
+    width: 100%!important;
+    display: inline-block;
+  }
+}
+
+
+
+/****************************************/
+/* タブレット用CSS */
+/****************************************/
+@media screen and (min-width: 481px) {
+
+}
+
+
+/**********************************/
+/* PC用CSS */
+/**********************************/
+
+@media screen and (min-width: 960px) {
+  .card_style{
+    width: 800px;
+
+    // .v-input{
+    //   width: 33.33%;
+    // }
+  }
+  .price_area{
+    width: 350px;
+  }
+  .thumbnail{
+    img{
+      width: 700px;
+    }
+  }
+
+  .v-dialog{
+    width: 800px;
+  }
+
+  .delete_area{
+    width:800px;
+    color: #000;
+  }
+}

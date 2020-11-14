@@ -6,9 +6,19 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./config/:/usr/src/app/
+      - ~/.aws:/root/.aws
     ports:
       - 8000:8000
-    env_file: .env
+    environment:
+      # 1ならデバックモード
+      - DEBUG=1
+      - SECRET_KEY=0c9!&w%h&(z^4_1rq*me)w#*_t-1ke^aicix%8)703ne40vh$t
+      - DATABASE_ENGINE=django.db.backends.postgresql
+      - DATABASE_DB=django_db
+      - DATABASE_USER=django_db_user
+      - DATABASE_PASSWORD=password1234
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
     depends_on:
       - postgres
 
@@ -16,7 +26,10 @@ services:
     image: postgres:11.4
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file: .env.db
+    environment:
+      - POSTGRES_USER=django_db_user
+      - POSTGRES_PASSWORD=password1234
+      - POSTGRES_DB=django_db
 
 volumes:
   postgres_data:

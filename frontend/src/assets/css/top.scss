@@ -1,0 +1,181 @@
+/*****************************/
+/* スマホ用CSS */
+/*****************************/
+@media screen and (max-width: 480px) {
+  .header_class{
+    .header_inner{
+      width: 100%;
+      margin: 0;
+      padding: 0;
+
+      a.sp{
+        display: none;
+      }
+
+      .back-color{
+        width: 230px!important;
+      }
+
+      .v-input{
+        width: 70%!important;
+        margin-right: 0;
+      }
+
+      .search_form{
+        width: 75%!important;
+        position: relative!important;
+        left: 27px!important;
+
+        .v-item-group{
+          height: auto!important;
+        }
+      }
+
+    }
+  }
+
+  // MainSlider
+  .main_img{
+    .sp{
+      width: 100%;
+    }
+
+    .v-window{
+      height: 271px!important;
+    }
+  }
+
+  .post-car{
+    a.btn--circle {
+      width: 70px!important;
+      height: 70px!important;
+    }
+    a.user-post {
+      position: fixed !important;
+      bottom: 25px !important;
+      right: 15px !important;
+      z-index: 10 !important;
+    }
+
+    .v-icon{
+      bottom: 15px;
+      font-size: 40px!important;
+    }
+  }
+  
+
+  // CarType
+  .car_type{
+    width: 100%;
+
+    .v-img{
+      width: 100%;
+    }
+
+    .pa_class{
+      padding: 0!important;
+    }
+
+    .ma_class{
+      margin: 8px;
+    }
+  }
+
+  //CarRecommend
+  .car_recommend_article {
+    padding: 10px!important;
+
+    h2{
+      padding: 20px 0;
+    }
+
+    .recommend_back_size {
+      margin: 30px auto!important;
+    }
+
+    .back_size{
+      margin: 30px auto!important;
+    }
+  }
+
+  //UserRecommend
+  ul.horizontal-list{
+    margin-bottom: 30px!important;
+  }
+
+  // GlobalFooter
+  footer.page-footer{
+
+    .footer_area {
+      width: 100%;
+      margin: 10px auto 60px!important;
+
+      .footer_logo{
+        p{
+          font-size: 50px!important;
+        }
+      }
+    }
+    
+  }
+
+
+}
+
+
+
+/****************************************/
+/* タブレット用CSS */
+/****************************************/
+@media screen and (min-width: 481px) {
+
+}
+
+
+/**********************************/
+/* PC用CSS */
+/**********************************/
+
+@media screen and (min-width: 960px) {
+  // MainSlider
+  .main_img{
+    width: 860px!important;
+
+    .v-window{
+      width: 860px!important;
+    }
+  }
+  
+
+  // CarType
+  .car_type{
+    width: 900px;
+
+    .v-image{
+      width: 280px;
+      height: 160px;
+    }
+
+    .pa_class{
+      padding: 8px;
+    }
+  }
+
+  //CarRecommend
+  .car_recommend_article {
+    .recommend_back_size {
+      width: 900px;
+    }
+
+    .back_size{
+      width: 900px;
+    }
+  }
+
+
+  // GlobalFooter
+  footer.page-footer .footer_area {
+    width: 900px;
+  }
+
+}

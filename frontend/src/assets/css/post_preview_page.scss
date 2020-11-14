@@ -1,0 +1,83 @@
+/*****************************/
+/* スマホ用CSS */
+/*****************************/
+@media screen and (max-width: 480px) {
+  .sns_photo{
+    display: none;
+  }
+
+  .card_style{
+    .post_contents{
+      
+      p{
+        text-align: left;
+      }
+    }
+
+    .share_price {
+      width: 40%;
+    }
+
+    .card{
+      width: 170px;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+
+      p.card-text{
+        display: none;
+      }
+      
+      .card-body{
+        padding: 10px;
+      }
+    }
+
+    .profile{
+      padding: 10px!important;
+      text-align: left;
+    }
+  }
+
+
+}
+
+
+
+/****************************************/
+/* タブレット用CSS */
+/****************************************/
+@media screen and (min-width: 481px) {
+
+}
+
+
+/**********************************/
+/* PC用CSS */
+/**********************************/
+
+@media screen and (min-width: 960px) {
+  .card_preview{
+    width: 800px;
+    display: inline-block;
+    float: left;
+    position: relative;
+    right: 70px;
+
+
+
+    .post_contents{
+      width: 700px;
+    }
+  }
+
+  .share_price{
+    .card{
+      width: 230px;
+      bottom: 30px;
+      right: 110px;
+      z-index: 10;
+    }
+  }
+
+}
