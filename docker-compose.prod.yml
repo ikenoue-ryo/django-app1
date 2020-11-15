@@ -23,6 +23,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
+      - ./frontend/dist:/var/www
       - static_volume:/usr/src/app/staticfiles
     ports:
       - 1337:80

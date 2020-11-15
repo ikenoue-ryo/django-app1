@@ -54,6 +54,29 @@ docker-compose -f docker-compose.yml exec django python manage.py makemigrations
 docker-compose -f docker-compose.yml exec django python manage.py migrate --noinput  
 .env.developmentの記述：VUE_APP_ROOT_API=http://127.0.0.1:8000/api/v1/  
 
+## インフラ構成
+- インフラ構成図(構成予定のものを含んで記載)
+<img src="https://user-images.githubusercontent.com/61681360/99186009-bfb4c080-2790-11eb-903a-b38a7359f15a.png">
+
+- AWS
+    - EC2 / VPC / S3 / CroudFront / Route53 / CloudWatch / ALB
+    - PostgreSQL: 11.4
+
+- Docker
+    - Docker: 19.03.8
+      - ボリュームによるコンテナ間のデータ共有
+    - docker-compose: 1.25.5
+      - ローカル環境構築
+
+- CircleCI
+    - 自動テスト
+      - masterブランチ以外へマージしてテストを開始
+    - 自動デプロイ
+      - masterブランチへマージしてEC2/S3へデプロイ
+
+- Nginx(Webサーバー)
+
+- Gunicorn(アプリケーションサーバー)
 
 ## 画面イメージ
 <img src="https://user-images.githubusercontent.com/61681360/98380895-8abbb600-208c-11eb-8a17-963ce000e40c.png">
