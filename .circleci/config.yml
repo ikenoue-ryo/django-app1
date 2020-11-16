@@ -89,7 +89,7 @@ jobs:
     steps:
       - checkout
       # - add_ssh_keys:
-      - run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@52.192.31.183 'cd ~/django-app1 && git pull origin master'
+      - run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@52.192.31.183 'cd ~/myproject && git pull origin master'
 
   css_deploy:
     executor: django_static
