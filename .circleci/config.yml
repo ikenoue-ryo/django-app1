@@ -88,7 +88,7 @@ jobs:
     executor: django_default
     steps:
       - checkout
-      - add_ssh_keys:
+      # - add_ssh_keys:
       - run: ssh ubuntu@52.192.31.183 'cd ~/django-app1 && git pull origin master'
 
   css_deploy:
@@ -124,7 +124,7 @@ workflows:
       - django_deploy:
           filters:
             branches:
-              only: master    
+              only: master
 
   # S3へ静的ファイル(CSS/JS)をデプロイ
   static_deploy:
