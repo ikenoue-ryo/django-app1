@@ -84,6 +84,13 @@ jobs:
       - save_python_package
       - db_migrations
       - run_test
+  django_deploy:
+    executor: django_default
+    steps:
+      - checkout
+      # - add_ssh_keys:
+      # - run: ssh ubuntu@52.192.31.183 'cd ~/django-app1 && git pull origin master'
+
   css_deploy:
     executor: django_static
     steps:
@@ -111,6 +118,14 @@ workflows:
           filters:
             branches:
               ignore: master
+  # Djangoのデプロイ
+  back_deploy:
+    jobs:
+      - django_deploy:
+          filters:
+            branches:
+              only: master    
+
   # S3へ静的ファイル(CSS/JS)をデプロイ
   static_deploy:
     jobs:
