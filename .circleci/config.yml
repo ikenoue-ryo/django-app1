@@ -43,6 +43,9 @@ commands:
   save_python_package:
     description: "pipinstallしたpackageをキャッシュする"
     steps:
+      - run:
+          command: |
+            cd ./config
       - save_cache:
           name: Save Python Package
           key: myapp-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
@@ -52,6 +55,9 @@ commands:
   restore_python_package:
     description: 'Pipinstallしたpackageのキャッシュを読み込む'
     steps:
+      - run:
+        command: |
+          cd ./config
       - restore_cache:
           name: Restore Python Package
           key: myapp-{{ .Branch }}-{{ checksum "Pipfile.lock" }}

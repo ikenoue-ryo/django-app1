@@ -60,7 +60,6 @@ docker-compose -f docker-compose.yml exec django python manage.py migrate --noin
 
 - AWS
     - EC2 / VPC / S3 / CroudFront / Route53 / CloudWatch / ALB
-    - PostgreSQL: 11.4
 
 - Docker
     - Docker: 19.03.8
@@ -77,6 +76,8 @@ docker-compose -f docker-compose.yml exec django python manage.py migrate --noin
 - Nginx(Webサーバー)
 
 - Gunicorn(アプリケーションサーバー)
+
+- PostgreSQL: 11.4(データベース)
 
 ## 画面イメージ
 <img src="https://user-images.githubusercontent.com/61681360/98380895-8abbb600-208c-11eb-8a17-963ce000e40c.png">
