@@ -109,4 +109,8 @@ VUE_APP_ROOT_API=http://127.0.0.1:8000/api/v1/
 
 コンテナ未使用時
 python manage.py runserver --setting=config.settings.local
+
+CircleCIのローカル実行
+※workflowは対応していないためjobを指定して実行
+例：Docker開発コンテナ内で circleci build --job build_test .circleci/config.yml
  -->
