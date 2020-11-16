@@ -97,9 +97,9 @@ jobs:
     steps:
       - checkout
       - aws-s3/sync:
-        from: static/js
-        to: 's3://${AWS_STORAGE_BUCKET_NAME}/static/js'
-        overwrite: true
+          from: static/js
+          to: 's3://${AWS_STORAGE_BUCKET_NAME}/static/js'
+          overwrite: true
 
 # ワークフロー
 workflows:

@@ -112,5 +112,5 @@ python manage.py runserver --setting=config.settings.local
 
 CircleCIのローカル実行
 ※workflowは対応していないためjobを指定して実行
-例：Docker開発コンテナ内で circleci build --job build_test .circleci/config.yml
+例：circleci build --job build_test .circleci/config.yml
  -->
