@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aws-s3: circleci/aws-s3@1.0.15
+
 # 実行環境を定義
 executors:
   django_default:
@@ -107,4 +110,3 @@ workflows:
           filters:
             branches:
               only: master
-              
