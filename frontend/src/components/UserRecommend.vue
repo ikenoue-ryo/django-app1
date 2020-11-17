@@ -1,8 +1,5 @@
 <template>
-  <div calss="vertical_height2">
-    <!-- <ul v-for="profile in profiles" :key="profile">
-      <li><img :src="profile.icon"></li>
-    </ul> -->
+  <div v-if="profiles && profiles.length > 0" calss="vertical_height2">
     <div class="car_recommend">
       <div class="car_recommend_article change_back_color">
         <div class="recommend_back_size">

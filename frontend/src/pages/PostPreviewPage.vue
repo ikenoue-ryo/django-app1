@@ -5,6 +5,9 @@
       <GlobalHeader />
 
       <h2>Ride</h2>
+      あ{{ user_profile }}<br>
+      い{{ username }}<br>
+      う{{ user_profile.userpro.username }}<br>
       
       <div class="sns_photo">
         <!-- SNSアイコン -->
@@ -41,7 +44,7 @@
                 v-on="on"
                 @click="editButton"
               >
-              <p class="">編集</p>
+              <p v-if="username === user_profile.userpro.username">編集</p>
               </div>
             </template>
               <v-card

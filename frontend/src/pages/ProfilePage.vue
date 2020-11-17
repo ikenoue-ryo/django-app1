@@ -76,6 +76,7 @@
                               <v-text-field
                                 v-model="form.edit.introduction"
                                 label="自己紹介"
+                                autocomplete="off"
                                 required
                               ></v-text-field>
                             </v-col>
@@ -87,6 +88,7 @@
                               <v-text-field
                                 v-model="form.edit.address"
                                 label="駐車場"
+                                autocomplete="off"
                                 required
                               ></v-text-field>
                             </v-col>

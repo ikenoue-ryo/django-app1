@@ -28,12 +28,20 @@ touch .env
 DEBUG=0  
 SECRET_KEY=hoge  
 DATABASE_ENGINE=django.db.backends.postgresql  
-DATABASE_DB=django_db  
+DATABASE_DB=db  
 DATABASE_USER=test  
 DATABASE_PASSWORD=test  
 DATABASE_HOST=postgres  
 DATABASE_PORT=5432  
 DATABASE=postgres  
+
+## ファイル作成2  
+touch .env.db  
+
+<ファイル内記述例>  
+POSTGRES_USER=db_user  
+POSTGRES_PASSWORD=password  
+POSTGRES_DB=db  
 
 ## 実行
 pipenv shell  

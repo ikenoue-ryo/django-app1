@@ -239,7 +239,7 @@ export default {
           console.log(this.form.posts)
           console.log('Post succeeded.')
           this.$store.dispatch('message/setInfoMessage', { message: '投稿しました。' })
-          const next = 'post_preview/' + this.form.posts.id
+          const next = '/post_preview/' + this.form.posts.id
           this.$router.replace(next)
         })
         .catch(error => {
