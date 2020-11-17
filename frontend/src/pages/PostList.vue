@@ -114,7 +114,7 @@ export default {
   },
   mounted: function(){
     //post
-    axios.get('http://localhost:8000/api/v1/posts/')
+    axios.get('http://localhost:1337/api/v1/posts/')
     .then(response => { this.post_list = response.data })
   }
 }

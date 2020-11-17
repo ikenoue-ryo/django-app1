@@ -140,11 +140,11 @@ export default {
   },
   async mounted(){
     //profile
-    axios.get('http://localhost:8000/api/v1/profile/')
+    axios.get('http://localhost:1337/api/v1/profile/')
     .then(response => { this.profiles = response.data })
 
     //message
-    axios.get('http://localhost:8000/api/v1/inbox/')
+    axios.get('http://localhost:1337/api/v1/inbox/')
     .then(response => { this.message = response.data })
 
   },

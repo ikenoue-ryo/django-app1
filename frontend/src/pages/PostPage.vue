@@ -128,7 +128,7 @@
 
         <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
         <div class="back-color">
-          <button type="submit" class="start">送信</button>
+          <v-btn type="submit" class="start">送信</v-btn>
         </div>
       </form>
     </v-card>
@@ -199,11 +199,11 @@ export default {
   },
   mounted(){
     //post
-    axios.get('http://127.0.0.1:8000/api/v1/posts/')
+    axios.get('http://127.0.0.1:1337/api/v1/posts/')
     .then(response => {this.results = response.data})
 
     //profile
-    axios.get('http://localhost:8000/api/v1/profile/')
+    axios.get('http://localhost:1337/api/v1/profile/')
     .then(response => { this.profiles = response.data })
     
   },
@@ -239,7 +239,7 @@ export default {
           console.log(this.form.posts)
           console.log('Post succeeded.')
           this.$store.dispatch('message/setInfoMessage', { message: '投稿しました。' })
-          const next = this.$route.query.next || 'post_preview/' + this.form.posts.id
+          const next = 'post_preview/' + this.form.posts.id
           this.$router.replace(next)
         })
         .catch(error => {

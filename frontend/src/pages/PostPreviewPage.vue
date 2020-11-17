@@ -283,7 +283,7 @@ export default {
     // Spinner,
   },
   beforeRouteEnter(to, from, next) {
-    axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+    axios.get(`http://127.0.0.1:1337/api/v1/posts/${to.params.id}/`)
       .then(res => {
         store.commit('window/setNotFound', false)
         console.log('レスポンス1', res)
@@ -300,7 +300,7 @@ export default {
       })
     },
   beforeRouteUpdate(to, from, next) {
-    axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+    axios.get(`http://127.0.0.1:1337/api/v1/posts/${to.params.id}/`)
       .then(res => {
         store.commit('window/setNotFound', true)
         console.log('レスポンス2', res)
@@ -354,12 +354,12 @@ export default {
     }
   },
   mounted(){
-    axios.get('http://127.0.0.1:8000/api/v1/posts/')
+    axios.get('http://127.0.0.1:1337/api/v1/posts/')
     .then(response => {
       this.results = response.data;
     })
 
-    axios.get('http://localhost:8000/api/v1/profile/')
+    axios.get('http://localhost:1337/api/v1/profile/')
     .then(response => {
       this.profiles = response.data;
     })
@@ -393,7 +393,7 @@ export default {
       api({
         credentials: "include",
         method: 'post',
-        url: 'http://127.0.0.1:8000/app/booking/',
+        url: 'http://127.0.0.1:1337/app/booking/',
         headers: {
           'X-CSRFToken': this.$csrfToken,
         },
