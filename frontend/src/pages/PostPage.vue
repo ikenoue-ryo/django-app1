@@ -173,6 +173,7 @@ export default {
         posts: {
           author: '',
           photo: '',
+          profile: '',
           title: '',
           text: '',
           pr1: '',
@@ -212,6 +213,10 @@ export default {
       let formData = new FormData();
       formData.append('author.id', this.$store.getters['auth/id'])
       formData.append('author.username', this.$store.getters['auth/username'])
+      formData.append('profile.userpro.id', this.$store.getters['auth/id'])
+      formData.append('profile.userpro.username', this.$store.getters['auth/username'])
+      formData.append('profile.introduction', this.profiles.introduction)
+      formData.append('profile.address', this.profiles.address)
       formData.append('photo', this.uploadFile)
       formData.append('title', this.form.posts.title)
       formData.append('text', this.form.posts.text)

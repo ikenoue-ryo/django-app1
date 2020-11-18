@@ -4,11 +4,9 @@
     <div id="app" class="back_body">
       <GlobalHeader />
 
-      <h2>Ride</h2>
-      あ{{ user_profile }}<br>
-      い{{ username }}<br>
-      う{{ user_profile.userpro.username }}<br>
-      
+      <h2>Ride{{post}}</h2>
+      これ{{ posts_profile }}<br>
+
       <div class="sns_photo">
         <!-- SNSアイコン -->
         <div class="sns_back clearfix">
@@ -44,7 +42,7 @@
                 v-on="on"
                 @click="editButton"
               >
-              <p v-if="username === user_profile.userpro.username">編集</p>
+              <p v-if="user_profile && user_profile.userpro && username === user_profile.userpro.username">編集</p>
               </div>
             </template>
               <v-card
@@ -166,7 +164,7 @@
           </v-flex>
           <v-flex sm6 md10 xs9 class="text_left">
             <div class="pr_profile">
-              <p class="prof_name" v-if="user_profile">{{ user_profile.userpro.username }}</p>
+              <!-- <p class="prof_name" v-if="user_profile">{{ user_profile.userpro.username }}</p> -->
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
@@ -482,6 +480,10 @@ export default {
     user_posts(){
       const posts = this.posts.filter(posts => posts.author === this.$store.getters['auth/id']);
       return posts
+    },
+    posts_profile(){
+      const post_prof = this.results.find(results => results.profile.id === this.$store.getters['auth/id']);
+      return post_prof
     },
     dateRangeText(){
       return this.dates.join(' ~ ')

@@ -45,11 +45,13 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
+    profile = ProfileSerializer()
+
     tag = TagSerializer(many=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'place', 'car_type']
+        fields = ['id', 'author', 'profile', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'place', 'car_type']
 
     def create(self, validated_data):
         author_data = validated_data.pop('author', None)
