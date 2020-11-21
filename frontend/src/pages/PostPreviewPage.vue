@@ -4,9 +4,8 @@
     <div id="app" class="back_body">
       <GlobalHeader />
 
-      <h2>Ride{{post}}</h2>
-      これ{{ posts_profile }}<br>
-
+      <h2>Ride</h2>
+      
       <div class="sns_photo">
         <!-- SNSアイコン -->
         <div class="sns_back clearfix">
@@ -42,7 +41,7 @@
                 v-on="on"
                 @click="editButton"
               >
-              <p v-if="user_profile && user_profile.userpro && username === user_profile.userpro.username">編集</p>
+              <p>編集</p>
               </div>
             </template>
               <v-card
@@ -164,7 +163,7 @@
           </v-flex>
           <v-flex sm6 md10 xs9 class="text_left">
             <div class="pr_profile">
-              <!-- <p class="prof_name" v-if="user_profile">{{ user_profile.userpro.username }}</p> -->
+              <p class="prof_name" v-if="user_profile">{{ user_profile.userpro.username }}</p>
               <p>{{ user_profile.introduction }}</p>
             </div>
           </v-flex>
@@ -284,7 +283,7 @@ export default {
     // Spinner,
   },
   beforeRouteEnter(to, from, next) {
-    axios.get(`http://127.0.0.1:1337/api/v1/posts/${to.params.id}/`)
+    axios.get(`/api/v1/posts/${to.params.id}/`)
       .then(res => {
         store.commit('window/setNotFound', false)
         console.log('レスポンス1', res)
@@ -301,7 +300,7 @@ export default {
       })
     },
   beforeRouteUpdate(to, from, next) {
-    axios.get(`http://127.0.0.1:1337/api/v1/posts/${to.params.id}/`)
+    axios.get(`/api/v1/posts/${to.params.id}/`)
       .then(res => {
         store.commit('window/setNotFound', true)
         console.log('レスポンス2', res)
@@ -355,12 +354,12 @@ export default {
     }
   },
   mounted(){
-    axios.get('http://127.0.0.1:1337/api/v1/posts/')
+    axios.get('/api/v1/posts/')
     .then(response => {
       this.results = response.data;
     })
 
-    axios.get('http://localhost:1337/api/v1/profile/')
+    axios.get('/api/v1/profile/')
     .then(response => {
       this.profiles = response.data;
     })
@@ -394,7 +393,7 @@ export default {
       api({
         credentials: "include",
         method: 'post',
-        url: 'http://127.0.0.1:1337/app/booking/',
+        url: '/app/booking/',
         headers: {
           'X-CSRFToken': this.$csrfToken,
         },
@@ -480,10 +479,6 @@ export default {
     user_posts(){
       const posts = this.posts.filter(posts => posts.author === this.$store.getters['auth/id']);
       return posts
-    },
-    posts_profile(){
-      const post_prof = this.results.find(results => results.profile.id === this.$store.getters['auth/id']);
-      return post_prof
     },
     dateRangeText(){
       return this.dates.join(' ~ ')

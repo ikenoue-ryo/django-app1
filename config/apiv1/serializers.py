@@ -45,7 +45,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
-    profile = ProfileSerializer()
+    # profile = ProfileSerializer()
 
     tag = TagSerializer(many=True)
 

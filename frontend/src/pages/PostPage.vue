@@ -173,7 +173,6 @@ export default {
         posts: {
           author: '',
           photo: '',
-          profile: '',
           title: '',
           text: '',
           pr1: '',
@@ -200,11 +199,11 @@ export default {
   },
   mounted(){
     //post
-    axios.get('http://127.0.0.1:1337/api/v1/posts/')
+    axios.get('/api/v1/posts/')
     .then(response => {this.results = response.data})
 
     //profile
-    axios.get('http://localhost:1337/api/v1/profile/')
+    axios.get('/api/v1/profile/')
     .then(response => { this.profiles = response.data })
     
   },
@@ -213,10 +212,6 @@ export default {
       let formData = new FormData();
       formData.append('author.id', this.$store.getters['auth/id'])
       formData.append('author.username', this.$store.getters['auth/username'])
-      formData.append('profile.userpro.id', this.$store.getters['auth/id'])
-      formData.append('profile.userpro.username', this.$store.getters['auth/username'])
-      formData.append('profile.introduction', this.profiles.introduction)
-      formData.append('profile.address', this.profiles.address)
       formData.append('photo', this.uploadFile)
       formData.append('title', this.form.posts.title)
       formData.append('text', this.form.posts.text)

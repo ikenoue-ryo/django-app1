@@ -340,15 +340,15 @@ export default {
   },
   mounted(){
     //profile
-    axios.get('http://localhost:1337/api/v1/profile/')
+    axios.get('/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
 
     //post
-    axios.get('http://localhost:1337/api/v1/posts/')
+    axios.get('/api/v1/posts/')
     .then(response => { this.posts = response.data })
 
     //comment
-    axios.get('http://localhost:1337/api/v1/comment/')
+    axios.get('/api/v1/comment/')
     .then(response => { this.comments = response.data })
 
     this.map = new window.google.maps.Map(document.getElementById('map'));
