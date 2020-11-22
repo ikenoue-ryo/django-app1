@@ -43,9 +43,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
-    # profile = ProfileSerializer()
+    profile = ProfileSerializer()
 
     tag = TagSerializer(many=True)
 
