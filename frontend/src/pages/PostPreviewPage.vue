@@ -201,7 +201,8 @@
                   >
                     <!-- <GlobalMessage class="message_card" /> -->
 
-                    <form @submit.prevent="submitBooking">
+                    <!-- <form @submit.prevent="submitBooking"> -->
+                    <form>
                       <v-flex xs12 sm6 md9 xs9 class="inner_card">
                         <v-container>
                           <v-row>
