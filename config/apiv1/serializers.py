@@ -60,9 +60,13 @@ class PostSerializer(serializers.ModelSerializer):
             user = User.objects.get_or_create(**author_data)[0]
             validated_data['author'] = user
         tags = validated_data.pop('tag')
+        profile = validated_data.pop('profile')
         post = Post.objects.create(**validated_data)
+        user = User.objects.create(**validated_data)
         for tag in tags:
             post.tag.add(Tag.objects.create(**tag))
+        post.profile = Profile.objects.create(**profile)
+        post.profile.userpro = User.objects.create(**user)
         post.save()
         return post
 
