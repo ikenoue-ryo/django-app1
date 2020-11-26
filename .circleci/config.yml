@@ -87,6 +87,7 @@ jobs:
   django_deploy:
     executor: django_default
     steps:
+      - checkout
       - add_ssh_keys:
           fingerprints:
             - "20:38:5f:36:cc:fb:87:4f:62:95:28:7d:9d:da:d7:22"
