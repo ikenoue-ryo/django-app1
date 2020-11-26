@@ -53,7 +53,7 @@ POSTGRES_USER=db_user
 POSTGRES_PASSWORD=password  
 POSTGRES_DB=db  
 
-## ディレクトリ作成3  
+## ディレクトリ作成  
 npm run build  
 
 ## 実行
