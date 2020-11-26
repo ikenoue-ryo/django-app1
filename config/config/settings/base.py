@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'users.apps.UsersConfig',
-    'app.apps.AppConfig',
     'apiv1.apps.Apiv1Config',
 ]
 

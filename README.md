@@ -53,6 +53,9 @@ POSTGRES_USER=db_user
 POSTGRES_PASSWORD=password  
 POSTGRES_DB=db  
 
+## ディレクトリ作成3  
+npm run build  
+
 ## 実行
 pipenv shell  
 pipenv install  
@@ -120,6 +123,7 @@ docker-compose -f docker-compose.prod.yml up -d --build
 docker-compose -f docker-compose.prod.yml exec django python manage.py migrate --noinput
 docker-compose -f docker-compose.prod.yml exec django python manage.py collectstatic --no-input --clear
 .env.developmentの記述：VUE_APP_ROOT_API=http://127.0.0.1:1337/api/v1/
+ログ確認：docker-compose -f docker-compose.prod.yml logs
 
 開発起動用
 docker-compose -f docker-compose.yml exec django python manage.py makemigrations
