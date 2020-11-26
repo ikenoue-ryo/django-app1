@@ -219,8 +219,6 @@ export default {
       formData.append('profile.userpro.username', this.$store.getters['auth/username'])
       formData.append('profile.userpro', this.$store.getters['auth/username'])
       formData.append('profile.introduction', this.user_profile.introduction)
-
-
       formData.append('photo', this.uploadFile)
       formData.append('title', this.form.posts.title)
       formData.append('text', this.form.posts.text)
