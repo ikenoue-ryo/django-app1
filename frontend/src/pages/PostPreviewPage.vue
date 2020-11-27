@@ -599,7 +599,7 @@ label::after {
   }
 
 .sns_back {
-  display: inline-block;
+  display: block;
   float: left;
 }
 
@@ -638,7 +638,7 @@ label::after {
 .sns_back .sns_icons {
   font-size: 2.5rem;
   width: 50px;
-  display: inline-block;
+  display: block;
   float: left;
   position: relative;
   top: 50px;
@@ -672,7 +672,7 @@ label::after {
   
   .icon{
     width: 80px;
-    display: inline-block;
+    display: block;
     float: left;
     height: 130px;
   }
