@@ -1,7 +1,8 @@
 import json
 import re
 from django.conf import settings
-from django.http.multipartparser import MultiPartParserError, MultiPartParser as DjangoMultiPartParser
+from django.http.multipartparser import MultiPartParserError, \
+    MultiPartParser as DjangoMultiPartParser
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import BaseParser, DataAndFiles
 
@@ -27,7 +28,9 @@ class PostParser(BaseParser):
         upload_handlers = request.upload_handlers
 
         try:
-            parser = DjangoMultiPartParser(meta, stream, upload_handlers, encoding)
+            parser = DjangoMultiPartParser(
+                meta, stream, upload_handlers, encoding
+            )
             data, files = parser.parse()
             data._mutable = True
             r = re.compile(r'tag\[\d+]')

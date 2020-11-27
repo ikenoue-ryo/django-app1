@@ -2,10 +2,8 @@ from io import BytesIO
 from PIL import Image
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.utils.timezone import localtime
 from rest_framework.test import APITestCase
 from rest_framework_simplejwt.tokens import RefreshToken
-
 from users.models import User, Tag, Profile, Comment
 
 
@@ -33,7 +31,6 @@ class TestUserCreateAPIView(APITestCase):
         }
         self.assertJSONEqual(response.content, expected_json_dict)
 
-    
     def test_create_bad_request(self):
         """ユーザーモデル"""
 
@@ -82,7 +79,7 @@ class TestUserUpdateAPIView(APITestCase):
         response = self.client.put(
             self.TARGET_URL_WITH_PK.format(user.id), params, format='json',
         )
-        
+
         # レスポンスの内容を検証
         self.assertEqual(response.status_code, 200)
         user = User.objects.get(id=user.id)
@@ -117,7 +114,6 @@ class TestTagCreateAPIView(APITestCase):
         # print('response.content', response.content)
         self.assertJSONEqual(response.content, expected_json_dict)
 
-    
     def test_create_bad_request(self):
         """タグモデル"""
 
@@ -131,7 +127,7 @@ class TestTagCreateAPIView(APITestCase):
         self.assertEqual(Tag.objects.count(), 0)
         # レスポンスのステータス検証
         self.assertEqual(response.status_code, 400)
-        
+
 
 class TestTagUpdateAPIView(APITestCase):
 
@@ -166,7 +162,7 @@ class TestTagUpdateAPIView(APITestCase):
         response = self.client.put(
             self.TARGET_URL_WITH_PK.format(tag.id), params, format='json',
         )
-        
+
         # レスポンスの内容を検証
         self.assertEqual(response.status_code, 200)
         tag = Tag.objects.get()
@@ -199,7 +195,7 @@ class TestProfileCreateAPIView(APITestCase):
                 "icon": SimpleUploadedFile('dummy.png', b.getvalue()),
             }
             response = self.client.post(self.TARGET_URL, params)
-            # print('response.data', response.data)
+            print('response.data', response.data)
 
             # DBの状態を検証
             self.assertEqual(Profile.objects.count(), 1)
@@ -257,8 +253,9 @@ class TestProfileUpdateAPIView(APITestCase):
             'address': profile.address,
             'userpro': profile.userpro.username,
         }
+        print(params)
         # response = self.client.put(
-        #     self.TARGET_URL_WITH_PK.format(profile.id), params, format='json',
+        #     self.TARGET_URL_WITH_PK.format(profile.id), params, format='json'
         # )
         # print('オブジェクト', self.TARGET_URL_WITH_PK.format(profile.id))
         # print('params', params)
@@ -270,7 +267,7 @@ class TestCommentCreateAPIView(APITestCase):
 
     def test_create_success(self):
         """コメントモデル"""
-        
+
         user = User.objects.create(
             username='テストユーザー'
         )
@@ -282,12 +279,12 @@ class TestCommentCreateAPIView(APITestCase):
 
         params = {
             'username': user.username,
-            'point':  5,
+            'point': 5,
             'comment': 'ありがとうございました。',
             'profile': profile
         }
         response = self.client.post(self.TARGET_URL, params, format='json')
-        # print('オブジェクト', response)
+        print('response', response)
         print('params', params)
 
         # DBの状態を検証

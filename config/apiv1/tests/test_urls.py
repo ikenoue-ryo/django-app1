@@ -1,7 +1,7 @@
 from django.urls import resolve
 from django.test import TestCase
-
-from apiv1.views import UserViewSet, PostViewSet, TagViewSet, ProfileViewSet, CommentViewSet
+from apiv1.views import UserViewSet, PostViewSet, TagViewSet, ProfileViewSet, \
+    CommentViewSet
 
 
 class UrlResolveTests(TestCase):
