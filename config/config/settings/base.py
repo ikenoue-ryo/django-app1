@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'django.contrib.sites',
 
     'rest_framework',
@@ -146,7 +147,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_REQUIRED = True
 
 # ログイン後の設定
-LOGIN_REDIRECT_URL = 'app:index'
+LOGIN_REDIRECT_URL = 'apiv1:index'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 
 # ログアウトリンクの一発ログアウト設定
