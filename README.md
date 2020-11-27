@@ -24,7 +24,7 @@ CtoC型のカーシェアサービス
 - Vuex: 3.5.1
 - Vuetify: 2.2.11
 - Sass(scss)
-- HTML/CSS
+- HTML/CSS  
 
 ### バックエンド  
 - Python: 3.8.3
