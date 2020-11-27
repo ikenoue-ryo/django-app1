@@ -66,7 +66,6 @@
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 import axios from 'axios'
-
 export default {
   components:{
     GlobalHeader,
@@ -75,7 +74,6 @@ export default {
   data () {
     return {
     post_list: [],
-
     // カルーセル
     model: 0,
     photos: [
@@ -125,14 +123,12 @@ export default {
 .app{
   display: flex;
   flex-direction: column;
-
   .app_flex{
     display: flex;
     flex-grow: 1;
     background-color: #eee;
   }
 }
-
 .container{
   background: #fff;
   a{
@@ -140,18 +136,15 @@ export default {
     text-decoration: none;
   }
 }
-
 .back_body{
   background-color: #eee;
   overflow: hidden;
-
   h2{
     font-size: 45px;
     font-weight: 600;
     text-align: center;
     margin: 30px;
   }
-
   .back_color {
     background-color: #eee;
     overflow: hidden;
@@ -162,20 +155,15 @@ export default {
       border-radius:10px;
     }
   }
-
   .v-list{
     background-color: #eee;
     padding: 0;
     margin-bottom: 40px;
   }
 }
-
 .header_class {
   font-family: Rubik, "Noto Sans JP", sans-serif;
 }
-
-
-
 .price {
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
   font-size: 1.2rem;
@@ -185,16 +173,13 @@ export default {
   position: absolute;
   bottom: 33px;
   right: 20px;
-
   span.yen {
     font-size: 0.9rem;
   }
 }
-
 .card_info{
   width: 100%;
   height: 185px;
-
   h3{
     font-size: 1.2rem;
     margin: 10px 0;
@@ -202,20 +187,17 @@ export default {
   
   ul{
     font-size: 1.1rem;
-
     li{
       font-size: 1rem;
       line-height: 1.8;
     }
   }
-
   ul.tag {
     margin: 0;
     padding: 0;
     position: absolute;
     bottom: 40px;
     width: 40%;
-
     li {
         display: inline-block;
         font-size: 0.9rem;
@@ -228,41 +210,33 @@ export default {
     }
   }
 }
-
 .pagenation{
   margin: 50px;
 }
-
 .back_size{
   width: 100%;
-
   img{
     width: 100%;
     margin: 10px 0;
   }
 }
-
 .v-image{
     z-index: 10;
 }
-
 .v-btn{
   display: inline;
   float: right;
   bottom: 42px;
   left: 20px;
 }
-
 .clearfix::after {
    content: "";
    display: block;
    clear: both;
 }
-
 .non_contents{
   margin: 0 auto;
   text-align: center;
   padding: 50px;
 }
-
 </style>
