@@ -247,7 +247,7 @@ export default {
 }
 
 .v-btn{
-  display: block;
+  display: inline;
   float: right;
   bottom: 42px;
   left: 20px;
