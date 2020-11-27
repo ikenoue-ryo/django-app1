@@ -25,6 +25,7 @@
                     label="メールアドレス"
                     required
                     class="login_input"
+                    autocomplete="off"
                   ></v-text-field>
                 </v-col>
 
@@ -38,6 +39,7 @@
                     label="パスワード"
                     required
                     class="login_input"
+                    autocomplete="off"
                   ></v-text-field>
                 </v-col>
 

@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from users.models import User, Profile, Tag, Post, Comment, Message
@@ -51,7 +50,9 @@ class ProfileModelTest(TestCase):
 
         # 登録したテストユーザーのプロフィールの取得と確認
         saves_user_proifle = Profile.objects.get(id=self.user.id)
-        self.assertEqual(saves_user_proifle.introduction, 'テストユーザーです。宜しくお願いします。')
+        self.assertEqual(
+            saves_user_proifle.introduction, 'テストユーザーです。宜しくお願いします。'
+        )
         self.assertEqual(saves_user_proifle.address, '福岡県福岡市博多区')
 
 

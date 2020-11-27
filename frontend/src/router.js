@@ -5,7 +5,6 @@ import LoginPage from "@/pages/LoginPage";
 import SignUpPage from "@/pages/SignUpPage";
 import PostPage from "@/pages/PostPage";
 import PostPreviewPage from "@/pages/PostPreviewPage";
-import PostDetail from "@/pages/PostDetail";
 import PostList from "@/pages/PostList";
 import ProfilePage from "@/pages/ProfilePage";
 import MessagePage from "@/pages/MessagePage";
@@ -24,7 +23,6 @@ const router = new VueRouter({
     { path: "/post", component: PostPage, meta: { requiresAuth: true } },
     { path: "/post_preview/:id", component: PostPreviewPage, meta: { requiresAuth: true } },
     { path: "/:en_name", component: PostList },
-    { path: "/post/:id", component: PostDetail },
     { path: "/profile/:username", component: ProfilePage, meta: { requiresAuth: true } },
     { path: "/message/:username", component: MessagePage, meta: { requiresAuth: true }},
     { path: "*", component: notFound, meta: { title: "ページが見つかりません" }},

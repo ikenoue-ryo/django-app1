@@ -21,6 +21,7 @@
                     v-model="form.email"
                     :rules="form.emailRules"
                     label="メールアドレス"
+                    autocomplete="off"
                     required
                   ></v-text-field>
                 </v-col>
@@ -33,6 +34,7 @@
                     type="text"
                     v-model="form.username"
                     label="ユーザーネーム"
+                    autocomplete="off"
                     required
                   ></v-text-field>
                 </v-col>
@@ -45,6 +47,7 @@
                     v-model="form.password"
                     type="password"
                     label="パスワード"
+                    autocomplete="off"
                     required
                   ></v-text-field>
                 </v-col>
@@ -58,6 +61,7 @@
                     :rules="form.nameRules"
                     :counter="10"
                     label="パスワード(確認用)"
+                    autocomplete="off"
                     required
                   ></v-text-field>
                 </v-col> -->

@@ -41,7 +41,7 @@
                 v-on="on"
                 @click="editButton"
               >
-              <p class="">編集</p>
+              <p>編集</p>
               </div>
             </template>
               <v-card
@@ -201,7 +201,8 @@
                   >
                     <!-- <GlobalMessage class="message_card" /> -->
 
-                    <form @submit.prevent="submitBooking">
+                    <!-- <form @submit.prevent="submitBooking"> -->
+                    <form>
                       <v-flex xs12 sm6 md9 xs9 class="inner_card">
                         <v-container>
                           <v-row>
@@ -283,7 +284,7 @@ export default {
     // Spinner,
   },
   beforeRouteEnter(to, from, next) {
-    axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+    axios.get(`/api/v1/posts/${to.params.id}/`)
       .then(res => {
         store.commit('window/setNotFound', false)
         console.log('レスポンス1', res)
@@ -300,7 +301,7 @@ export default {
       })
     },
   beforeRouteUpdate(to, from, next) {
-    axios.get(`http://127.0.0.1:8000/api/v1/posts/${to.params.id}/`)
+    axios.get(`/api/v1/posts/${to.params.id}/`)
       .then(res => {
         store.commit('window/setNotFound', true)
         console.log('レスポンス2', res)
@@ -354,12 +355,12 @@ export default {
     }
   },
   mounted(){
-    axios.get('http://127.0.0.1:8000/api/v1/posts/')
+    axios.get('/api/v1/posts/')
     .then(response => {
       this.results = response.data;
     })
 
-    axios.get('http://localhost:8000/api/v1/profile/')
+    axios.get('/api/v1/profile/')
     .then(response => {
       this.profiles = response.data;
     })
@@ -393,7 +394,7 @@ export default {
       api({
         credentials: "include",
         method: 'post',
-        url: 'http://127.0.0.1:8000/app/booking/',
+        url: '/app/booking/',
         headers: {
           'X-CSRFToken': this.$csrfToken,
         },
@@ -598,7 +599,7 @@ label::after {
   }
 
 .sns_back {
-  display: inline-block;
+  display: block;
   float: left;
 }
 
@@ -637,7 +638,7 @@ label::after {
 .sns_back .sns_icons {
   font-size: 2.5rem;
   width: 50px;
-  display: inline-block;
+  display: block;
   float: left;
   position: relative;
   top: 50px;
@@ -671,7 +672,7 @@ label::after {
   
   .icon{
     width: 80px;
-    display: inline-block;
+    display: block;
     float: left;
     height: 130px;
   }

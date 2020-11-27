@@ -1,8 +1,18 @@
 ## 概要  
-カーシェアサービス  
-CtoC型の車のシェアサービスとなります。  
-車を所有しているユーザーが、車を使わない期間に他人に貸し出すサービスのことで、貸し出す側のユーザーは自分の車をどれぐらいの期間、いくらで貸し出すのかを投稿します。その際に駐車場自体の貸し出しOKや乗り心地などもPRできます。  
-これにより、これまで手の届かなかった高級車や乗ったことのない車に乗ることができるようになり、レンタカーやBtoC向けのカーシェアリングにはない、体験価値を提供することができます。  
+CtoC型のカーシェアサービス  
+
+このポートフォリオ の開発理由は、  
+市場規模(成長性)、需要（購買力）、リソース（資源）があると想定・確保しているからです。  
+
+・2019年のレンタカー市場規模が約9500億円、BtoC型カーシェアリングが約550億円あり、カーシェアの会員数は前年比較で23%増で急成長しております。  
+この市場にCtoC型の個人間カーシェアを持ち込むことで、一定の杯を確保できる上、BtoCカーシェアやレンタカー市場にはない、新規の顧客を獲得できると想定します。  
+
+従来、企業側が提供するレンタカーには在庫の制限があり、車を借りる側はその中で選択を迫られていました。そこには取りに行く手間や乗りたい車に乗れない、すぐに借りれないなどの問題点がありました。  
+それを解消するサービスがCtoC型のカーシェアリング（ポートフォリオ ）です。ガレージシェアリングというドメインは、車の所有者が車を使わない期間に駐車場ごと貸す、というイメージで考案しました。  
+
+・その他、リソースについてはいくつかありますが有力なものは、すでにWPでSEO集客した月間5000人の、「移動手段に車を使っているが、お金をかけたくない」、もしくは「今から車を買おうか悩んでいるがお金をかけたくない」というユーザーがおりまして、ポートフォリオに流し込むという想定です。  
+
+以上のことから、3つのビジネス観点を持ち込み、ポートフォリオ として開発致しました。  
 
 一方、課題としては事故の際の補償やユーザー同士のトラブルをどのように解決できるかという点で試行錯誤中です。  
 
@@ -14,7 +24,7 @@ CtoC型の車のシェアサービスとなります。
 - Vuex: 3.5.1
 - Vuetify: 2.2.11
 - Sass(scss)
-- HTML/CSS
+- HTML/CSS  
 
 ### バックエンド  
 - Python: 3.8.3
@@ -28,18 +38,30 @@ touch .env
 DEBUG=0  
 SECRET_KEY=hoge  
 DATABASE_ENGINE=django.db.backends.postgresql  
-DATABASE_DB=django_db  
+DATABASE_DB=db  
 DATABASE_USER=test  
 DATABASE_PASSWORD=test  
 DATABASE_HOST=postgres  
 DATABASE_PORT=5432  
 DATABASE=postgres  
 
+## ファイル作成2  
+touch .env.db  
+
+<ファイル内記述例>  
+POSTGRES_USER=db_user  
+POSTGRES_PASSWORD=password  
+POSTGRES_DB=db  
+
+## ディレクトリ作成  
+npm run build  
+
 ## 実行
 pipenv shell  
 pipenv install  
-docker-compose up -d --build  
-
+docker-compose -f docker-compose.prod.yml up -d --build  
+docker-compose -f docker-compose.prod.yml exec django python manage.py migrate --noinput  
+docker-compose -f docker-compose.prod.yml exec django python manage.py collectstatic --no-input --clear  
 
 ## コマンド集
 本番起動用  
@@ -54,6 +76,30 @@ docker-compose -f docker-compose.yml exec django python manage.py makemigrations
 docker-compose -f docker-compose.yml exec django python manage.py migrate --noinput  
 .env.developmentの記述：VUE_APP_ROOT_API=http://127.0.0.1:8000/api/v1/  
 
+## インフラ構成
+- インフラ構成図(構成予定のものを含んで記載)
+<img src="https://user-images.githubusercontent.com/61681360/99186009-bfb4c080-2790-11eb-903a-b38a7359f15a.png">
+
+- AWS
+    - EC2 / VPC / S3 / CroudFront / Route53 / CloudWatch / ALB
+
+- Docker
+    - Docker: 19.03.8
+      - ボリュームによるコンテナ間のデータ共有
+    - docker-compose: 1.25.5
+      - ローカル環境構築
+
+- CircleCI
+    - 自動テスト
+      - masterブランチ以外へマージしてテストを開始
+    - 自動デプロイ
+      - masterブランチへマージしてEC2/S3へデプロイ
+
+- Nginx(Webサーバー)
+
+- Gunicorn(アプリケーションサーバー)
+
+- PostgreSQL: 11.4(データベース)
 
 ## 画面イメージ
 <img src="https://user-images.githubusercontent.com/61681360/98380895-8abbb600-208c-11eb-8a17-963ce000e40c.png">
@@ -77,6 +123,7 @@ docker-compose -f docker-compose.prod.yml up -d --build
 docker-compose -f docker-compose.prod.yml exec django python manage.py migrate --noinput
 docker-compose -f docker-compose.prod.yml exec django python manage.py collectstatic --no-input --clear
 .env.developmentの記述：VUE_APP_ROOT_API=http://127.0.0.1:1337/api/v1/
+ログ確認：docker-compose -f docker-compose.prod.yml logs
 
 開発起動用
 docker-compose -f docker-compose.yml exec django python manage.py makemigrations
@@ -85,4 +132,8 @@ VUE_APP_ROOT_API=http://127.0.0.1:8000/api/v1/
 
 コンテナ未使用時
 python manage.py runserver --setting=config.settings.local
+
+CircleCIのローカル実行
+※workflowは対応していないためjobを指定して実行
+例：circleci build --job build_test .circleci/config.yml
  -->

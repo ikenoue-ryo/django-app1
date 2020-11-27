@@ -122,7 +122,7 @@
               </div>
             
             </div>
-          <v-btn v-if="isLoggedIn" href="post" class="start sp">投稿する</v-btn>
+          <v-btn v-if="isLoggedIn" href="/post/" class="start sp">投稿する</v-btn>
           <v-btn v-else href="signup" class="start sp">はじめる</v-btn>
           </v-row>
         </div>

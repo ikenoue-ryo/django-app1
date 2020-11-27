@@ -114,7 +114,7 @@ export default {
   },
   mounted: function(){
     //post
-    axios.get('http://localhost:8000/api/v1/posts/')
+    axios.get('/api/v1/posts/')
     .then(response => { this.post_list = response.data })
   }
 }
@@ -247,7 +247,7 @@ export default {
 }
 
 .v-btn{
-  display: inline;
+  display: block;
   float: right;
   bottom: 42px;
   left: 20px;

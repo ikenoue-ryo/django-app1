@@ -1,6 +1,4 @@
 from django.test import TestCase
-from django.utils.timezone import localtime
-
 from users.models import Tag
 from apiv1.serializers import TagSerializer
 
@@ -19,7 +17,7 @@ class TestTagSerializer(TestCase):
 
         # バリデーションの結果を検証
         self.assertEqual(serializer.is_valid(), True)
-    
+
     def test_input_valid_if_title_is_blank(self):
         """入力データのバリデーション（NG）"""
 
@@ -52,5 +50,3 @@ class TestTagSerializer(TestCase):
             'name': tag.name,
         }
         self.assertDictEqual(serializer.data, expected_data)
-
-

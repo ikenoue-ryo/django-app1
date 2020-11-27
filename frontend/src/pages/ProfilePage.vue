@@ -76,6 +76,7 @@
                               <v-text-field
                                 v-model="form.edit.introduction"
                                 label="自己紹介"
+                                autocomplete="off"
                                 required
                               ></v-text-field>
                             </v-col>
@@ -87,12 +88,13 @@
                               <v-text-field
                                 v-model="form.edit.address"
                                 label="駐車場"
+                                autocomplete="off"
                                 required
                               ></v-text-field>
                             </v-col>
                           </v-row>
                           <div class="back-color">
-                              <button type="submit" class="start">保存</button>
+                              <v-btn type="submit" class="start">保存</v-btn>
                           </div>
                         </v-container>
                       </v-flex>
@@ -338,15 +340,15 @@ export default {
   },
   mounted(){
     //profile
-    axios.get('http://localhost:8000/api/v1/profile/')
+    axios.get('/api/v1/profile/')
     .then(response => { this.profiles = response.data }),
 
     //post
-    axios.get('http://localhost:8000/api/v1/posts/')
+    axios.get('/api/v1/posts/')
     .then(response => { this.posts = response.data })
 
     //comment
-    axios.get('http://localhost:8000/api/v1/comment/')
+    axios.get('/api/v1/comment/')
     .then(response => { this.comments = response.data })
 
     this.map = new window.google.maps.Map(document.getElementById('map'));
@@ -454,7 +456,6 @@ export default {
     },
     user_profile(){
       console.log(this.profiles)
-      console.log('これ', this.profiles.userpro)
       const profiles = this.profiles.find(profiles => profiles.userpro.username === this.$route.params.username)
       if(!profiles){
         return {

@@ -128,7 +128,7 @@
 
         <quillEditor v-model="form.posts.text" style="border: 1px solid;"/>
         <div class="back-color">
-          <button type="submit" class="start">送信</button>
+          <v-btn type="submit" class="start">送信</v-btn>
         </div>
       </form>
     </v-card>
@@ -172,6 +172,8 @@ export default {
       form: {
         posts: {
           author: '',
+          profile: [],
+          userpro: [],
           photo: '',
           title: '',
           text: '',
@@ -199,11 +201,11 @@ export default {
   },
   mounted(){
     //post
-    axios.get('http://127.0.0.1:8000/api/v1/posts/')
+    axios.get('/api/v1/posts/')
     .then(response => {this.results = response.data})
 
     //profile
-    axios.get('http://localhost:8000/api/v1/profile/')
+    axios.get('/api/v1/profile/')
     .then(response => { this.profiles = response.data })
     
   },
@@ -212,6 +214,11 @@ export default {
       let formData = new FormData();
       formData.append('author.id', this.$store.getters['auth/id'])
       formData.append('author.username', this.$store.getters['auth/username'])
+      // formData.append('profile.id', this.$store.getters['auth/id'])
+      // formData.append('profile.userpro.id', 1)
+      // formData.append('profile.userpro.username', this.$store.getters['auth/username'])
+      // formData.append('profile.userpro', this.$store.getters['auth/username'])
+      // formData.append('profile.introduction', this.user_profile.introduction)
       formData.append('photo', this.uploadFile)
       formData.append('title', this.form.posts.title)
       formData.append('text', this.form.posts.text)
@@ -239,7 +246,7 @@ export default {
           console.log(this.form.posts)
           console.log('Post succeeded.')
           this.$store.dispatch('message/setInfoMessage', { message: '投稿しました。' })
-          const next = this.$route.query.next || 'post_preview/' + this.form.posts.id
+          const next = '/post_preview/' + this.form.posts.id
           this.$router.replace(next)
         })
         .catch(error => {

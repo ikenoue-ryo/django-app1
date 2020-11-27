@@ -1,8 +1,11 @@
 version: 2.1
 
+orbs:
+  aws-s3: circleci/aws-s3@1.0.15
+
 # 実行環境を定義
 executors:
-  test_default:
+  django_default:
     working_directory: ~/myproject
     docker:
       - image: circleci/python:3.8
@@ -10,6 +13,10 @@ executors:
           PYTHONDONTWRITEBYTECODE: 1
           PYTHONUNBUFFERED: 1
           TZ: Asia/Tokyo
+  django_static:
+    working_directory: ~/myproject
+    docker:
+      - image: circleci/python:3.8
 
 # 実行コマンドの定義
 commands:
@@ -45,7 +52,7 @@ commands:
     steps:
       - save_cache:
           name: Save Python Package
-          key: myapp-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: myapp-{{ .Branch }}-{{ checksum "config/Pipfile.lock" }}
           paths:
             - /usr/local/bin
             - /usr/local/lib/python3.8/site-packages
@@ -54,7 +61,7 @@ commands:
     steps:
       - restore_cache:
           name: Restore Python Package
-          key: myapp-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: myapp-{{ .Branch }}-{{ checksum "config/Pipfile.lock" }}
   
   run_test:
     description: 'テストの実行'
@@ -67,8 +74,8 @@ commands:
 
 # ジョブの定義
 jobs:
-  build:
-    executor: test_default
+  build_test:
+    executor: django_default
     steps:
       - checkout
       - chown_python_package
@@ -77,10 +84,58 @@ jobs:
       - save_python_package
       - db_migrations
       - run_test
+  django_deploy:
+    executor: django_default
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "20:38:5f:36:cc:fb:87:4f:62:95:28:7d:9d:da:d7:22"
+      - run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $SSH_USER@$SSH_HOST 'cd ~/django-app1 && git pull origin master'
+
+  css_deploy:
+    executor: django_static
+    steps:
+      - checkout
+      - aws-s3/sync:
+          from: static/css
+          to: 's3://${AWS_STORAGE_BUCKET_NAME}/static/css'
+          overwrite: true
+  js_deploy:
+    executor: django_static
+    steps:
+      - checkout
+      - aws-s3/sync:
+          from: static/js
+          to: 's3://${AWS_STORAGE_BUCKET_NAME}/static/js'
+          overwrite: true
 
 # ワークフロー
 workflows:
   version: 2.1
-  build_only:
+  # Djangoのテスト
+  test:
     jobs:
-      - build
+      - build_test:
+          filters:
+            branches:
+              ignore: master
+  # Djangoのデプロイ
+  back_deploy:
+    jobs:
+      - django_deploy:
+          filters:
+            branches:
+              only: master
+
+  # S3へ静的ファイル(CSS/JS)をデプロイ
+  static_deploy:
+    jobs:
+      - css_deploy:
+          filters:
+            branches:
+              only: master
+      - js_deploy:
+          filters:
+            branches:
+              only: master
