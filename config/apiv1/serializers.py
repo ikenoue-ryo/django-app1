@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from users.models import User, Post, Comment, Profile, Tag, Message
 
 
@@ -10,7 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TagSerializer(serializers.ModelSerializer):
-    # post = PostSerializer()
 
     class Meta:
         model = Tag
@@ -23,9 +21,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['id', 'introduction', 'address', 'userpro', 'icon']
-        # extra_kwargs = {
-        #     'userpro': {'validators': []},
-        # }
 
     def create(self, validated_data):
         userpro_data = validated_data.pop('userpro', None)
@@ -33,9 +28,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             user = User.objects.get_or_create(**userpro_data)[0]
             validated_data['userpro'] = user
         return Profile.objects.create(**validated_data)
-        # return Profile(**validated_data)
 
-    def update(self, instance, validated_data): 
+    def update(self, instance, validated_data):
         instance.introduction = validated_data.get('introduction', instance.introduction)
         instance.address = validated_data.get('address', instance.address)
         instance.userpro.username = validated_data.get('username', instance.userpro.username)
@@ -70,7 +64,7 @@ class PostSerializer(serializers.ModelSerializer):
         post.save()
         return post
 
-    def update(self, instance, validated_data): 
+    def update(self, instance, validated_data):
         instance.author.username = validated_data.get('author', instance.author.username)
         instance.title = validated_data.get('title', instance.title)
         instance.text = validated_data.get('text', instance.text)
@@ -92,7 +86,7 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'username', 'point', 'profile', 'comment']
 
-    def update(self, instance, validated_data): 
+    def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
         instance.point = validated_data.get('point', instance.point)
         instance.profile.userpro.id = validated_data.get('id', instance.profile.userpro.id)
@@ -101,8 +95,6 @@ class CommentSerializer(serializers.ModelSerializer):
         instance.comment = validated_data.get('comment', instance.comment)
         instance.save()
         return instance
-
-
 
 
 class MessageSerializer(serializers.ModelSerializer):
