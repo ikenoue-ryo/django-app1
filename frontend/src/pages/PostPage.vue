@@ -215,7 +215,7 @@ export default {
       formData.append('author.id', this.$store.getters['auth/id'])
       formData.append('author.username', this.$store.getters['auth/username'])
       formData.append('profile.id', this.$store.getters['auth/id'])
-      formData.append('profile.userpro.id', 1)
+      formData.append('profile.userpro.id', this.$store.getters['auth/id'])
       formData.append('profile.userpro.username', this.$store.getters['auth/username'])
       formData.append('profile.userpro', this.$store.getters['auth/username'])
       formData.append('profile.introduction', this.user_profile.introduction)
