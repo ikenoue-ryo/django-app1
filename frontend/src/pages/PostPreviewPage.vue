@@ -5,7 +5,6 @@
       <GlobalHeader />
 
       <h2>Ride</h2>
-      
       <div class="sns_photo">
         <!-- SNSアイコン -->
         <div class="sns_back clearfix">
@@ -41,7 +40,7 @@
                 v-on="on"
                 @click="editButton"
               >
-              <p>編集</p>
+              <p v-if="username === post.profile.userpro.username">編集</p>
               </div>
             </template>
               <v-card
@@ -113,7 +112,7 @@
                 v-bind="attrs"
                 v-on="on"
               >
-              <p class="">削除</p>
+              <p v-if="username === post.profile.userpro.username">削除</p>
               </div>
             </template>
               <v-card
@@ -156,15 +155,15 @@
         <v-layout wrap class="profile">
           <v-flex sm6 md2 xs3>
             <div class="icon">
-              <router-link :to="`/profile/${username}`">
-                <img :src="user_profile.icon">
+              <router-link :to="`/profile/${post.profile.userpro.username}`">
+                <img :src="post.profile.icon">
               </router-link>
             </div>
           </v-flex>
           <v-flex sm6 md10 xs9 class="text_left">
             <div class="pr_profile">
-              <p class="prof_name" v-if="user_profile">{{ user_profile.userpro.username }}</p>
-              <p>{{ user_profile.introduction }}</p>
+              <p class="prof_name" v-if="user_profile">{{ post.profile.userpro.username }}</p>
+              <p>{{ post.profile.introduction }}</p>
             </div>
           </v-flex>
         </v-layout>
@@ -188,9 +187,15 @@
                         color="red lighten-2"
                         dark
                         v-bind="attrs"
-                        v-on="on"
                         @click="editButton"
                       >
+                      <!-- <div
+                        color="red lighten-2"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="editButton"
+                      > -->
 
                       <v-btn color="#2bbbad">予約する</v-btn>
                       </div>
