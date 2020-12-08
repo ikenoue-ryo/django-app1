@@ -40,27 +40,28 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
-    # profile = ProfileSerializer()
+    profile = ProfileSerializer()
 
     tag = TagSerializer(many=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'place', 'car_type']
+        fields = ['id', 'author', 'profile', 'photo', 'text', 'pr1', 'pr2', 'pr3', 'pr4', 'tag', 'price', 'place', 'car_type']
 
     def create(self, validated_data):
         author_data = validated_data.pop('author', None)
-        if author_data:
-            user = User.objects.get_or_create(**author_data)[0]
-            validated_data['author'] = user
+        user = User.objects.get_or_create(**author_data)[0]
+        validated_data['author'] = user
         tags = validated_data.pop('tag')
-        # profile = validated_data.pop('profile')
+        profile_data = validated_data.pop('profile')
+        profile_data['id'] = user.id
+        profile_data.pop('userpro')
+        profile_data['userpro_id'] = user.id
+        profile = Profile.objects.get_or_create(**profile_data)[0]
         post = Post.objects.create(**validated_data)
-        # user = User.objects.create(**validated_data)
         for tag in tags:
             post.tag.add(Tag.objects.create(**tag))
-        # post.profile = Profile.objects.create(**profile)
-        # post.profile.userpro = User.objects.create(**user)
+        post.profile = profile
         post.save()
         return post
 

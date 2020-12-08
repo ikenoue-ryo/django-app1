@@ -42,7 +42,7 @@
                         v-on="on"
                         @click="editButton"
                       >
-                    <p class="text-lg-right">編集</p>
+                    <p class="text-lg-right" v-if="username === $route.params.username">編集</p>
                     </v-text>
                     </template>
 
