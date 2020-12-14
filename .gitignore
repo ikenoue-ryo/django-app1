@@ -11,8 +11,12 @@ local_settings.py
 prod
 db.sqlite3
 media
-.env
-.env.db
 db/
 config/static/*
 !.gitkeep
+
+# local env files
+.env
+.env.db
+.env.development
+.env.production
