@@ -169,9 +169,7 @@
                   </v-row>
 
                   <!-- マップ -->
-                  <!-- <input type="text" v-model="address" style="border:1px solid;">
-                  <button type="button" @click="mapSearch">検索</button>
-                  <div id="map"></div> -->
+                    <div id="map"></div>
                   <!-- マップ -->
                 </v-col>
 
@@ -277,6 +275,13 @@ export default {
   data(){
     return {
       dialog: false,
+
+      map: {},
+      marker: null,
+      geocoder: {},
+      address: '',
+      lat: '',
+      lng: '',      
       
       form: {
         valid: false,
@@ -330,12 +335,6 @@ export default {
         value => !!value || 'Required.',
         value => (value && value.length >= 3) || 'Min 3 characters',
       ],
-
-      // マップ
-      map: {},
-      marker: null,
-      geocoder: {},
-      address: ''
     }
   },
   mounted(){
@@ -351,32 +350,40 @@ export default {
     axios.get('/api/v1/comment/')
     .then(response => { this.comments = response.data })
 
-    this.map = new window.google.maps.Map(document.getElementById('map'));
-    this.geocoder = new window.google.maps.Geocoder();
+    //map
+    window.initMap = () => {
+      this.map = new window.google.maps.Map(document.getElementById('map'),
+      {
+        center: {
+          lat: this.lat,
+          lng: this.lng
+        },
+        zoom: 19
+      }
+      );
+      this.geocoder = new window.google.maps.Geocoder();
 
-  },
-  methods: {
-    mapSearch() {
-      console.log('mapSearch')
       this.geocoder.geocode({
-        'address': this.address
+        'address': this.form.edit.address,
+        newForwardGeocoder:true
       }, (results, status) => {
-        console.log('results', results)
         if (status === window.google.maps.GeocoderStatus.OK) {
           this.map.setCenter(results[0].geometry.location);
           // 緯度経度の取得
-          // results[0].geometry.location.lat();
-          // results[0].geometry.location.lng();
+          results[0].geometry.location.lat();
+          results[0].geometry.location.lng();
           this.marker = new window.google.maps.Marker({
             map: this.map,
             position: results[0].geometry.location
           });
-          console.log(this.marker)
+          console.log(results)
+          this.lat = results[0].geometry.location.lat()
+          this.lng = results[0].geometry.location.lng()
         }
       });
-    },
-
-
+    }
+  },
+  methods: {
     // 写真アップロード
     selectedFile: function(e){
       e.preventDefault();
@@ -395,7 +402,6 @@ export default {
       // ファイルアップロードの復活
       this.show = !this.show
     },
-
     // 編集ボタンでインスタンスを挿入
     editButton(){
       this.form.edit = this.user_profile
@@ -481,17 +487,13 @@ export default {
         part:!this.isActive,
       }
     },
-    // id(){
-    //   console.log('投稿ID', this.$route.params.id)
-    //   return Number(this.$route.params.id);
-    // },
   },
 }
 </script>
 
 
 <style lang="scss" scoped>
-.map{
+#map{
   width: 100%;
   height: 300px;
   border-radius: 20px;
